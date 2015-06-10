@@ -1,0 +1,340 @@
+﻿@model AquatroHRIMS.Models.EmployeePersonalDetails
+
+<script>
+    function Sucess() {
+        alert('Data update successfully');
+        $("#txtFirstName").prop('disabled', true);
+        $("#txtMiddleName").prop('disabled', true);
+        $("#txtMotherName").prop('disabled', true);
+        $("#txtCurrentAdd").prop('disabled', true);
+        $("#txtZipcode").prop('disabled', true);
+        $("#txtCountry").prop('disabled', true);
+        $("#txtpersonalemail").prop('disabled', true);
+        $("#txtPermanentAdd").prop('disabled', true);
+        $("#txtCity").prop('disabled', true);
+        $("#txtNationality").prop('disabled', true);
+        $("#txtworkemail").prop('disabled', true);
+        $("#txtGovNO").prop('disabled', true);
+        $("#txtLastName").prop('disabled', true);
+        $("#txtEmrgencyContName").prop('disabled', true);
+        $("#txtcontactNo").prop('disabled', true);
+        $("#txtRelation").prop('disabled', true);
+        $("#txtworkcontact").prop('disabled', true);
+        $("#txtState").prop('disabled', true);
+        $("#txtMartial").prop('disabled', true);
+        $("#txtDOB").prop('disabled', true);
+        $("#txtpersonalcontact").prop('disabled', true);
+        $("#btnProfileUpdate").hide();
+        $("#btnProfileCancel").hide();
+        $("#btnProfileEdit").show();
+
+    };
+
+</script>
+<script>
+    function fnUpdate()
+    {
+        var flag = 0;
+
+        if ($("#txtDOB").val() == "") {
+            $("#spnstrat").show();
+            flag++;
+        }
+        else {
+            $("#spnstrat").hide()
+        }
+
+        $("#txtDOB").focusout(function () {
+            if ($("#txtDOB").val() == "") {
+                $("#spnstrat").show();
+                flag++;
+            }
+            else {
+                $("#spnstrat").hide()
+            }
+        });
+
+        if (flag > 0) {
+            return false;
+        }
+    }
+
+    $(document).ready(function () {
+        $("#txtFirstName").prop('disabled', true);
+        $("#txtMiddleName").prop('disabled', true);
+        $("#txtMotherName").prop('disabled', true);
+        $("#txtCurrentAdd").prop('disabled', true);
+        $("#txtZipcode").prop('disabled', true);
+        $("#txtCountry").prop('disabled', true);
+        $("#txtpersonalemail").prop('disabled', true);
+        $("#txtPermanentAdd").prop('disabled', true);
+        $("#txtCity").prop('disabled', true);
+        $("#txtNationality").prop('disabled', true);
+        $("#txtworkemail").prop('disabled', true);
+        $("#txtGovNO").prop('disabled', true);
+        $("#txtLastName").prop('disabled', true);
+        $("#txtEmrgencyContName").prop('disabled', true);
+        $("#txtcontactNo").prop('disabled', true);
+        $("#txtRelation").prop('disabled', true);
+        $("#txtworkcontact").prop('disabled', true);
+        $("#txtState").prop('disabled', true);
+        $("#txtMartial").prop('disabled', true);
+        $("#txtDOB").prop('disabled', true);
+        $("#txtpersonalcontact").prop('disabled', true);
+        $("#spnstrat").css("display", "none");
+        $("#spnstrat").hide();
+    });
+    function fnPersonalEditClick() {
+        $("#txtFirstName").prop('disabled', false);
+        $("#txtMiddleName").prop('disabled', false);
+        $("#txtMotherName").prop('disabled', false);
+        $("#txtCurrentAdd").prop('disabled', false);
+        $("#txtZipcode").prop('disabled', false);
+        $("#txtCountry").prop('disabled', false);
+        $("#txtpersonalemail").prop('disabled', false);
+        $("#txtPermanentAdd").prop('disabled', false);
+        $("#txtCity").prop('disabled', false);
+        $("#txtNationality").prop('disabled', false);
+        $("#txtworkemail").prop('disabled', false);
+        $("#txtGovNO").prop('disabled', false);
+        $("#txtLastName").prop('disabled', false);
+        $("#txtEmrgencyContName").prop('disabled', false);
+        $("#txtcontactNo").prop('disabled', false);
+        $("#txtRelation").prop('disabled', false);
+        $("#txtworkcontact").prop('disabled', false);
+        $("#txtState").prop('disabled', false);
+        $("#txtMartial").prop('disabled', false);
+        $("#txtDOB").prop('disabled', false);
+        $("#txtpersonalcontact").prop('disabled', false);
+        $("#btnProfileUpdate").show();
+        $("#btnProfileCancel").show();
+        $("#btnProfileEdit").hide();
+        return false;
+        
+    }
+    function fnProfileCancelClick() {
+        $(".field-validation-error").text('');
+        window.history.go();
+        $("#btnProfileUpdate").hide();
+        $("#btnProfileCancel").hide();
+        $("#btnProfileEdit").show();
+        $("#txtFirstName").prop('disabled', true);
+        $("#txtMiddleName").prop('disabled', true);
+        $("#txtMotherName").prop('disabled', true);
+        $("#txtCurrentAdd").prop('disabled', true);
+        $("#txtZipcode").prop('disabled', true);
+        $("#txtCountry").prop('disabled', true);
+        $("#txtpersonalemail").prop('disabled', true);
+        $("#txtPermanentAdd").prop('disabled', true);
+        $("#txtCity").prop('disabled', true);
+        $("#txtNationality").prop('disabled', true);
+        $("#txtworkemail").prop('disabled', true);
+        $("#txtGovNO").prop('disabled', true);
+        $("#txtLastName").prop('disabled', true);
+        $("#txtEmrgencyContName").prop('disabled', true);
+        $("#txtcontactNo").prop('disabled', true);
+        $("#txtRelation").prop('disabled', true);
+        $("#txtworkcontact").prop('disabled', true);
+        $("#txtState").prop('disabled', true);
+        $("#txtMartial").prop('disabled', true);
+        $("#txtDOB").prop('disabled', true);
+        $("#txtpersonalcontact").prop('disabled', true);
+        return false;
+    }
+
+
+    $(document).ready(function () {
+        $("#txtDOB").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+    });
+</script>
+
+
+
+@using (Ajax.BeginForm("personaldeatil", "DashBoard", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "row",
+            OnSuccess = "Sucess()"
+
+        }))
+{
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Personal Details</legend>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name", id = "txtFirstName", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.FirstName)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.MiddleName, new { @class = " control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control", @Placeholder = "Middle Name", id = "txtMiddleName", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.MiddleName)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Placeholder = "LastName", id = "txtLastName", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.LastName)</span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.MotherName, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(m => m.MotherName, new { @class = "form-control", @placeholder = "Mother Name", id = "txtMotherName", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.MotherName)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Gender, new { @class = " control-label", @for = "textinput" })
+                <label>
+                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "rdmale" }) Male                
+                </label>
+                <label>
+                    @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "rdfemale" })Female
+                </label>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.DOB, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", @Placeholder = "mm/dd/yyyy", id = "txtDOB" })
+                @*<span style="color:red">@Html.ValidationMessageFor(model => model.objEmpPersonal.DOB)</span>*@
+                <span style="color: red" id="spnstrat">Please select date of birth</span>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+
+                @Html.LabelFor(model => model.CurrentAddress, new { @class = "control-label", @for = "textinput" })
+                @Html.TextAreaFor(model => model.CurrentAddress, new { @class = "form-control", @Placeholder = "Current Address", id = "txtCurrentAdd" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.CurrentAddress)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PermanentAddress, new { @class = " control-label", @for = "textinput" })
+                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", @Placeholder = "Permanent Address", id = "txtPermanentAdd"})
+                <span style="color:red">@Html.ValidationMessageFor(m => m.PermanentAddress)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.MartialStatus, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.MartialStatus, new { @class = "form-control", @Placeholder = "MartialStatus", id = "txtMartial" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.MartialStatus)</span>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Country, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @placeholder = "Location", id = "txtCountry", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.Country)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.City, new { @class = " control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @Placeholder = "City", id = "txtCity", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.City)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.State, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @Placeholder = "State", id = "txtState", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.State)</span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.ZipCode, new { @class = "control-label", @for = "textinput" })
+
+                @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", @placeholder = "Post Code", id = "txtZipcode" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.ZipCode)</span>
+            </div>
+
+            <div class="col-md-4">
+
+                @Html.LabelFor(model => model.Nationality, new { @class = " control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.Nationality, new { @class = "form-control", @Placeholder = "Nationality", id = "txtNationality", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.Nationality)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PersonalContactNo, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.PersonalContactNo, new { @class = "form-control", @Placeholder = "Mobile no", id = "txtpersonalcontact" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.PersonalContactNo)</span>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.WorkEmail, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.WorkEmail, new { @class = "form-control", @Placeholder = "Work Email", id = "txtworkemail", @readonly = "readonly" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.WorkEmail)</span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PersonalEmail, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control", @placeholder = "Personal Email", id = "txtpersonalemail" })
+                <span style="color:red">@Html.ValidationMessageFor(m => m.PersonalEmail)</span>
+            </div>
+            
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.WorkContact, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.WorkContact, new { @class = "form-control", @Placeholder = "Work Telephone", id = "txtworkcontact" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.WorkContact)</span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.GovID, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.GovID, new { @class = "form-control", @Placeholder = "PAN / Social Security No.", id = "txtGovNO"})
+                <span style="color:red">@Html.ValidationMessageFor(model => model.GovID)</span>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Emergency Contact Details</legend>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.EmergancyContactName, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.EmergancyContactName, new { @class = "form-control", @Placeholder = "Name", id = "txtEmrgencyContName", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.EmergancyContactName)</span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.ContactNo, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control", @Placeholder = "Number", id = "txtcontactNo" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.ContactNo)</span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.RelationShip, new { @class = "control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.RelationShip, new { @class = "form-control", @Placeholder = "Relation", id = "txtRelation", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.RelationShip)</span>
+            </div>
+        </div>
+
+    </fieldset>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="pull-right">
+                <button type="submit" id="btnProfileUpdate" class="btn btn-primary" style="display:none" onclick="fnUpdate();">Update</button>
+                <button type="submit" id="btnProfileCancel" class="btn btn-primary" style="display:none" onclick="javascript:return fnProfileCancelClick();">Cancel</button>
+                <button type="submit" id="btnProfileEdit" class="btn btn-primary" onclick="javascript: return fnPersonalEditClick();">Edit</button>
+            </div>
+        </div>
+    </div>
+}

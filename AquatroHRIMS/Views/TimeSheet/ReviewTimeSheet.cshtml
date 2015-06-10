@@ -1,0 +1,107 @@
+﻿@model AquatroHRIMS.Models.TimeSheet
+@{
+    ViewBag.Title = "ReviewTimeSheet";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        var id=0;
+        $("#ddlEmp").on("change", function () {
+            id = $("#ddlEmp option:selected").val();
+        });
+        $("#btnView").on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ReviewTimeSheet", "TimeSheet")',
+                data: '{"empId":' + JSON.stringify(id) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $("#tbdy").empty();
+                    if (data.length > 0) {
+                        for (i = 0; i < data.length; i++) {
+                            if (data[i].date == null)
+                            {
+                                data[i].date = "N/A";
+                            }
+                            if (data[i].sunday == null)
+                            {
+                                data[i].sunday = "N/A";
+                            }
+                            if (data[i].Total == null) {
+                                data[i].Total = "N/A";
+                            }
+                            if (data[i].status == null) {
+                                data[i].status = "N/A";
+                            }
+                            $("#tbdy").append("<tr><td>" + data[i].date +" - "+data[i].sunday + "</td><td>" + data[i].Total + "</td><td>" + data[i].status + "</td><tr>");
+                        }
+                        
+                    }
+                    else {
+                        $("#tbdy").append("<tr><td>" + "N/A - N/A" + "</td><td>" + "N/A" + "</td><td>" + "N/A" + "</td><tr>");
+                    }
+                   //alert(data.Total+ "  " +data.date + " "+data.status)
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        });
+
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Review Employee TimeSheet</legend>
+            <div class="col-md-12">
+                <div class="form-group">
+                    @*<div class="col-sm-3"><strong>Timesheet Total :</strong> 48hr</div>*@
+                    <div class="col-sm-4">
+                        <strong>Employee Name :</strong>
+                        @Html.DropDownListFor(m => m.SelectedEmp, new SelectList(Model.EmpList, "Value", "Text", Model.EmpList.SelectedValue), "--select--", new { @class = "form-control-static", id = "ddlEmp" })
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Time Entry Week View</legend>
+            <div class="col-sm-12">
+                <table id="tblReviewTmeSheet" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-2">Date</th>
+                            <th class="col-sm-1">Duration</th>
+                            <th class="col-sm-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbdy"></tbody>
+                </table>
+            </div>
+        </fieldset>
+        <div class="col-md-12">
+            <div class="col-md-4 col-md-offset-5">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" id="btnView">View</button>
+                    @*<button type="button" class="btn btn-primary col-md-push-2">Cancel</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datepicker();
+        $('#dateFrom').datepicker();
+        $('#dateTo').datepicker();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#tblReviewTmeSheet').dataTable();
+    });
+</script>

@@ -1,0 +1,100 @@
+﻿@model AquatroHRIMS.Models.AddQuadrant
+@{
+    ViewBag.Title = "AddQuadrants";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script>
+    function Reset()
+    {
+        $(".field-validation-valid").css("display","none");
+        $("#txtFirstName").text('');
+        $('#ddlDeaprtmentType option:eq(0)').attr('selected', '-selected-');
+        //$('#ddlDeaprtmentType').attr('selected', '-selected-');
+        //$('#ddlDeaprtmentType option:selected').attr('selected', '-selected-');
+
+    }
+    $(document).ready(function(){
+        $("#ddlDeaprtmentType").change(function () {
+            if ($('#ddlDeaprtmentType option:selected').val() == 0) {
+                $("#ddlDeaprtment").css("display", "block");
+                cnt++;
+                return false;
+            }
+            else {
+                $("#ddlDeaprtment").css("display", "none");
+            }
+        })
+    })
+   
+    function fnValidate()
+    {
+        var cnt = 0;
+        var regex = /^[a-zA-Z\-\s]+$/;
+        var txt = $("#txtFirstName").val();
+        if(txt=="")
+        {
+            $("#txtQuadrant").css("display", "block");
+            cnt++;
+        }
+        if (regex.test(txt))
+        {
+            $("#txtQuadrant").css("display", "none");
+        }
+        else {
+            $("#txtQuadrant").css("display", "block");
+            cnt++;
+        }
+        if( $('#ddlDeaprtmentType option:selected').val()==0)
+        {
+            $("#ddlDeaprtment").css("display","block");
+            cnt++;
+        }
+        else {
+            $("#ddlDeaprtment").css("display", "none");
+        }
+        if(cnt>0)
+        {
+            return false;
+        }
+        $('#ddlDeaprtmentType option:eq(0)').attr('selected', '-selected-');
+    }
+</script>
+<br><br>
+@using (Html.BeginForm("AddQuadrants", "QuadrantMeasures",FormMethod.Post))
+{
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Add Quardants</legend>
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <div>
+                <label class="control-label" for="textinput">Quadrant</label>
+            @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+            @Html.TextBoxFor(m=>m.QuadrantName, new { @Value = ViewBag.FirstName, @class = "form-control", @placeholder = "Quadrants Name", id = "txtFirstName" })
+            <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="txtQuadrant" style="display:none">Please enter quadrant</span></span>
+            </div><br>
+            <div>
+                <label class="control-label" for="textinput">Department Type</label>
+                @Html.DropDownListFor(m => m.SelectedQuadrantDepartmentType, new SelectList(Model.QuadrantDepartmentTypeList, "Value", "Text", Model.QuadrantDepartmentTypeList.SelectedValue), new { @class = "form-control clear", id = "ddlDeaprtmentType", style = "width: 230px" })
+                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="ddlDeaprtment" style="display:none">Please select departmenttype</span></span>
+            </div><br>
+            <div>
+                
+                <input type="submit" value="submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidate();">
+
+                        <input type="reset" value="Reset" class="btn btn-primary" onclick="Reset()">
+
+                    </div>
+
+              
+    </div>
+
+        <div class="col-md-4" style="color:blue;font-weight:bold">
+            @if (ViewBag.DataSaved != null)
+            {
+                @ViewBag.DataSaved
+            }
+
+        </div>
+</div></fieldset>
+}

@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <link href="../Content/errorstyle.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <!--start-wrap--->
+    <div class="wrap">
+        <!---start-header---->
+        <div class="header">
+            <div class="logo">
+                <h1 ><a href="#" style="color:white">Access Denied</a></h1>
+            </div>
+        </div>
+        <!---End-header   ../Images/error-img.png---->
+        <!--start-content------>
+        <div class="content">
+
+            @*@if (Request.QueryString["ErrorCode"].ToString() == "1")
+                {
+                    <p><span><label>O</label>hh.....</span>The link you have visited is expire.</p>
+
+                    <audio autoplay>
+                        <source src="../Images/1.mp3" type="audio/ogg">
+                        <source src="../Images/1.mp3" type="audio/mpeg">
+
+                    </audio>
+                }
+                @if (Request.QueryString["ErrorCode"].ToString() == "2")
+                {
+
+
+                    <audio autoplay>
+                        <source src="../Images/1.mp3" type="audio/ogg">
+                        <source src="../Images/1.mp3" type="audio/mpeg">
+
+                    </audio>
+                }*@
+            <p><span>Please contact  IT Support Team.</p>
+
+
+            <a href='@Url.Action("Index", "DashBoard")'>Back To DashBoard</a>
+            <div class="copy-right">
+                <p>&#169 All rights Reserved | A4 Technology Solutions.</a></p>
+            </div>
+        </div>
+        <!--End-Cotent------>
+    </div>
+    <!--End-wrap--->
+</body>
+</html>

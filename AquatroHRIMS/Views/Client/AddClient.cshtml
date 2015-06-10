@@ -1,0 +1,188 @@
+﻿@model  AquatroHRIMS.Models.Client
+@{
+    ViewBag.Title = "AddClient";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<div id="divClientList">
+
+</div>
+<div id="divAddClient">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="float:right">
+                <div></div>
+                <div class="col-md-offset-10">
+                    @Html.ActionLink("Client List", "ClientList", "Client")
+                </div>
+            </div>
+            <div class="col-md-12">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Add Client</legend>
+                    <br />
+                    @using (Ajax.BeginForm("AddClient", "Client", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+                    {
+                 
+                        <div class="form-horizontal">
+                            <div style="height:15px"></div>
+                            @Html.HiddenFor(m => m.ClientIDHdn)
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.ClientName, new { @class = " col-md-2" })
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(model => model.ClientName, new { @class = "form-control", @placeholder = " Name ", id = "txtClientName", minlength = "2", maxlength = "25" })
+                                        <span style="color:red"> @Html.ValidationMessageFor(model => model.ClientName)</span>
+                                    </div>
+                                    @Html.LabelFor(model => model.EmailID, new { @class = " col-md-2" })
+                                    <div class="col-md-3">
+                                        @if (Model.ClientIDHdn != null)
+                                        {
+                                            <span id="spnEmailUpdate" style="display:block">
+                                                @Html.TextBoxFor(model => model.EmailIDUpdate, new { @class = "form-control", @placeholder = " Email Id ", id = "txtClientEmailIdUpdate", type = "email" })
+                                                <span style="color:red"> @Html.ValidationMessageFor(model => model.EmailIDUpdate)</span>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span id="spnEmail" style="display:block">
+                                                @Html.TextBoxFor(model => model.EmailID, new { @class = "form-control", @placeholder = " Email Id ", id = "txtClientEmailId", type = "email" })
+                                                <span style="color:red"> @Html.ValidationMessageFor(model => model.EmailID)</span>
+                                            </span>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Contact, new { @class = " col-md-2" })
+                                    <div class="col-md-3">
+                                        @if (Model.ClientIDHdn != null)
+                                        {
+                                            <span id="spnContactUpdate" style="display:block">
+                                                @Html.TextBoxFor(model => model.ContactUpdate, new { @class = "form-control", @placeholder = " Phone No. ", id = "txtClientPhoneNoUpdate" })
+                                                <span style="color:red">@Html.ValidationMessageFor(model => model.ContactUpdate)</span>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span id="spnContact">
+                                                @Html.TextBoxFor(model => model.Contact, new { @class = "form-control", @placeholder = " Phone No. ", id = "txtClientPhoneNo" })
+                                                <span style="color:red">@Html.ValidationMessageFor(model => model.Contact)</span>
+                                            </span>
+                                        }
+
+
+                                    </div>
+                                    @Html.LabelFor(model => model.Address, new { @class = " col-md-2" })
+                                    <div class="col-md-3">
+                                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = " Address ", id = "txtClientAddress", minlength = "2" })
+                                        <span style="color:red"> @Html.ValidationMessageFor(model => model.Address)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Description, new { @class = " col-md-2" })
+                                    <div class="col-md-3">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = " Description ", id = "txtDescription", minlength = "2" })
+                                        <span style="color:red"> @Html.ValidationMessageFor(model => model.Description)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                                    <div class="col-md-offset-5 col-md-10">
+                                        @if (Model.ClientIDHdn != null)
+                                        {
+                                            <input type="submit" value="Update " id="btnUpdateClient" class="btn btn-primary" />
+                                             <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("ClientList", "Client")'" />
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Create " id="btnCreate" class="btn btn-primary" />
+                                             <input type="reset" value="Reset" id="btnReset" class="btn btn-primary" onclick="fnReset();" />
+                                        }
+                                        
+                                        @*<input type="button" value="Back" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("Client", "Client")'" />*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </fieldset>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    function Begin() {
+        $('#btnCreate').attr('disabled', 'disabled');
+            $("#spnLoder").show()
+
+    }
+    function Success(data) {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        if (data == 3) {
+            alert("Client created successfully ");
+            fnReset();
+        }
+        if (data == "1") {
+            alert("Please fill all deatils.");
+
+        }
+        if (data == "2") {
+            alert("Client updated successfully ");
+            window.location.href = '@Url.Action("ClientList", "Client")';
+        }
+
+
+    }
+    //function Error(e) {
+    //    alert('err');
+    //    alert(e.responseText);
+    //}
+
+
+    function Complete() {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+    }
+</script>
+<script>
+    function ShowAddClient() {
+
+        $("#btnCreate").show();
+        $("#btnUpdateClient").hide();
+
+        $("#ClientIDHdn").val('');
+        $("#txtClientName").val('');
+        $("#txtClientEmailId").val('');
+        $("#txtClientPhoneNo").val('');
+        $("#txtClientAddress").val('');
+        $("#txtDescription").val('');
+        $(".field-validation-error").text('');
+        $("#spnContact").show();
+        $("#spnContactUpdate").hide();
+        $("#spnEmail").show();
+        $("#spnEmailUpdate").hide();
+
+    }
+
+
+    //Reset Fields of Client Function:-
+  
+    function fnReset() {
+        $(".field-validation-error").text('');
+        $("#txtClientName").val('');
+        $("#txtClientEmailId").val('');
+        $("#txtClientPhoneNo").val('');
+        $("#txtClientAddress").val('');
+        $("#txtDescription").val('');
+    }
+</script>
+

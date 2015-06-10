@@ -1,0 +1,120 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+@{
+    ViewBag.Title = "ReviewQuadrants";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+@using (Html.BeginForm("ReviewQuadrants", "QuadrantMeasures"))
+{
+    <div id="divResult">
+        <div class="container">
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Admin")
+                {
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-sm-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    Select List:
+                                    <select id="slectList">
+                                        <option value="0">
+                                            Reporting Person
+                                        </option>
+                                        <option value="1">
+                                            All Employee
+                                        </option>
+                                    </select>
+                                    <span id="spnDept" style="display: none; color: red;">Please select department</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="EmployeeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Employee Name
+                                </th>
+                                <th>
+                                    Department
+                                </th>
+
+                                <th>
+                                    Designation
+                                </th>
+                                <th>
+
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="trReviewData">
+                            @foreach (var item in @Model.empList)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmployeeName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Department)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Designation)
+                                    </td>
+                                    <td>
+                                        <a></a>
+                                        @Html.ActionLink("View", "ReviewQuadrantDetails", "QuadrantMeasures", new { @ID = item.empID }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('#EmployeeTable').dataTable();
+    });
+</script>
+<script>
+    $("#slectList").change(function () {
+        var val = $(this).val();
+        if (val != "") {
+            $.ajax({
+                url: '@Url.Action("ReviewQuadrants", "QuadrantMeasures")',
+                dataType: 'json',
+                data: '{"Val":' + val + '}',
+                type: "POST",
+                contentType: 'application/json',
+                success: function (data) {
+                    $('#trReviewData tr').remove();
+                    $.each(data, function (index, optionData) {
+                        $("#trReviewData").append("<tr><td>" + optionData.EmployeeName + "</td><td>" + optionData.Department + "</td><td>" + optionData.Designation + "</td><td> <a href='/QuadrantMeasures/ReviewQuadrantDetails/" + optionData.empID + "'>View<a></td></tr>");
+                    });
+                },
+
+            });
+        }
+
+        else {
+            return false;
+        }
+    });
+
+</script>

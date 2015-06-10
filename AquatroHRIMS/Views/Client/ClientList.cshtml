@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "ClientList";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $('#ProjectTable').dataTable();
+    });
+</script>
+<script>
+    function Delete(id) {
+
+        var conf = confirm("Are you sure you want to delete?");
+        if (conf){
+
+        $.ajax({
+            url: '@Url.Action("Delete", "Client")',
+            dataType: 'json',
+            data: '{"ID":' + id + '}',
+            type: "POST",
+            contentType: 'application/json',
+            success: function (data) {
+                alert('Client deleted successfully.');
+                window.location.href = '@Url.Action("ClientList", "Client")';
+            },
+            error: function (xhr, status, err) {
+                if (xhr.status == "590") {
+
+                }
+                else {
+                    alert('Oops,Something went wrong.Please try after sometime.');
+                }
+            }
+        });
+        }
+        else
+            return false;
+    }
+    function Edit(id) {
+        $.ajax({
+            url: '@Url.Action("Edit", "Client")',
+            dataType: 'json',
+            data: '{"ID":' + id + '}',
+            type: "POST",
+            contentType: 'application/json',
+            success: function (data) {
+
+                $("#divClientList").hide();
+                $("#divAddClient").show();
+                $("#btnCreate").hide();
+                $("#btnUpdateClient").show();
+
+                $(".field-validation-error").text('');
+
+                $("#ClientIDHdn").val(data.ClientId);
+                $("#txtClientName").val(data.ClientName);
+                $("#txtClientEmailIdUpdate").val(data.EmailID);
+                $("#txtClientPhoneNoUpdate").val(data.Contact);
+                $("#txtClientAddress").val(data.Address);
+                $("#txtDescription").val(data.Description);
+
+                $("#spnContact").hide();
+                $("#spnContactUpdate").show();
+                $("#spnEmail").hide();
+                $("#spnEmailUpdate").show();
+
+
+
+            },
+            error: function (xhr, status, err) {
+                if (xhr.status == "590") {
+
+                }
+                else {
+                    alert('Oops,Something went wrong.Please try after sometime.');
+                }
+            }
+        });
+    }
+</script>
+@model IEnumerable<AquatroHRIMS.Models.ClientList>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+               @Html.ActionLink("Add Client", "AddClient", "Client")
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table id="ProjectTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            ClientName
+                        </th>
+                        <th>
+                            EmailID
+                        </th>
+
+                        <th>
+                            Contact No.
+                        </th>
+                        <th>Edit/Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.ClientName)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ClientEmail)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.ClientContact)
+                            </td>
+                           <td>
+                         
+                               @Html.ActionLink("Edit", "AddClient", "Client", new { @id = item.ClientID }, null)
+                      @*@Html.ActionLink("Edit", "ViewRequest", "Employee", new { @ID = item.EmpID }, null)*@
+                        <a href="javascript:void()" onclick="Delete(@item.ClientID)">Delete</a>
+                            </td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+

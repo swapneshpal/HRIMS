@@ -1,0 +1,333 @@
+﻿@model AquatroHRIMS.ViewModel.EmployeeViewModel
+@{
+    ViewBag.Title = "CreateEmployee";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $("#DateOfJoing").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+            $("#spnDOJ").hide();
+        });
+
+        $("#ddlDepartment").change(function () {
+            var val = $(this).val();
+            if (val != "") {
+                $.ajax({
+                    url: '@Url.Action("GetData", "Employee")',
+                    dataType: 'json',
+                    data: '{"DepId":' + val + '}',
+                    type: "POST",
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('#ddlDepartmentType option').remove();
+                        $("#ddlDepartmentType").append("<option value=''>-Select--</option>");
+                        $.each(data, function (index, optionData) {
+                            $("#ddlDepartmentType").append("<option value='" + optionData.Value + "'>" + optionData.Text + "</option>");
+                        });
+                        $('#ddlDepartmentType').trigger("chosen:updated");
+                    },
+                    error: function (xhr, status, err) {
+                        if (xhr.status == "590") {
+
+                        }
+                        else {
+                            alert('Oops,Something went wrong.Please try after sometime.');
+                        }
+                    }
+                });
+                $("#spnDept").css("display", "none");
+            }
+
+            else {
+                $("#spnDept").css("display", "block");
+                return false;
+            }
+        });
+    });
+</script>
+@using (Ajax.BeginForm("Add", "Employee", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+{
+    <div id="divResult">
+
+    </div>
+    <div id="divEmployeeAdd">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+                @*<input type="button" value="Back" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("employeeSearch", "Employee")'" />*@
+
+                <a href="javascript:void(0)" onclick="location.href = '@Url.Action("EmployeeList", "Employee")'">Employee List </a>
+            </div>
+        </div>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Add Employee</legend>
+            <br />
+
+            <div class="form-horizontal">
+
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.HiddenFor(m => m.hdnEmployeeID)
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.EmpPersonal.FirstName, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.EmpPersonal.FirstName, new { @Value = ViewBag.FirstName, @class = "form-control", @placeholder = "First Name", id = "txtFirstName", minlength = "2" })
+                            <span style="color:red">@Html.ValidationMessageFor(m => m.EmpPersonal.FirstName)</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(model => model.EmpPersonal.MiddleName, new { @Value = ViewBag.MiddleName, @class = "form-control", @Placeholder = "Middle Name", id = "txtMiddleName", minlength = "2" })
+                            <span style="color:red">@Html.ValidationMessageFor(model => model.EmpPersonal.MiddleName)</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(model => model.EmpPersonal.LastName, new { @class = "form-control", @Value = ViewBag.LastName, @Placeholder = "Last Name", id = "txtLastName", minlength = "2" })
+                            <span style="color:red">@Html.ValidationMessageFor(model => model.EmpPersonal.LastName)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.EmployeeEmailId, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-3">
+                            @if (Model.hdnEmployeeID == null)
+                            {
+                                <span id="spnWorkEmail">
+                                    @Html.TextBoxFor(m => m.EmployeeEmailId, new { @class = "form-control", @Placeholder = "abc@a4technology.com", id = "txtWorkEmail", type = "email" })
+                                    <span style="color:red">@Html.ValidationMessageFor(model => model.EmployeeEmailId)</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span id="spnUpdateWorkEmail">@Html.TextBoxFor(m => m.EmployeeEmailIdUpdate, new { @class = "form-control", @Placeholder = "abc@a4technology.com", id = "txtUpdateWorkEmail", type = "email" })</span>
+                                <span style="color:red">@Html.ValidationMessageFor(model => model.EmployeeEmailIdUpdate)</span>
+                            }
+
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Dept.DeptID, new { @class = "pull-right" })
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedDepartment, new SelectList(Model.DepartmentList, "Value", "Text", ViewBag.DepID), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlDepartment" })
+                            <span id="spnDept" style="display: none; color: red;">Please select department</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.DepartTypeList, new { @class = "pull-right" })
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedDepartmentType, new SelectList(Model.DepartTypeList, "Value", "Text", ViewBag.DepTypeID), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlDepartmentType" })
+                            @*@Html.ValidationMessageFor(m=>m.R)*@
+                            <span id="spnDepartType" style="display: none; color: red;">Please select department type</span>
+
+                        </div>
+
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(m => m.Design.DesignationID, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedDesignation, new SelectList(Model.DesignationList, "Value", "Text", ViewBag.DesgID), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlDesignation" })
+                            @Html.ValidationMessageFor(m => m.Design.DesignationID)
+                            <span id="spnDesig" style="display: none; color: red;">Please select designation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.PersonalEmail, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-3">
+                            @if (Model.hdnEmployeeID == null)
+                            {
+                                <span id="spnPersonalEmail">
+                                    @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control", @Placeholder = "abc@a4technology.com", id = "txtPersonalEmail" })
+                                    <span style="color:red"> @Html.ValidationMessageFor(model => model.PersonalEmail)</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span id="spnPersonalUpdateEmail">
+                                    @Html.TextBoxFor(m => m.PersonalEmailUpdate, new { @class = "form-control", @Placeholder = "abc@a4technology.com", id = "txtPersonalEmailUpdate" })
+                                    <span style="color:red"> @Html.ValidationMessageFor(model => model.PersonalEmailUpdate)</span>
+                                </span>
+                            }
+
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Title, new { @class = "pull-right" })
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedTitle, new SelectList(Model.TitleList, "Value", "Text", ViewBag.TitleName), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlTitle" })
+                            @*<span id="spnTitle" style="display: none; color: red;">Please select title</span>*@
+                            @*@Html.ValidationMessageFor(m => m.Title)*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Password, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @Placeholder = "Password", id = "txtPassword", type = "password", minlength = "6" })
+                            <span style="color:red"> @Html.ValidationMessageFor(model => model.Password)</span>
+                        </div>
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "pull-right" })
+
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Placeholder = "Password", id = "txtConfirmPassword", type = "password", minlength = "6" })
+                            <span style="color:red"> @Html.ValidationMessageFor(model => model.ConfirmPassword)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Employee.ReportingHead, new { @class = "pull-right" })
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedReportHead, new SelectList(Model.ReportList, "Value", "Text", ViewBag.iReportingHead), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlReportingHead" })
+                            @Html.ValidationMessageFor(model => model.Employee.ReportingHead)
+                            <span id="spnReptHead" style="display: none; color: red;">Please select reporting head</span>
+                        </div>
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.RollName, new { @class = "pull-right" })
+
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedRollAccess, new SelectList(Model.RollAccessList, "Value", "Text", ViewBag.RollAccessID), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlRollAccess" })
+                            @*@Html.ValidationMessageFor(m=>m.R)*@
+                            <span id="spnRollAccess" style="display: none; color: red;">Please select access role</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Employee.Location, new { @class = "pull-right" })
+                        </div>
+
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.SelectedLocation, new SelectList(Model.LocationList, "Value", "Text", ViewBag.iLocation), "--select Location--", new { @class = "form-control form-control chzn-select-deselect", id = "ddlLocation" })
+                            <span id="spnLocation" style="display: none; color: red;">Please select location</span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Employee.DOJ, new { @class = "pull-right" })
+                        </div>
+
+
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.Employee.DOJ, new { @Value = ViewBag.DOJ, @class = "form-control", @readonly = "readonly", id = "DateOfJoing", @Placeholder = "mm/dd/yyyy" })
+                            <span id="spnDOJ" style="color:red">@Html.ValidationMessageFor(model => model.Employee.DOJ)</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin:60px">
+                    <div class="col-md-offset-5 col-md-10">
+                        <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                        @if (Model.hdnEmployeeID == null)
+                        {
+
+                       <input type="submit" value="Create " id="btnCreate" class="btn btn-primary" onclick="fnValidation()" />
+                            
+                        <input type="reset" value="Reset" class="btn btn-primary" onclick="fnReset()" />
+                        }
+                        else
+                        {
+                       <input type="submit" value="Update " id="btnUpdate" onclick="fnValidation()" class="btn btn-primary" />
+                                   
+                      <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("EmployeeList", "Employee")'" />
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+}
+<script>
+    function Begin() {
+        var check = fnValidation();
+        if (check) {
+            $("#spnLoder").show();
+            $('#btnCreate').attr('disabled', 'disabled');
+            $('#btnUpdate').attr('disabled', 'disabled');
+        }
+        else {
+            $("#spnLoder").hide();
+        }
+
+        return check;
+
+    }
+    function Success(data) {
+       $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $('#btnUpdate').removeAttr("disabled");
+
+        if (data == "3") {
+            $("#divResult").remove();
+            alert("Employee created successfully ");
+
+            fnReset();
+
+        }
+        if (data == "1") {
+            $("#divResult").remove();
+            alert("Please fill all deatils.");
+
+        }
+        if (data == "2") {
+            $("#divResult").remove();
+            alert("Employee updated successfully ");
+            window.location.href = '@Url.Action("EmployeeList", "Employee")';
+        }
+
+    }
+    //function Error(e) {
+    //    alert('err');
+    //    alert(e.responseText);
+    //}
+
+
+    function Complete() {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $('#btnUpdate').removeAttr("disabled");
+    }
+</script>
+
+
+
+<script src="~/JSValidation/Employee.js"></script>

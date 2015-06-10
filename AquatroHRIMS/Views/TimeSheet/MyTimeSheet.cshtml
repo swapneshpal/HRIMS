@@ -1,0 +1,598 @@
+﻿@model AquatroHRIMS.Models.TimeSheet
+@{
+    ViewBag.Title = "MyTimeSheet";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link href="~/assets/TimeHour/bootstrap-clockpicker.min.css" rel="stylesheet" />
+<link href="~/assets/TimeHour/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/TimeHour/github.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script>
+    count = 0;
+    countNext = 0;
+    var curDt = new Date();
+    $(document).ready(function () {
+        $("#ddlActivity1").prop("disabled", true);
+        $("#ddlActivity2").prop("disabled", true);
+        $("#ddlActivity3").prop("disabled", true);
+        $("#ddlActivity4").prop("disabled", true);
+        $("#ddlProject2").prop("disabled", true);
+        $("#ddlProject3").prop("disabled", true);
+        $("#ddlProject4").prop("disabled", true);
+        $("#ddlProject1").change(function () {
+            // alert($("#ddlProject1").val());
+            if ($("#ddlProject1 :selected").val() != "") {
+                $("#ddlActivity1").prop("disabled", false);
+                $("#ddlProject2").prop("disabled", false);
+
+            }
+            else {
+                $("#ddlActivity1").prop("disabled", true);
+                $("#ddlProject2").prop("disabled", true);
+
+            }
+        });
+        $("#ddlProject2").change(function () {
+            if ($("#ddlProject2 :selected").val() != "") {
+                $("#ddlActivity2").prop("disabled", false);
+                $("#ddlProject3").prop("disabled", false);
+
+            }
+            else {
+                $("#ddlActivity2").prop("disabled", true);
+                $("#ddlProject3").prop("disabled", true);
+
+            }
+        })
+        $("#ddlProject3").change(function () {
+            if ($("#ddlProject3 :selected").val() != "") {
+                $("#ddlActivity3").prop("disabled", false);
+                $("#ddlProject4").prop("disabled", false);
+            }
+            else {
+                $("#ddlActivity3").prop("disabled", true);
+                $("#ddlProject4").prop("disabled", true);
+            }
+        })
+        $("#ddlProject4").change(function () {
+            if ($("#ddlProject4 :selected").val() != "") {
+                $("#ddlActivity4").prop("disabled", false);
+            }
+            else {
+                $("#ddlActivity4").prop("disabled", true);
+            }
+        })
+
+        $("#Nextbtn").hide();
+        $("#btnSave").on("click", function () {
+
+            var p1 = $("#ddlProject1 :selected").val();
+            var p2 = $("#ddlProject2 :selected").val();
+            var p3 = $("#ddlProject3 :selected").val();
+            var p4 = $("#ddlProject4 :selected").val();
+            var a1 = $("#ddlActivity1 :selected").val();
+            var a2 = $("#ddlActivity2 :selected").val();
+            var a3 = $("#ddlActivity3 :selected").val();
+            var a4 = $("#ddlActivity4 :selected").val();
+            if (p1 == "" || a1 == "") {
+                alert("Please select project and activity")
+            }
+            else {
+                var PCount = 0;
+                var s = 0;
+                var n = 1;
+                while ($("#ddlProject" + n + " :selected").val() != "")
+                {
+                    
+                    if ($("#ddlActivity"+n+" :selected").val() == "")
+                    {
+                        PCount++;
+                    }
+                    else {
+                        s++;
+                    }
+                    n++;
+                }
+                if (PCount > 0)
+                {
+                    alert("Please select project and activity")
+                }
+                if (PCount == 0) {
+                    var startDate = $("#spnStart").text();
+                    var endDate = $("#spnEnd").text();
+                    for (i = 1; i <= s; i++) {
+                        var totalTime = $("#spnTotal").text();
+                        var ProjectId = $('#ddlProject' + i + ' :selected').val();
+                        var activityId = $('#ddlActivity' + i + ' :selected').val();
+                        var mon = $("#mon" + i).val();
+
+                        var tue = $("#tue" + i).val();
+                        var wed = $("#wed" + i).val();
+                        var thu = $("#thu" + i).val();
+                        var fri = $("#fri" + i).val();
+                        var sat = $("#sat" + i).val();
+                        var sun = $("#sun" + i).val();
+                        var desc = "";
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("MyTimeSheet", "TimeSheet")',
+                            data: '{"startDate":' + JSON.stringify(startDate) + ',"endDate":' + JSON.stringify(endDate) + ',"projectId":' + JSON.stringify(ProjectId) + ',"ActivityID":' + JSON.stringify(activityId) + ',"monday":' + JSON.stringify(mon) + ',"tuesday" :' + JSON.stringify(tue) + ',"wed":' + JSON.stringify(wed) + ',"thu":' + JSON.stringify(thu) + ',"fri":' + JSON.stringify(fri) + ',"sat":' + JSON.stringify(sat) + ',"sun":' + JSON.stringify(sun) + ',"desc":' + JSON.stringify(desc) + '}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                $("#spnTotal").text(response);
+                            },
+                            failure: function (response) {
+                            }
+                        });
+                        $("#mon" + i).val('00:00');
+                        $("#tue" + i).val('00:00');
+                        $("#wed" + i).val('00:00');
+                        $("#thu" + i).val('00:00');
+                        $("#fri" + i).val('00:00');
+                        $("#sat" + i).val('00:00');
+                        $("#sun" + i).val('00:00');
+
+                    }
+                    alert("data saved successfully");
+
+                }
+            }
+        });
+
+
+    });
+    function Prev() {
+        countNext--;
+        $("#Nextbtn").show();
+        if (count < 3) {
+            $("#Prevbtn").show();
+            count++;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PrevDate", "TimeSheet")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var array = data[7].split('.')
+                    var hh = parseInt(array[0]);
+                    var mm = parseFloat(array[1]);
+                    var mm1 = mm.toString();
+                    if (mm > 10) {
+                        mm = parseInt(mm1.substring(0, 1));
+
+                        if (mm > 60) {
+                            hh++;
+                            mm = mm - 60;
+                        }
+                    }
+                    if (isNaN(mm)) {
+                        mm = 0;
+                    }
+
+                    $("#spnTotal").text(hh + ":" + mm);
+                    $("#spnStart").text(data[0])
+                    $("#spnEnd").text(data[1])
+                    $("#Hmon").text(data[0].substring(0, 5));
+                    $("#Htue").text(data[2].substring(0, 5));
+                    $("#Hwed").text(data[3].substring(0, 5));
+                    $("#Hthu").text(data[4].substring(0, 5));
+                    $("#Hfri").text(data[5].substring(0, 5));
+                    $("#Hsat").text(data[6].substring(0, 5));
+                    $("#Hsun").text(data[1].substring(0, 5));
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+        else {
+            $("#Prevbtn").hide();
+        }
+    }
+    function Next() {
+        count--;
+        countNext++;
+        $("#Prevbtn").show();
+        if (countNext == 0) {
+            $("#Nextbtn").hide();
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("NextDate", "TimeSheet")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var array = data[7].split('.')
+                    var hh = parseInt(array[0]);
+                    var mm = parseFloat(array[1]);
+                    var mm1 = mm.toString();
+                    if (mm > 10) {
+                        mm = parseInt(mm1.substring(0, 1));
+
+                        if (mm > 60) {
+                            hh++;
+                            mm = mm - 60;
+                        }
+                    }
+                    if (isNaN(mm)) {
+                        mm = 0;
+                    }
+                    $("#spnTotal").text(hh + ":" + mm);
+                    $("#spnStart").text(data[0])
+                    $("#spnEnd").text(data[1])
+                    $("#Hmon").text(data[0].substring(0, 5));
+                    $("#Htue").text(data[2].substring(0, 5));
+                    $("#Hwed").text(data[3].substring(0, 5));
+                    $("#Hthu").text(data[4].substring(0, 5));
+                    $("#Hfri").text(data[5].substring(0, 5));
+                    $("#Hsat").text(data[6].substring(0, 5));
+                    $("#Hsun").text(data[1].substring(0, 5));
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">MyTimeSheet</legend>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-sm-5"><strong>Current Timesheet Period:</strong><a href="javascript:void(0)" class="previous" onclick="Prev()">&nbsp;<span id="Prevbtn"><b><<</b></span></a><span id="spnStart">@Model.StartDate.ToString("dd/MM/yyyy")</span> - <span id="spnEnd">@Model.EndDate.ToString("dd/MM/yyyy")</span><a href="javascript:void(0)" class="previous" onclick="Next()"><span id="Nextbtn"><b>>></b></span></a></div>
+
+                    <div class="col-sm-3"><strong>Timesheet Total :</strong><span id="spnTotal">@Model.TotalTime</span> </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Time Entry Week View</legend>
+            <div class="col-sm-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+
+                            <th class="col-sm-2 text-center">Project Name</th>
+                            <th class="col-sm-2 text-center">Activity Name</th>
+                            <th class="col-sm-1 text-center">Mon<br /><span id="Hmon">@Model.StartDate.ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Tue<br><span id="Htue">@Model.StartDate.AddDays(1).ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Wed<br><span id="Hwed">@Model.StartDate.AddDays(2).ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Thu<br><span id="Hthu">@Model.StartDate.AddDays(3).ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Fri<br><span id="Hfri">@Model.StartDate.AddDays(4).ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Sat<br><span id="Hsat">@Model.StartDate.AddDays(5).ToString("dd/MM")</span></th>
+                            <th class="col-sm-1 text-center">Sun<br><span id="Hsun">@Model.StartDate.AddDays(6).ToString("dd/MM")</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @*<select class="form-control-static" id="sel1" style="width: 230px">
+                                        <option>Commercial tool</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.SelectedProject, new SelectList(Model.ProjectList, "Value", "Text", Model.ProjectList.SelectedValue), "--select--", new { @class = "form-control-static clear", id = "ddlProject1", style = "width: 230px" })
+                            </td>
+
+                            <td>
+                                @*<select class="form-control-static" disabled="disabled" id="sel1" style="width: 230px">
+                                        <option>Commercial tool</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.SelectedActivity, new SelectList(Model.ActivityList, "Value", "Text", Model.ActivityList.SelectedValue), "--select--", new { @class = "form-control clear", id = "ddlActivity1", style = "width: 230px" })
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="mon1">
+
+                                </div>
+
+                                @*<div><input type="text" class="form-control" disabled="disabled" placeholder="hh"></div>
+                                    <div> <input type="text" class="form-control" disabled="disabled" placeholder="mm"></div>*@
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="tue1">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="wed1">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="thu1">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="fri1">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sat1">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sun1">
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                @*<select class="form-control-static" id="sel1" style="width: 230px">
+                                        <option>Commercial tool</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.SelectedProject, new SelectList(Model.ProjectList, "Value", "Text", Model.ProjectList.SelectedValue), "--select--", new { @class = "form-control-static clear", id = "ddlProject2", style = "width: 230px" })
+                            </td>
+
+                            <td>
+                                @*<select class="form-control-static" disabled="disabled" id="sel1" style="width: 230px">
+                                        <option>Commercial tool</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.SelectedActivity, new SelectList(Model.ActivityList, "Value", "Text", Model.ActivityList.SelectedValue), "--select--", new { @class = "form-control clear", id = "ddlActivity2", style = "width: 230px" })
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="mon2">
+
+                                </div>
+
+                                @*<div><input type="text" class="form-control" disabled="disabled" placeholder="hh"></div>
+                                    <div> <input type="text" class="form-control" disabled="disabled" placeholder="mm"></div>*@
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="tue2">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="wed2">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control" value="00:00" readonly id="thu2">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="fri2">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sat2">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sun2">
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                @Html.DropDownListFor(m => m.SelectedProject, new SelectList(Model.ProjectList, "Value", "Text", Model.ProjectList.SelectedValue), "--select--", new { @class = "form-control-static", id = "ddlProject3", style = "width: 230px" })
+                            </td>
+
+                            <td>
+                                @Html.DropDownListFor(m => m.SelectedActivity, new SelectList(Model.ActivityList, "Value", "Text", Model.ActivityList.SelectedValue), "--select--", new { @class = "form-control", id = "ddlActivity3", style = "width: 230px" })
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="mon3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="tue3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="wed3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="thu3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="fri3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sat3">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sun3">
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                @Html.DropDownListFor(m => m.SelectedProject, new SelectList(Model.ProjectList, "Value", "Text", Model.ProjectList.SelectedValue), "--select--", new { @class = "form-control-static clear", id = "ddlProject4", style = "width: 230px" })
+                            </td>
+
+                            <td>
+                                @Html.DropDownListFor(m => m.SelectedActivity, new SelectList(Model.ActivityList, "Value", "Text", Model.ActivityList.SelectedValue), "--select--", new { @class = "form-control clear", id = "ddlActivity4", style = "width: 230px" })
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="mon4">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="tue4">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="wed4">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="thu4">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="fri4">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sat4">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group clockpicker pull-center" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control clear" value="00:00" readonly id="sun4">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        <div class="col-md-12">
+            <div class="col-md-4 col-md-push-4">
+                <div class="btn-group">
+                    @*<button type="button" class="btn btn-primary">Add New</button>*@
+                    <button type="button" class="btn btn-primary col-md-push-1" id="btnSave">Save</button>
+                    <button type="reset" class="btn btn-primary col-md-push-2">Reset</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/assets/TimeHour/jquery-clockpicker.min.js"></script>
+<script type="text/javascript">
+    $('.clockpicker').clockpicker()
+        .find('input').change(function () {
+            console.log(this.value);
+        });
+    var input = $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+
+    $('.clockpicker-with-callbacks').clockpicker({
+        donetext: 'Done',
+        init: function () {
+            console.log("colorpicker initiated");
+        },
+        beforeShow: function () {
+            console.log("before show");
+        },
+        afterShow: function () {
+            console.log("after show");
+        },
+        beforeHide: function () {
+            console.log("before hide");
+        },
+        afterHide: function () {
+            console.log("after hide");
+        },
+        beforeHourSelect: function () {
+            console.log("before hour selected");
+        },
+        afterHourSelect: function () {
+            console.log("after hour selected");
+        },
+        beforeDone: function () {
+            console.log("before done");
+        },
+        afterDone: function () {
+            console.log("after done");
+        }
+    })
+        .find('input').change(function () {
+            console.log(this.value);
+        });
+
+    // Manually toggle to the minutes view
+    $('#check-minutes').click(function (e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show')
+                .clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datepicker();
+        $('#dateFrom').datepicker();
+        $('#dateTo').datepicker();
+    });
+
+</script>
+<script src="~/assets/TimeHour/jquery-clockpicker.min.js"></script>
+<script type="text/javascript">
+    hljs.configure({ tabReplace: '    ' });
+    hljs.initHighlightingOnLoad();
+</script>
+

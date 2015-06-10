@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "_MenuAdmin1";
+    Layout = null;
+}
+<link href="~/Content/menu/styles.css" rel="stylesheet" />
+<script src="~/Content/menu/script.js"></script>
+<link href="~/Content/menu/css/menu.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css">
+
+<div class="container-fluid">
+    <ul id="nav">
+        <li>@Html.ActionLink("DashBoard", "Index", "DashBoard")</li>
+        <li>
+            <a href="#s2">Leave</a>
+            <span id="s2"></span>
+            <ul class="subs">
+                <div id='cssmenu'>
+                    <ul>
+                        <li>@Html.ActionLink("My Leave", "MyLeave", "Leave")</li>
+                        <li>@Html.ActionLink("Apply for Leave ", "CreateRequest", "Leave")</li>
+                    </ul>
+                </div>
+            </ul>
+        </li>
+        <li>
+            <a href="#s2">Payslip</a>
+            <span id="s2"></span>
+            <ul class="subs">
+                <div id='cssmenu'>
+                    <ul>
+                        @*<li>@Html.ActionLink("Configuration", "Index", "DashBoard")</li>
+                        <li>@Html.ActionLink("My PaySlip", "Index", "DashBoard")</li>*@
+                        @*<li>@Html.ActionLink("Generate Salary Slip", "Index", "DashBoard")</li>*@
+                        <li><a href="#">My PaySlip</a></li>
+    
+                    </ul>
+                </div>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#s2">Performance</a>
+            <span id="s2"></span>
+            <ul class="subs">
+                <div id='cssmenu'>
+                    <ul>
+                        <li>@Html.ActionLink("Employee Quadrants", "EmployeeQuadrants", "QuadrantMeasures")</li>
+                    </ul>
+                </div>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#s2">Appriasal</a>
+            <span id="s2"></span>
+            <ul class="subs">
+                <div id='cssmenu'>
+                    <ul>
+                        <li><a href="#">Client Feedback</a></li>
+                        <li><a href="#">Manager Review</a></li>
+                        @*<li>@Html.ActionLink("Client Feedback", "CreateEmployee", "Employee")</li>
+                        <li>@Html.ActionLink("Manager Review", "Client", "Client")</li>*@
+                    </ul>
+                </div>
+            </ul>
+        </li>
+     
+        <li>
+            <a href="#s2">TimeSheet</a>
+            <span id="s2"></span>
+            <ul class="subs">
+                <div id='cssmenu'>
+                    <ul>
+                        <li>@Html.ActionLink("MyTimeSheet", "MyTimeSheet", "TimeSheet")</li>
+                        <li>@Html.ActionLink("Review Timesheet", "ReviewTimeSheet", "TimeSheet")</li>
+
+                    </ul>
+                </div>
+
+            </ul>
+        </li>
+        <li style="float:right">
+            <a href="#s2">Account</a>
+            <span id="s2"></span>
+            <ul class="subs" style="float:right">
+                <div id='cssmenu' style="float:right">
+                    <ul>
+                        <li>@Html.ActionLink("MyProfile", "Profile", "DashBoard")</li>
+                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                        <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
+                    </ul>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</div>
+

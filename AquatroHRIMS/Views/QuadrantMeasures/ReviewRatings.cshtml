@@ -1,0 +1,11 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+     @{
+         
+         Layout = "~/Views/Shared/_Home.cshtml";
+     }     
+ <div>        
+     @{Html.RenderPartial("ManagersComment",Model);}     
+ </div>
+<div>  
+    @{Html.RenderPartial("EmployeeAcceptance", Model);}
+</div>

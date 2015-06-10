@@ -1,0 +1,322 @@
+﻿@model AquatroHRIMS.ViewModel.ProjectViewModel
+@{
+    ViewBag.Title = "AddProject";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<script>
+    $(function () {
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        $("#ddlinternalhead").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnInternalhrad").css("display", "block");
+
+            } else {
+                $("#spnInternalhrad").css("display", "none");
+            }
+        });
+        $("#ddlclient").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnclient").css("display", "block");
+
+            } else {
+                $("#spnclient").css("display", "none");
+            }
+        });
+        $("#ddlexternalhead").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnexternalhead").css("display", "block");
+
+            } else {
+                $("#spnexternalhead").css("display", "none");
+            }
+        });
+
+        $("#ddlStatus").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnStatus").css("display", "block");
+
+            } else {
+                $("#spnStatus").css("display", "none");
+            }
+        });
+    });
+
+    function fnValidation() {
+        var flag = 0;
+        if ($("#ddlinternalhead option:selected").val() != 0) {
+            $("#spnInternalhrad").css("display", "none");
+        }
+        else {
+            $("#spnInternalhrad").css("display", "block");
+            flag++;
+        }
+        if ($("#ddlclient option:selected").val() != 0) {
+            $("#spnclient").css("display", "none");
+        }
+        else {
+            $("#spnclient").css("display", "block");
+            flag++;
+        }
+        if ($("#ddlexternalhead option:selected").val() != 0) {
+            $("#spnexternalhead").css("display", "none");
+        }
+        else {
+            $("#spnexternalhead").css("display", "block");
+            flag++;
+        }
+        if ($("#ddlStatus option:selected").val() != 0) {
+            $("#spnStatus").css("display", "none");
+        }
+        else {
+            $("#spnStatus").css("display", "block");
+            flag++;
+        }
+        if (flag > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    $(document).ready(function () {
+
+
+        $("#txtProjectEndDate").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });;
+        $("#txtProjectStartDate").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });;
+
+        $("#txtProjectEndDate").change("input", function () {
+            var startDate = new Date($("#txtProjectStartDate").val().toString('MM-dd-yyyy'));
+            var endDate = new Date($("#txtProjectEndDate").val().toString('MM-dd-yyyy'));
+
+            if (startDate >= endDate) {
+
+                $("#spnDateValid1").show();
+                $("#spnMsg").hide();
+                return false;
+            }
+            else {
+                if (endDate == "Invlid Date") {
+                    $("#spnMsg").hide();
+                }
+                $("#spnDateValid1").hide();
+            }
+        });
+        $("#txtProjectStartDate").change("input", function () {
+            var startDate = new Date($("#txtProjectStartDate").val().toString('MM-dd-yyyy'));
+            var endDate = new Date($("#txtProjectEndDate").val().toString('MM-dd-yyyy'));
+
+            if (startDate >= endDate) {
+                $("#spnDateValid1").show();
+                $("#spnMsg").hide();
+                return false;
+            }
+            else {
+                $("#spnMsg").show();
+                $("#spnDateValid1").hide();
+            }
+        });
+    });
+
+</script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+                @Html.ActionLink("Project List", "ProjectList", "Project")
+            </div>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Add Project</legend>
+
+                @using (Ajax.BeginForm("AddProject", "Project", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+                {
+                    <div id="divResult">
+
+                    </div>
+
+                    <div class="form-horizontal">
+                        <div style="height:15px"></div>
+                        @Html.HiddenFor(m=>m.hdnProjectID)
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.objProject.ProjectName, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.objProject.ProjectName, new { @class = "form-control", @placeholder = " Project Name ", id = "txtProjectName", minlength = "2", maxlength = "25" })
+                                    <span style="color:red"> @Html.ValidationMessageFor(model => model.objProject.ProjectName)</span>
+
+                                </div>
+                                @Html.LabelFor(model => model.objProject.InternalHead, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.SelectedInternalHead, new SelectList(Model.Internalheadlist, "Value", "Text", ViewBag.InternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", Id = "ddlinternalhead" })
+                                    @Html.ValidationMessageFor(model => model.objProject.InternalHead)
+                                    <span id="spnInternalhrad" class="clr" style="display: none; color: red;">Please select department</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.objProject.ClientID, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.SelectedClient, new SelectList(Model.ClientList, "Value", "Text", ViewBag.ClientID), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlclient" })
+                                    @Html.ValidationMessageFor(model => model.objProject.InternalHead)
+                                    <span id="spnclient" class="clr" style="display: none; color: red;">Please select department</span>
+                                </div>
+
+                                @Html.LabelFor(model => model.objProject.ExternalHead, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.SelectedExternalHead, new SelectList(Model.ExternalHeadList, "Value", "Text", ViewBag.ExternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", @Id = "ddlexternalhead" })
+                                    @Html.ValidationMessageFor(model => model.objProject.ExternalHead)
+                                    <span id="spnexternalhead" class="clr" style="display: none; color: red;">Please select department</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+
+                                @Html.LabelFor(model => model.objProject.StartDate, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.objProject.StartDate, new { @class = "form-control", id = "txtProjectStartDate", @placeholder = "mm/dd/yyyy", @readonly = true })
+                                    <span style="color:red">   @Html.ValidationMessageFor(model => model.objProject.StartDate)</span>
+                                </div>
+
+                                @Html.LabelFor(model => model.objProject.EndDate, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.objProject.EndDate, new { @class = "form-control", id = "txtProjectEndDate", placeholder = "mm/dd/yyyy", @readonly = true })
+                                    <span style="color:red" id="spnMsg">
+                                        @Html.ValidationMessageFor(model => model.objProject.EndDate)
+                                    </span>
+                                    <span id="spnDateValid1" style="display: none; color:red">End date should be greater than start date</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+
+                                @Html.LabelFor(model => model.objProject.status, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(Model.StatusList, "Value", "Text", ViewBag.status), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlStatus" })
+                                    @Html.ValidationMessageFor(model => model.objProject.status)
+                                    <span id="spnStatus" class="clr" style="display: none; color: red;">Please select department</span>
+                                </div>
+
+                                @Html.LabelFor(model => model.objProject.Description, new { @class = "col-md-2" })
+                                <div class="col-md-3">
+                                    @Html.TextAreaFor(model => model.objProject.Description, new { @class = "form-control ", @placeholder = " Project Description ", id = "txtProjectDescription" })
+                                    <span style="color:red"> @Html.ValidationMessageFor(model => model.objProject.Description)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-5 col-md-10">
+                            @*<input type="submit" value="Create" id="btnCreate" class="btn btn-primary" onclick="javascript:fnValidation();" />
+
+                            <input type="reset" value="Reset" class="btn btn-primary" onclick="fnProjectReset();" />*@
+                            <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                            @if (Model.hdnProjectID == null)
+                            {
+
+                               <input type="submit" value="Create" id="btnCreate" class="btn btn-primary" onclick="javascript:fnValidation();" />
+
+                                <input type="reset" value="Reset" class="btn btn-primary" onclick="fnProjectReset()" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Update " id="btnUpdate" onclick="fnValidation()" class="btn btn-primary" />
+
+                                <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("ProjectList", "Project")'" />
+                            }
+
+
+                        </div>
+
+                    </div>
+
+
+                }
+
+
+            </fieldset>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    //Reset Fields of Add Project Function:-
+    function fnProjectReset() {
+        $(".field-validation-error").text('');
+        $("#spnMessage").hide();
+        $("#txtProjectName").val("");
+        $("#txtProjectStartDate").val("");
+        $("#txtProjectEndDate").val("");
+        $("#ddlStatus").val("");
+        $("#txtProjectDescription").val("");
+        $(".clr").css("display", "none");
+        $('select').val('').trigger('chosen:updated');
+
+    }
+    function Begin() {
+        var check = fnValidation();
+        return check;
+    }
+    function Success(data) {
+        var result = divResult.textContent
+
+        if (result == "1") {
+            divResult.textContent = '';
+            alert("Project added successfully ");
+            fnProjectReset();
+        }
+        if (result == "2") {
+            alert("Please fill all deatils.");
+            divResult.textContent = '';
+        }
+        if (result == "3") {
+            divResult.textContent = '';
+            alert("Project updated sucessfully.");
+            window.location.href = '@Url.Action("ProjectList", "Project")';
+          
+        }
+    }
+    function Complete() {
+    }
+</script>
+

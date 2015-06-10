@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "HolidayList";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#ProjectTable').dataTable();
+    });
+</script>
+
+@model  IEnumerable<AquatroHRIMS.Models.HolidayList>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+                    @Html.ActionLink("Create Holiday", "CreateHolidayList", "Leave")
+                </div>
+        </div>
+        <div class="col-md-12">
+            <table id="ProjectTable" class="table table-striped table-bordered " cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Occassion
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Occassion)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                        
+                                <a href="javascript:void()" onclick="Delete(@item.id)">Delete</a>
+                                </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    function Delete(id) {
+        var conf = confirm("Are you sure you want to delete?");
+        if (conf) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Leave")',
+                dataType: 'json',
+                data: '{"ID":' + id + '}',
+                type: "POST",
+                contentType: 'application/json',
+                success: function (data) {
+                    alert('Holiday deleted successfully.');
+                    window.location.href = '@Url.Action("HolidayList", "Leave")';
+
+                },
+                error: function (xhr, status, err) {
+                    if (xhr.status == "590") {
+
+                    }
+                    else {
+                        alert('Oops,Something went wrong.Please try after sometime.');
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+
+</script>

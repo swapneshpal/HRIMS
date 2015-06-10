@@ -1,0 +1,251 @@
+﻿@model AquatroHRIMS.Models.EmpEducationDetails
+<script>
+    function clear() {
+
+        alert('Data saave Successfully')
+        $("#txthdegree").prop('disabled', true);
+        $("#txthspecialization").prop('disabled', true);
+        $("#passyear").prop('disabled', true)
+        $("#txtinstitute").prop('disabled', true);
+        $("#txtpercentage").prop('disabled', true);
+
+        $("#txtSecondhigestdegree1").prop('disabled', true);
+        $("#txtHighSepecilization").prop('disabled', true);
+        $("#txthighpassyear").prop('disabled', true);
+        $("#txtHighInstitute").prop('disabled', true);
+        $("#txthightPercent").prop('disabled', true);
+
+        $("#txtSecondhigestdegree").prop('disabled', true);
+        $("#txtsecPassyear").prop('disabled', true);
+        $("#txtSecInstitute").prop('disabled', true);
+        $("#txtSecPercentInstitute").prop('disabled', true);
+        $("#btnQualiUpdate").hide();
+        $("#btnProfCancel").hide();
+        $("#btnQualiEdit").show();
+    }
+
+    $(document).ready(function () {
+        $("#txthdegree").prop('disabled', true);
+        $("#txthspecialization").prop('disabled', true);
+        $("#passyear").prop('disabled', true);
+        $("#txtinstitute").prop('disabled', true);
+        $("#txtpercentage").prop('disabled', true);
+
+        $("#txtSecondhigestdegree1").prop('disabled', true);
+        $("#txtHighSepecilization").prop('disabled', true);
+        $("#txthighpassyear").prop('disabled', true);
+        $("#txtHighInstitute").prop('disabled', true);
+        $("#txthightPercent").prop('disabled', true);
+
+        $("#txtSecondhigestdegree").prop('disabled', true);
+        $("#txtsecPassyear").prop('disabled', true);
+        $("#txtSecInstitute").prop('disabled', true);
+        $("#txtSecPercentInstitute").prop('disabled', true);
+
+        $("#btnQualiUpdate").hide();
+        $("#btnQualiCancel").hide();
+        $("#btnQualiEdit").show();
+
+
+
+        $("#spnstrat").css("display", "none");
+        $("#spnstrat").hide();
+    });
+    function fnQualiEditClick() {
+        $(".field-validation-error").text('');
+        $("#txthdegree").prop('disabled', false);
+        $("#txthspecialization").prop('disabled', false);
+        $("#passyear").prop('disabled', false)
+        $("#txtinstitute").prop('disabled', false);
+        $("#txtpercentage").prop('disabled', false);
+
+        $("#txtSecondhigestdegree1").prop('disabled', false);
+        $("#txtHighSepecilization").prop('disabled', false);
+        $("#txthighpassyear").prop('disabled', false);
+        $("#txtHighInstitute").prop('disabled', false);
+        $("#txthightPercent").prop('disabled', false);
+
+        $("#txtSecondhigestdegree").prop('disabled', false);
+        $("#txtsecPassyear").prop('disabled', false);
+        $("#txtSecInstitute").prop('disabled', false);
+        $("#txtSecPercentInstitute").prop('disabled', false);
+
+        $("#btnQualiUpdate").show();
+        $("#btnQualiCancel").show();
+        $("#btnQualiEdit").hide();
+        return false;
+
+    }
+    function fnQualiCancelClick() {
+        $(".field-validation-error").text('');
+        window.history.go();
+        $("#txthdegree").prop('disabled', true);
+        $("#txthspecialization").prop('disabled', true);
+        $("#passyear").prop('disabled', true)
+        $("#txtinstitute").prop('disabled', true);
+        $("#txtpercentage").prop('disabled', true);
+
+        $("#txtSecondhigestdegree1").prop('disabled', true);
+        $("#txtHighSepecilization").prop('disabled', true);
+        $("#txthighpassyear").prop('disabled', true);
+        $("#txtHighInstitute").prop('disabled', true);
+        $("#txthightPercent").prop('disabled', true);
+
+        $("#txtSecondhigestdegree").prop('disabled', true);
+        $("#txtsecPassyear").prop('disabled', true);
+        $("#txtSecInstitute").prop('disabled', true);
+        $("#txtSecPercentInstitute").prop('disabled', true);
+
+        $("#btnQualiUpdate").hide();
+        $("#btnQualiCancel").hide();
+        $("#btnQualiEdit").show();
+
+        return false;
+    }
+
+
+</script>
+<script>
+    
+</script>
+@using (Html.BeginForm("EducationDetail", "DashBoard"))
+{
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Highest Qualification</legend>
+        <div id="divResult"></div>
+        <div class="col-md-12">
+
+            <!-- Form Name -->
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.qualification, new { @class = " control-label", style = "padding-top:0px;" })
+                @Html.TextBoxFor(model => model.qualification, new { @class = "form-control", @Placeholder = "Higest Degree", id = "txthdegree", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.qualification)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Specialization, new { @class = "  control-label", style = "padding-top:0px;" })
+                @Html.TextBoxFor(model => model.Specialization, new { @class = "form-control", @Placeholder = "Specialization", id = "txthspecialization", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.Specialization)</span>
+
+            </div>
+            <!-- Text input-->
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PassingYear, new { @class = "  control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.PassingYear, new { @class = "form-control", @Placeholder = "Passing Year", id = "passyear" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.PassingYear)</span>
+
+            </div>
+
+            @*</form>*@
+        </div><!-- /.col-lg-12 -->
+
+        <div class="col-md-12">
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.InstituteName, new { @class = "  control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.InstituteName, new { @class = "form-control", @Placeholder = "Institute", id = "txtinstitute", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.InstituteName)</span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Percentage, new { @class = " control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.Percentage, new { @class = "form-control", @Placeholder = "Percentage", id = "txtpercentage" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.Percentage)</span>
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Higher Secondary / Diploma</legend>
+        <div class="col-md-12">
+
+            <!-- Form Name -->
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.HighlySecqualification, new { @class = " control-label", style = "padding-top:0px;" })
+                @Html.TextBoxFor(model => model.HighlySecqualification, new { @class = "form-control", @Placeholder = "Degree", id = "txtSecondhigestdegree" ,minlength = "2"})
+                <span style="color:red">@Html.ValidationMessageFor(model => model.HighlySecqualification)</span>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.HighlySecSpecialization, new { @class = "  control-label", style = "padding-top:0px;" })
+                @Html.TextBoxFor(model => model.HighlySecSpecialization, new { @class = "form-control", @Placeholder = "Specialization", id = "txtHighSepecilization", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.HighlySecSpecialization)</span>
+
+            </div>
+            <!-- Text input-->
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.HighlySecPassingYear, new { @class = "  control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.HighlySecPassingYear, new { @class = "form-control", @Placeholder = "Passing Year", id = "txthighpassyear" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.HighlySecPassingYear)</span>
+
+            </div>
+
+            @*</form>*@
+        </div><!-- /.col-lg-12 -->
+
+        <div class="col-md-12">
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.HighlySecInstituteName, new { @class = "  control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.HighlySecInstituteName, new { @class = "form-control", @Placeholder = "Institute", id = "txtHighInstitute", minlength = "2" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.HighlySecInstituteName)</span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.HighlySecPercentage, new { @class = " control-label", @for = "textinput" })
+                @Html.TextBoxFor(model => model.HighlySecPercentage, new { @class = "form-control", @Placeholder = "Percentage", id = "txthightPercent" })
+                <span style="color:red">@Html.ValidationMessageFor(model => model.HighlySecPercentage)</span>
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Secondary (S.S.C.)</legend>
+        <div class="col-md-12">
+            <fieldset>
+                <!-- Form Name -->
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Secqualification, new { @class = " control-label", @for = "textinput" })
+                    @Html.TextBoxFor(model => model.Secqualification, new { @class = "form-control", @Placeholder = "Degree", id = "txtSecondhigestdegree1", minlength = "2" })
+                    <span style="color:red">@Html.ValidationMessageFor(model => model.Secqualification)</span>
+                </div>
+                <!-- Text input-->
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.SecPassingYear, new { @class = " control-label", @for = "textinput" })
+                    @Html.TextBoxFor(model => model.SecPassingYear, new { @class = "form-control", @Placeholder = "Passing Year", id = "txtsecPassyear" })
+                    <span style="color:red">@Html.ValidationMessageFor(model => model.SecPassingYear)</span>
+                </div>
+            </fieldset>
+            @*</form>*@
+        </div><!-- /.col-lg-12 -->
+
+        <div class="col-md-12">
+            <fieldset>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.SecInstituteName, new { @class = " control-label", @for = "textinput" })
+
+                    @Html.TextBoxFor(model => model.SecInstituteName, new { @class = "form-control", @Placeholder = "Institute", id = "txtSecInstitute", minlength = "2" })
+                    <span style="color:red">@Html.ValidationMessageFor(model => model.SecInstituteName)</span>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.SecPercentage, new { @class = " control-label", @for = "textinput" })
+
+                    @Html.TextBoxFor(model => model.SecPercentage, new { @class = "form-control", @Placeholder = "Percentage", id = "txtSecPercentInstitute" })
+                    <span style="color:red">@Html.ValidationMessageFor(model => model.SecPercentage)</span>
+
+                </div>
+            </fieldset>
+        </div>
+
+    </fieldset>
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="pull-right">
+            <button type="submit" id="btnQualiUpdate" class="btn btn-primary" style="display:none" onclick="fnUpdate1();">Update</button>
+            <button type="submit" id="btnQualiCancel" class="btn btn-primary" style="display:none" onclick="javascript:return fnQualiCancelClick();">Cancel</button>
+            <button type="submit" id="btnQualiEdit" class="btn btn-primary" onclick="javascript: return fnQualiEditClick();">Edit</button>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,52 @@
+﻿@model  AquatroHRIMS.ViewModel.PendingLeave
+@{
+    ViewBag.Title = "ViewRequest";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@using (Html.BeginForm("ApproveLeave", "Leave", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+
+            <div class="form-group">
+                <div>
+                    <table id="ProjectAllocationDetailsTable" class="table table-bordered table-condensed table-striped">
+
+                        <tr>
+                            <td><strong>Description</strong></td>
+                            <td>
+                                @Html.DisplayFor(model => model.LeaveReason, new { @class = "form-control", id = "txtdescription" })
+     
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(m => m.LeaveID)
+
+                            </td>
+                            <td>
+                                <input type="submit" value="Approve " id="btnCreate" class="btn btn-primary" />
+                                <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("PendingLeaves", "Leave")'" />
+             
+                            </td>
+                            <td>
+                                @if (ViewBag.Result == "1")
+                                {
+                                    <span style="color:green">Project Assigned sucessfully.</span>
+                                }
+
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+

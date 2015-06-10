@@ -1,0 +1,349 @@
+﻿
+
+<script type="text/javascript">
+
+    var a = 2;
+    $(document).ready(function (e) {
+        $("#btnSave").click(function (e) {
+            var s = fnValidation();
+            if (s)
+            {
+                var tbodyLength = $("#tblPerofession tbody").length;
+                var Exp = { Employee: [] };
+                var jsonObj = [];
+                for (var i = 1; i <= tbodyLength; i++) {
+                    var temp_obj = {};
+                    var flag = 0;
+                    var temp_obj = {};
+                    temp_obj["CompanyName"] = $("#txtCompanyName" + i).val();
+                    temp_obj["Designation"] = $("#txtDesignation" + i).val();
+                    temp_obj["FromDate"] = $("#txtFromdate" + i).val();
+                    temp_obj["EndDate"] = $("#txtEndDate" + i).val();
+                    jsonObj.push(temp_obj);
+
+                }
+                this.form.action = '/DashBoard/EmpProfessional?Professional=' + JSON.stringify(jsonObj);
+                this.form.submit();
+            }
+            else {
+                return false;
+            }
+            
+        });
+
+        //var tbodyLength = $("#tblPerofession tbody").length;
+        //var Count = tbodyLength + 1;
+
+
+        //removetable();
+   
+      
+    });
+
+
+    $(document).ready(function (e) {
+        $("#txtFromdate1").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+
+        $("#txtEndDate1").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+    });
+    function fnAddNew() {
+
+        var tbodyLength = $("#tblPerofession tbody").length;
+        var span = 0;
+        var table = document.getElementById("tblPerofession");
+        var Count = tbodyLength + 1;
+
+        var tbody = document.createElement("tbody");
+        tbody.setAttribute("id", "tbody" + Count);
+        
+
+        var rowCount = tbody.rows.length;
+        var row = tbody.insertRow(rowCount);
+        var idRowCount = rowCount + 1;
+
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("label");
+        element1.id = "lblCompanyName" + Count;
+        element1.innerText = "Company Name";
+
+        cell1.appendChild(element1);
+
+        var cell2 = row.insertCell(1);
+        var element2 = document.createElement("label");
+        element2.id = "lblDesignation" + Count;
+        element2.innerText = "Designation";
+        cell2.appendChild(element2);
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+
+        var cell5 = row.insertCell(0);
+        var element5 = document.createElement('input');
+        var element20 = document.createElement('span');
+        element5.id = "txtCompanyName" + Count;
+        element5.type = 'text';
+        element5.className = "form-control required";
+        element5.placeholder = "Company Name";
+        element20.id = "spncompany" + span++;
+        element20.fontcolor = "red";
+        cell5.appendChild(element5);
+
+
+        var cell6 = row.insertCell(1);
+        var element6 = document.createElement('input');
+        var element21 = document.createElement('span');
+        element6.id = "txtDesignation" + Count;
+        element6.rows = "5";
+        element6.className = "form-control required";
+        element6.placeholder = "Designation";
+        element21.id = "spndesignation" + span++;
+        element21.fontcolor = "red";
+        cell6.appendChild(element6);
+
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+        var cell13 = row.insertCell(0);
+   
+        var element13 = document.createElement("label");
+        element13.id = "lblFromDate" + Count;
+        element13.innerText = "From Date";
+        cell13.appendChild(element13);
+
+
+        var cell14 = row.insertCell(1);
+        var element14 = document.createElement("label");
+        element14.id = "lblTodate" + Count;
+        element14.innerText = "End Date";
+        cell14.appendChild(element14);
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+        var cell7 = row.insertCell(0);
+        var element7 = document.createElement('input');
+        var element22 = document.createElement('span');
+        element7.id = "txtFromdate" + Count;
+        element7.rows = "5";
+        element7.className = "form-control";
+        element7.readOnly = "readonly";
+        element7.placeholder = "mm/dd/yyyy";
+        element22.id = "spnstrat1" + span++;
+        element22.innerText = "Please enter valid input";
+        cell7.appendChild(element7);
+        cell7.appendChild(element22);
+        span--;
+        element22.hidden = "span";                  //hide span on dynamic span
+        $("#spnstrat12").css('color', 'red');
+
+        
+        var cell8 = row.insertCell(1);
+        var element8 = document.createElement('input');
+        var element23 = document.createElement('span');
+        element8.id = "txtEndDate" + Count;
+        element8.rows = "5";
+        element8.className = "form-control required";
+        element8.readOnly = "readonly";
+        element8.placeholder = "mm/dd/yyyy";
+        element23 = "spnend1" + span++;
+        element23.fontcolor = "red";
+        cell8.appendChild(element8);
+        element8.rows = 4;
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+        var cell50 = row.insertCell(0);
+        var element50 = document.createElement("button");
+        element50.id = "btnremove" + Count;
+        element50.className = "btnRemove";
+        element50.innerText = "Remove";
+        var i = "tbody";
+       
+
+        cell50.appendChild(element50);
+        table.appendChild(tbody);
+        element50.onclick = removetable(tbody);
+        $("#txtFromdate" + a).datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+        $("#txtEndDate" + a).datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+        a++;
+        $("#spnstrat12").css('color', 'red');
+
+        //form validation ajax form
+    }
+    function fnValidation() {
+        var flag = false;
+        var alphabates = /^[a-zA-Z0-9 ]+$/;
+        var tbodyLength = $("#tblPerofession tbody").length;
+        for (i = 1; i <= tbodyLength; i++) {
+            if ($("#txtDesignation" + i).val() == "" || $("#txtDesignation" + i).val().length < 2 )
+            {
+               
+                flag = true;
+            }
+            //if ($("#txtDesignation" + i).val() == /^[a-zA-Z0-9 ]+$/)
+            //{
+            //    alert($("#txtDesignation" + i).val())
+            //    flag = true;
+            //}
+            if ($("#txtCompanyName" + i).val() == "" || $("#txtCompanyName" + i).val().length < 2) {
+
+                flag = true;
+            }
+            if ($("#txtFromdate" + i).val() == "" || $("#txtFromdate" + i).val() > $("#txtEndDate" + i).val()) {
+
+                flag = true;
+            }
+            if ($("#txtEndDate" + i).val() == "") {
+
+                flag = true;
+            }
+        }
+        if (flag == true) {
+            $("#errorMsg").text("Please provide correct data in correct format...");
+            return false;
+        } else {
+            $("#errorMsg").text("");
+            return true;
+        }
+    }
+
+    //$(document).ready(function () {
+    //    $(this).on("click", function () {
+    //        alert('test')
+    //        var a = $(this).attr("id");
+    //        alert(a);
+    //    });
+    //})
+    var s = 1;
+    function removetable(s)
+    {
+        var dd = 0;
+        if (dd < 1) {
+            
+            $(".btnRemove").on("click", function () {
+                var a = $(this).attr("id");
+                var st = a.substr(9, a.length);
+                $("#tbody" + st).remove();
+            })
+            
+        }
+     
+        dd++;
+           
+        
+ 
+        }
+</script>
+
+<style>
+    .labelName {
+        font-weight: bold;
+    }
+</style>
+@using (Ajax.BeginForm("EmpProfessional", "DashBoard", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+{
+    <div id="divResult">
+
+    </div>
+    <div class="container" id="container2">
+        <br>
+        <div class="panel-group" id="accordion">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Professional Experience</legend>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="bs-example col-sm-8">
+                            <table class="table table-bordered" id="tblPerofession">
+                                <tbody>
+                                    <tr>
+                                        <td><label>Company Name</label></td>
+                                        <td><label>Designation</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control required" id="txtCompanyName1" placeholder="Company Name" />
+                                            <span style=" display:none; color: red" id="spncompany1">Please enter company name</span>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control required" id="txtDesignation1" placeholder="Designation" />
+                                            <span style="display: none; color: red" id="spndesignation1">Please enter designation</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td><label>From Date</label></td>
+                                        <td>
+                                            <label>To Date</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control required" id="txtFromdate1" readonly="readonly" placeholder="mm/dd/yyyy" />
+                                            <span style=" display: none; color: red" id="spnstrat1">Please select start date</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control required" id="txtEndDate1" readonly="readonly" placeholder="mm/dd/yyyy" />
+                                            <span style="display: none; color: red; " id="spnend1">Please select end date</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">@*<input type="submit" value="Remove" id="btnremove1" />*@ </td>
+                                    </tr>
+                                </tbody>
+                    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="errorMsg" style="color:red">
+
+                </div>
+            </fieldset>
+            
+            <br>
+            <div class="container">
+                <div class="col-lg-12">
+                    <input type="button" id="btnAddNew" class="btn btn-primary" value="Add Experience" onclick="fnAddNew()">
+                    <input type="submit" id="btnSave" class="btn btn-primary" value="Save" onclick="return fnValidation()" />
+                   
+                </div>
+            </div>
+            <br>
+        </div>
+        <br>
+    </div>
+}
+<script>
+    function Begin() {
+        return false;
+
+    }
+    function Success(data) {
+        $("#divResult").remove();
+    }
+</script>

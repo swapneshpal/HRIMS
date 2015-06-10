@@ -1,0 +1,188 @@
+﻿@model AquatroHRIMS.ViewModel.ProjectViewModel
+@{
+    ViewBag.Title = "AssignProject";
+    Layout = "~/Views/Shared/_Home.cshtml";
+   
+}
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+
+<link href="~/Content/sumoselect.css" rel="stylesheet" />
+<script src="~/Content/jquery.sumoselect.js"></script>
+<script>
+    $(document).ready(function () {
+
+        window.testSelAll = $('.testSelAll').SumoSelect({ okCancelInMulti: true, selectAll: true });
+
+
+        $("#ddlProject").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnproject").css("display", "block");
+
+            } else {
+                $("#spnproject").css("display", "none");
+            }
+        });
+
+        $("#ddlEmplst").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == 0) {
+                $("#spnemp").css("display", "block");
+
+            } else {
+                $("#spnemp").css("display", "none");
+            }
+        });
+
+        $("#txtdescription").change(function () {
+            if ($("#txtdescription").val().trim = "") {
+                $("#spndes").css("display", "block");
+            } else {
+                $("#spndes").css("display", "none");
+            }
+        });
+
+    });
+
+    
+
+</script>
+
+
+@using (Ajax.BeginForm("AssignProject", "Project", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+{
+        <div id="divResult">
+
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="form-group">
+                <div>
+                    <table id="ProjectAllocationDetailsTable" class="table table-bordered table-condensed table-striped">
+                        <tr>
+                            <td><strong>Project Name</strong></td>
+                         
+                            <td>
+                                @Html.DropDownListFor(m => m.SelectedProject, new SelectList(Model.ProjectList, "Value", "Text", Model.ProjectList.SelectedValue), "-select-", new { @class = "form-control chzn-select-deselect", id = "ddlProject" })
+                                <span id="spnproject" style="display: none; color: red;">Please select project</span>
+                            </td>
+                            <td><strong>Employee Name</strong></td>
+                            <td>
+
+                                @Html.DropDownListFor(model => model.SelectedEmpList, new SelectList(Model.EmpList, "Value", "Text", Model.EmpList.SelectedValue), new { @class = "testSelAll form-control", id = "ddlEmplst",multiple="multiple" })
+                                <span id="spnemp" style="display: none; color: red;">Please select employee</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Description</strong></td>
+                            <td>
+                                @Html.TextAreaFor(model => model.ProjectDescription, new { @class = "form-control", id = "txtdescription" })
+                                @*@Html.ValidationMessageFor(model => model.ProjectDescription)*@
+                                <span id="spndes" style="display: none; color: red;">Please enter project description</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                                <input type="submit" value="Assign " id="btnCreate" onclick="return validate();" class="btn btn-primary" />
+                                <input type="reset" value="Reset " id="btnrest" onclick="return fnreset()" class="btn btn-primary" />
+                            </td>
+                            <td>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+           
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+    });
+
+</script>
+
+<script>
+    function validate() {
+   
+        flag = 0;
+        if ($("#ddlProject option:selected").val() != 0) {
+            $("#spnproject").css("display", "none");
+        }
+        else {
+            $("#spnproject").css("display", "block");
+            flag++;
+        }
+
+        if (typeof $("#ddlEmplst option:selected").val() !== "undefined") {
+            $("#spnemp").css("display", "none");
+        }
+        else {
+            $("#spnemp").css("display", "block");
+            flag++;
+        }
+
+        if ($("#txtdescription").val()== "") {
+            $("#spndes").css("display", "block");
+            flag++;
+        }
+        else {
+            $("#spndes").css("display", "none");
+        }
+        if (flag > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+</script>
+<script>
+    function Begin() {
+        
+            $("#spnLoder").show();
+            $('#btnCreate').attr('disabled', 'disabled');
+  
+    }
+    function Success(data) {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $("#divResult").remove();
+        alert("Project added successfully ");
+        fnreset();
+
+    }
+    function Complete() {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $('#btnUpdate').removeAttr("disabled");
+    }
+
+    function fnreset() {
+        var obj = [];
+        $('option:selected').each(function () {
+            obj.push($(this).index());
+        });
+
+        for (var i = 0; i < obj.length; i++) {
+            $('.testSelAll')[0].sumo.unSelectItem(obj[i]);
+        }
+        $('select').val('').trigger('chosen:updated');
+        $("#txtdescription").val('');
+        $("#spnmessage").hide();
+        $("#spnemp").css("display", "none");
+        $("#spnproject").css("display", "none");
+        $("#spndes").css("display", "none");
+    }
+</script>

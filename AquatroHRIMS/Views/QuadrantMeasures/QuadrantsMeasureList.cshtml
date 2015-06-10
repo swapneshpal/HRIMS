@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "QuadrantsMeasureList";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $('#QuadrantmeasureTable').dataTable();
+    });
+</script>
+<script>
+    function Delete(id) {
+
+        var conf = confirm("Are you sure you want to delete?");
+        if (conf){
+
+        $.ajax({
+            url: '@Url.Action("QuadrantDelete", "QuadrantMeasures")',
+            dataType: 'json',
+            data: '{"ID":' + id + '}',
+            type: "POST",
+            contentType: 'application/json',
+            success: function (data) {
+                alert('Quadrant measure deleted successfully.');
+                window.location.href = '@Url.Action("QuadrantsMeasureList", "QuadrantMeasures")';
+            },
+            error: function (xhr, status, err) {
+                if (xhr.status == "590") {
+
+                }
+                else {
+                    alert('Oops,Something went wrong.Please try after sometime.');
+                }
+            }
+        });
+        }
+        else
+            return false;
+    }
+
+</script>
+@model IEnumerable<AquatroHRIMS.ViewModel.QuadrantMeasureList>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+                @Html.ActionLink("Add Quadrant", "setQuadrantMeasures", "QuadrantMeasures")
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table id="QuadrantmeasureTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Quadrrant Name
+                        </th>
+                        <th>
+                            Department Name
+                        </th>
+
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.QuadrantName)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.DepartmentName)
+
+                            </td>
+
+                            <td>
+                                <a href="javascript:void()" onclick="Delete(@item.QuadrantID)">Delete</a>
+                                @*@Html.ActionLink("Delete", "QuadrantDelete", "QuadrantMeasures", new { @id = item.QuadrantID }, null)*@
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

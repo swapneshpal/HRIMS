@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <link href="~/assets/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+
+    @*JS Search facility in Dropdown*@
+
+    <link href="~/assets/lib/chosen/chosen.css" rel="stylesheet" />
+    <script src="~/assets/lib/chosen/chosen.jquery.js"></script>
+
+  @*JS For News Section on DashBoard*@
+<script src="~/Scripts/jquery.bootstrap.newsbox.js"></script>
+<script src="~/Scripts/jquery.bootstrap.newsbox.min.js" type="text/javascript"></script>
+
+    @*JS For Calendar on DashBoard*@
+    <link href="~/assets/lib/fullcalendar-1.6.2/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <script src="~/assets/lib/fullcalendar-1.6.2/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/assets/lib/fullcalendar-1.6.2/fullcalendar/fullcalendar.js"></script>
+
+    @*JS For DataTable*@
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid"><img src="~/Content/Images/logo.jpg" /></div>
+    <div style="float:right;margin-top:-23px;margin-right:20px;">
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            
+          <span style="font-family:Calibri">Welcome:- @HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).sEmailID</span>
+            
+           
+        }
+
+    </div>
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+
+        if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Admin" || HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "HR")
+        {
+            @Html.Partial("_MenuAdmin")
+        }
+        if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Employee") 
+        {
+            @Html.Partial("_MenuEmployee")
+        }
+        if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Supervisor")
+        {
+            @Html.Partial("_Supervisor")
+        }
+    }
+   else {
+
+        @Html.Action("Index","Login")
+        }
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    <script src="~/Scripts/navbar.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+   <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</body>
+</html>

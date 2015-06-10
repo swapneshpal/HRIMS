@@ -1,0 +1,318 @@
+﻿@model AquatroHRIMS.ViewModel.DashBoardView
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@*<div id="divThoughts">
+    <marquee> <h3 class='blink'>@Model.DailyQuates</h3></marquee>
+</div>*@
+<div class="container">
+
+    <div class="row">
+        <div id="divMainDashBoard" class="col-lg-12">
+            <div id="divNews" class="col-md-4">
+                @Html.Partial("News")
+            </div>
+            <div id="divCalendar" class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b><i class="fa fa-calendar"></i> Calendar</b>
+                    </div>
+                    <div style="height:320px">
+                        @Html.Partial("_Calendar")
+                        </div>
+                    </div>
+            </div>
+            <div id="divBirthday" class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>Upcoming Birthdays</b></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <ul class="demo1">
+                                    @if (Model.objBirthDay.Count() > 0)
+                                    {
+                                        foreach (var item in @Model.objBirthDay)
+                                        {
+
+                                            <li class="news-item">
+                                                <table cellpadding="4">
+                                                    <tr>
+                                                        <td><img src="http://192.1681.10/Images/birthday.jpg" width="60" class="img-circle" /></td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <th style="color:#ff6a00"><h4>@item.Name</h4></th>
+                                                                </tr>
+                                                                <tr>
+
+                                                                    <td style="color: #808080; font-style: italic;">@item.DOB</td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <th><span style="color:red">Currently No Birthday In This Month</span></th>
+                                                            </tr>
+
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer"> </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="divMainDashBoard" class="col-lg-12">
+
+            <div id="divAssignProject" class="col-md-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>Assigned Project</b></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <ul class="demo1">
+                                    @if (Model.objAssignProject.Count() > 0)
+                                    {
+                                        foreach (var item in Model.objAssignProject)
+                                        {
+                                            <li class="news-item">
+                                                <table cellpadding="4">
+                                                    <tr>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <th><h4><span style="color:#ff6a00">Project Name : </span> @item.ProjectName</h4></th>
+                                                                </tr>
+                                                                <tr>
+
+                                                                    <td style="color: #808080; font-style: italic;"> @item.Description</td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <th><span style="color:red">Currently No Project Assigned</span></th>
+                                                            </tr>
+
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer"> </div>
+                </div>
+
+            </div>
+            <div id="divLeaveRequest" class="col-md-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>Pending Leave Request</b></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <ul class="demo1">
+                                    @if (Model.objPendingLeave.Count() > 0)
+                                    {
+                                        foreach (var item in Model.objPendingLeave)
+                                        {
+                                            <li class="news-item">
+                                                <table cellpadding="4">
+                                                    <tr>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <th><h4><span style="color:#ff6a00"> @item.LeaveName</h4></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (item.Status == "Pending")
+                                                                    {
+<td style="color: red; font-style: italic;"> @item.Status</td>
+                                                                    }
+                                                                    else
+                                                                    { 
+                                                                    <td style="color: green; font-style: italic;"> @item.Status</td>
+                                                                    }
+                                                                    
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <th><span style="color:red">Currently No Leave Request Pending</span></th>
+                                                            </tr>
+
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer"> </div>
+                </div>
+
+            </div>
+            <div id="divNewJoinee" class="col-md-4 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>New Joinee</b></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <ul class="demo1">
+                                    @if (Model.objNewJoinee.Count() > 0)
+                                    {
+                                        foreach (var item in Model.objNewJoinee)
+                                        {
+                                            <li class="news-item">
+                                                <table cellpadding="4">
+                                                    <tr>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <th><h4><span style="color:#ff6a00">@item.EmployeeCode</h4></th>
+                                                                </tr>
+                                                                <tr>
+
+                                                                    <td><strong style="color: #0072B8">@item.Name</strong></td>
+                                                                </tr>
+                                                                <tr>
+
+                                                                    <td style="color: #808080; font-style: italic;"> @item.DepartmentType</td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <th><span style="color:red">Currently No new joinee</span></th>
+                                                            </tr>
+
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer"> </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="divMainDashBoard" class="col-lg-12">
+
+
+        </div>
+
+    </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $(".demo1").bootstrapNews({
+                newsPerPage: 3,
+                autoplay: true,
+                pauseOnHover: true,
+                direction: 'up',
+                newsTickerInterval: 4000,
+                onToDo: function () {
+                    //console.log(this);
+                }
+            });
+
+
+        });
+    </script>
+
+
+
+

@@ -1,0 +1,60 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+        $("#txtempAcceptance").attr('disabled', 'disabled');
+            $("#txtEmpName").attr('disabled', 'disabled');
+          
+            $("#txtempAcceptance").val($("#hdnEmpAcceptance").val());
+          
+       
+    });
+</script>
+
+@using (Html.BeginForm("ReviewManagersComment", "QuadrantMeasures", FormMethod.Post))
+{
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="bs-example">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <label>Employee Acceptance:</label>
+                                    <br>
+                                    @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                    @Html.TextAreaFor(m => m.objReviewRating.sEmployeeAcceptance, new { @class = "form-control", rows = "5", id = "txtempAcceptance" })
+                                    @Html.HiddenFor(m => m.EmpAcceptance, new {id="hdnEmpAcceptance" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Employee Signature</label></td>
+                                <td>
+                                    @*<input type="text" class="form-control" placeholder="Signature" aria-describedby="basic-addon1">*@
+                                    @*@Html.DisplayFor(m => m.EmployeeName)*@
+                                    @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", id = "txtEmpName" })
+                                    @Html.HiddenFor(m => m.EmployeeName, new {id="hdnEmpName" })
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @Html.HiddenFor(m => m.MgrComment, new { id = "hdnMgrComment" })
+                @Html.HiddenFor(m => m.ratingId, new { id = "hdnRatingId" })
+                @*<div class="container">
+                    <div class="col-lg-12">
+                        <input type="submit" value="Save " id="btnSave" class="btn btn-primary" />
+                        <button type="button" class="btn btn-primary">Submit</button>
+                        <input type="button" class="btn btn-primary" id="back2" value="Back" onclick="location.href = '/QuadrantMeasures/SummaryComments'">
+                        <button type="button" class="btn btn-primary">Cancel</button>
+                    </div>
+                </div>*@
+                <br>
+            </div>
+        </div>
+    </div>
+}
+
+

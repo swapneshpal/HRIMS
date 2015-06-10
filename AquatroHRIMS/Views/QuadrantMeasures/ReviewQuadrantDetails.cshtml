@@ -1,0 +1,160 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+@{
+    ViewBag.Title = "ReviewQuadrantDetails";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<html>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        var count = @Model.QuadList.Count;
+        for(i=1 ;i <= count ; i++ ){
+
+            if($("#hdn"+i).val() !=""){
+                $("#txtManagerComment"+i).val($("#hdn"+i).val());
+                $("#btnUpdate").css("display","block");
+                $("#btnSave").hide();
+            }
+
+            if($("#hdnManagerFlag"+i).val() == "True"){
+                $("#txtManagerComment"+i).attr('disabled', 'disabled');
+                $("#btnUpdate").hide();
+                $("#btnSave").hide();
+                $("#btnSubmit").hide();
+            }
+        }
+
+        if($("#hdnReportingHeadFlag").val() == "True"){
+            $("#btnSave").show();
+        }else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
+            $("#btnSave").hide();
+            $("#btnUpdate").hide();
+            $("#btnSubmit").hide();
+        }
+
+        if( count == 0){
+            $("#divFooter").css("display","none");
+            $("#divData").css("display","block");
+        }
+        else{
+            $("#divFooter").css("display","block");
+            $("#divData").hide();
+        }
+
+    });
+
+    function fnValidateFields()
+    {
+
+        var count = @Model.QuadList.Count;
+        var flag = false;
+        for(i=1; i<= count ;i++)
+        {
+            if($("#txtManagerComment"+i).val() == "")
+            {
+                $("#lbl"+i).css("display","block");
+                flag =true;
+            }
+        }
+        if(flag == true){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    function fnHideErrorMessage(id,value)
+    {
+        var count = id.replace("txtManagerComment","");
+        $("#lbl"+count).css("display","none");
+    }
+</script>
+<head>
+    <title></title>
+</head>
+<body>
+    @using (Html.BeginForm("ReviewQuadrantDetails", "QuadrantMeasures", FormMethod.Post))
+    {
+        <tbody>
+            @foreach (var item in @Model.QuadList)
+            {
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default" id="panel1">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-target="#collapseOne"
+                                   href="#collapseOne">
+                                    Collapsible Group Item # @Html.DisplayFor(modelItem => item.Count)
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="bs-example">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td><label>Performance Quadrant @Html.DisplayFor(modelItem => item.Count)</label></td>
+                                                    <td><label>Quadrant Measure</label></td>
+                                                    <td><label>Employee Accomplishment</label></td>
+                                                    <td rowspan="2">
+                                                        @*@Html.DisplayFor(modelItem => item.StatusName)*@
+                                                        @Html.HiddenFor(m => m.GoalID[item.Count - 1], new { Value = item.GoalId })
+                                                        @Html.HiddenFor(m => m.EmpUniqueGoalID[item.Count - 1], new { Value = item.EmpGoalID })
+                                                        @Html.HiddenFor(m => m.AdminFlag, new { id = "hdnAdminFlag" })
+                                                        @Html.HiddenFor(m => m.ReportingHeadFlag, new { id = "hdnReportingHeadFlag" })
+                                                        @Html.HiddenFor(m => m.hdnEmployeeID)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    @*<td>Skills</td>*@
+                                                    <td>@Html.DisplayFor(modelItem => item.GoalName)</td>
+                                                    <td>
+                                                        @*@Html.TextAreaFor(m => m.measures[0], new { @Value = item.GoalName, id = "txtArea" + item.Count, rows = "5", @class = "form-control" })*@
+                                                        <textarea class="form-control" rows="5" id="comment" disabled="disabled">@Html.DisplayFor(modelItem => item.Measures)</textarea>
+                                                    </td>
+                                                    <td>
+                                                        @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                                        @*@Html.TextAreaFor(m => m.empComments[item.Count - 1], new { rows = "5", @class = "form-control", disabled = "disabled" })*@
+                                                        <textarea class="form-control" rows="5" id="comment" disabled="disabled">@Html.DisplayFor(modelItem => item.empcomment)</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <label>Manager Comments:</label><br>
+                                                        @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                                        @Html.TextAreaFor(m => m.ManagerComments[item.Count - 1], new { rows = "5", @class = "form-control", id = "txtManagerComment" + item.Count, onkeypress = "fnHideErrorMessage(id,value)" })
+                                                        @Html.LabelFor(m => m.ManagerComments, "Please enter Manager Comments.", new { id = "lbl" + @Html.DisplayFor(modelItem => item.Count), style = "display:none; color:red; font-size:12px;" })
+                                                        @Html.HiddenFor(modelItem => item.ManagerComment, new { id = "hdn" + @Html.DisplayFor(modelItem => item.Count) })
+                                                        @Html.HiddenFor(modelItem => item.ManagerFlag, new { id = "hdnManagerFlag" + @Html.DisplayFor(modelItem => item.Count) })
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+
+
+        <div id="divFooter" align="center">
+            <footer>
+
+                <input type="submit" value="Save " id="btnSave" class="btn btn-primary" onclick="return fnValidateFields()" />
+                <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsUpdate/@Model.hdnEmployeeID'; this.form.submit();">
+                <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsSubmit/@Model.hdnEmployeeID'; this.form.submit();">
+                @Html.ActionLink("Next", "ReviewDevelopmentGoal", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" })
+
+            </footer>
+        </div>
+        <div id="divData" style="display:none">
+            No Data Found.
+        </div>
+    }
+
+</body>
+</html>

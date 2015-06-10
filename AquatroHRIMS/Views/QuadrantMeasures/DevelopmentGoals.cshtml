@@ -1,0 +1,317 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+@{
+
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+  
+<style type="text/css">
+    .dyncontrols {
+        display: none;
+        color: red;
+        font-size: 12px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        
+        $("#btnSave").click(function (e) {
+            
+            if (fnValidateFields()) {
+                var tbodyLength = $("#tblDevelopmentPlans tbody").length;
+                var jsonObj = [];
+                for (var i = 1; i <= tbodyLength; i++) {
+                    var temp_obj = {};
+                    temp_obj["GoalName"] = $("#txtGoalName" + i).val();
+                    temp_obj["Action"] = $("#txtAction" + i).val();
+                    temp_obj["Tracking"] = $("#txtTracking" + i).val();
+                    temp_obj["ManagerComment"] = $("#txtManagerComment" + i).val();
+                    temp_obj["StatusList"] = $("#ddlStatusList" + i).val();
+                    jsonObj.push(temp_obj);
+                }
+
+              
+                this.form.action = '../QuadrantMeasures/DevelopmentPlan?DevelopmentPlan=' + JSON.stringify(jsonObj);
+                this.form.submit();
+            }
+        });
+    }); 
+    function fnFillSelectList(element4) {
+        $.ajax({
+            url: '/QuadrantMeasures/getStatusData',
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+               
+                var op = new Option();
+                op.value = 0;
+                op.text = "-- Select --";
+                element4.options.add(op);
+                $.each(data, function (index, optionData) {
+                    var op = new Option();
+                    op.value = optionData.Value;
+                    op.text = optionData.Text;
+                    element4.options.add(op);
+                });
+            },
+            error: function (jqXHR, exception) {
+                //location.href = '/QuadrantMeasures/SummaryComments';
+            }
+        });
+    }
+    function fnAddNew()
+    {
+        var tbodyLength = $("#tblDevelopmentPlans tbody").length;
+        var table = document.getElementById("tblDevelopmentPlans");
+        var Count = tbodyLength + 1;
+
+        var tbody = document.createElement("tbody");
+        tbody.setAttribute("id", "tbody" + Count);
+
+        var rowCount = tbody.rows.length;
+        var row = tbody.insertRow(rowCount);
+        var idRowCount = rowCount + 1;
+
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("label");
+
+        element1.id = "lblGoalName" + Count;
+        element1.innerText = "Development Goal";
+        cell1.appendChild(element1);
+
+        var cell2 = row.insertCell(1);
+        var element2 = document.createElement("label");
+        element2.id = "lblAction" + Count;
+        element2.innerText = "Action Required";
+        cell2.appendChild(element2);
+
+        var cell3 = row.insertCell(2);
+        var element3 = document.createElement("label");
+        element3.id = "lblTracking" + Count;
+        element3.innerText = "Tracking";
+        cell3.appendChild(element3);
+
+        //var cell4 = row.insertCell(3);
+        //cell4.rowSpan = 2;
+        //var element4 = document.createElement("label");
+        //element4.id = "lblTracking" + Count;
+        //element4.innerText = "Tracking";
+        //cell4.appendChild(element4);
+        
+        var cell4 = row.insertCell(3);
+        cell4.rowSpan = 2;
+        var element4 = document.createElement("Select");
+        var abc = fnFillSelectList(element4);      
+        element4.id = "ddlStatusList" + Count;
+        element4.className = "form-control";
+        element4.onchange = function () {
+            $("#lbl" + Count).css("display", "none");
+           
+        }
+
+        var element12 = document.createElement('span');
+        element12.id = "lbl" + Count;
+        element12.innerText = "Please select Status.";
+        element12.className = "dyncontrols";
+
+        cell4.appendChild(element4);
+        cell4.appendChild(element12);
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+        var cell5 = row.insertCell(0);
+        var element5 = document.createElement('input');
+        element5.id = "txtGoalName" + Count;
+        element5.type = 'text';
+        element5.onkeypress = function () {
+            $("#spnGoalName" + Count).css("display", "none");
+           
+        }
+           
+        element5.className = "form-control";
+
+        var element9 = document.createElement('span');
+        element9.id = "spnGoalName" + Count;
+        element9.innerText = "Please enter Development Goal.";
+        element9.className = "dyncontrols";
+        cell5.appendChild(element5);
+        cell5.appendChild(element9);
+
+        var cell6 = row.insertCell(1);
+        var element6 = document.createElement('textarea');
+        element6.id = "txtAction" + Count;
+        element6.rows = "5";
+        element6.className = "form-control";
+        element6.onkeypress = function () {
+            $("#spnAction" + Count).css("display", "none");
+        }
+        var element10 = document.createElement('span');
+        element10.id = "spnAction" + Count;
+        element10.innerText = "Please enter Action Required.";
+        element10.className = "dyncontrols";
+
+        cell6.appendChild(element6);
+        cell6.appendChild(element10);
+
+        var cell7 = row.insertCell(2);
+        var element7 = document.createElement('textarea');
+        element7.id = "txtTracking" + Count;
+        element7.rows = "5";
+        element7.className = "form-control";
+        element7.onkeypress = function () {
+            $("#spnTracking" + Count).css("display", "none");
+        }
+           
+        var element11 = document.createElement('span');
+        element11.id = "spnTracking" + Count;
+        element11.innerText = "Please enter Tracking.";
+        element11.className = "dyncontrols";
+
+        cell7.appendChild(element7);
+        cell7.appendChild(element11);
+
+        rowCount = rowCount + 1;
+        var row = tbody.insertRow(rowCount);
+
+        var cell8 = row.insertCell(0);
+        var label = document.createElement('label');
+        cell8.colSpan = 4;
+        label.innerText = "Manager Comments: ";
+        label.className = "labelName";
+        cell8.appendChild(label);              
+        var element8 = document.createElement('textarea');
+        element8.id = "txtManagerComment" + Count;
+        element8.disabled = "disabled";
+        element8.className = "form-control";
+        element8.rows = 5;       
+        cell8.appendChild(element8);
+
+        table.appendChild(tbody);
+    }
+    function fnValidateFields()
+    {
+        var flag = false;
+        var tbodyLength = $("#tblDevelopmentPlans tbody").length;       
+        for (i = 1; i <= tbodyLength; i++) {           
+            if ($("#txtGoalName"+i).val() == "") {
+                $("#spnGoalName" + i).css("display", "block");
+                flag = true;
+            }
+            if ($("#txtAction"+i).val() == "") {
+                $("#spnAction" + i).css("display", "block");
+                flag = true;
+            }
+            if ($("#txtTracking"+i).val() == "") {
+                $("#spnTracking" + i).css("display", "block");
+                flag = true;
+            }
+            if ($("#ddlStatusList"+i).val() == 0) {
+                $("#lbl" + i).css("display", "block");
+                flag = true;
+            }
+        }
+        if (flag == true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function fnHideErrorMsg(id,value,errorSpan,controlName)
+    {       
+        $("#" + errorSpan).css("display", "none");
+    }    
+</script>
+<style>
+    .labelName{
+        font-weight:bold;
+    }
+</style>
+
+@using (Html.BeginForm("DevelopmentGoals", "QuadrantMeasures", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+
+            <div class="col-md-offset-10">
+                <a href="javascript:void(0)" onclick="location.href = '@Url.Action("DevelopmentGoalList", "QuadrantMeasures")'">Development Goal List </a>
+            </div>
+        </div>
+    </div>
+<div class="container" id="container2">
+    <br>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default" id="panel1">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#Development"
+                       href="#Development">Development Plan</a>
+                </h4>
+            </div>
+            <div id="Development" class="panel-collapse collapse in">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="bs-example col-sm-12">
+                            <table class="table table-bordered" id="tblDevelopmentPlans">
+                                <tbody>
+                                    <tr>
+                                        <td><label>Development Goal</label></td>
+                                        <td><label>Action Required</label></td>
+                                        <td><label>Tracking</label></td>
+                                        <td rowspan="2">
+                                            @Html.DropDownListFor(m => m.goalStatusID, new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList1", onchange = "fnHideErrorMsg(id, value, 'lbl1','ddlStatusList1')" })                                           
+                                            @Html.LabelFor(m => m.goalStatusID, "Please Select Status.", new { id = "lbl1", style = "display:none; color:red; font-size:12px;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <td><input type="text" class="form-control" id="txtGoalName1" onkeypress="fnHideErrorMsg(id, value, 'spnGoalName1','txtGoalName1')" />  
+                                            <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter Development Goal.</span>
+                                        </td>
+                                        <td><textarea class="form-control" rows="5" id="txtAction1" onkeypress="fnHideErrorMsg(id, value, 'spnAction1', 'txtAction1')"></textarea>
+                                            <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                        </td>
+                                        <td><textarea class="form-control" rows="5" id="txtTracking1" onkeypress="fnHideErrorMsg(id, value, 'spnTracking1', 'txtTracking1')"></textarea>
+                                            <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <label>Manager Comments:</label>
+                                            <br>
+                                            <textarea class="form-control" rows="5" id="txtManagerComment1" disabled="disabled"></textarea>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+<table>
+    <tr>
+        <td colspan="4">
+            <label>Attachment</label><br />
+            @Html.TextBoxFor(m => m.File, new { type = "file",@multiple="multiple" })
+        </td>
+    </tr>
+</table>
+        </div>
+        <div class="container">
+            <div class="col-lg-12">
+                <input type="button" id="btnAddNew" class="btn btn-primary" value="Add New" onclick="fnAddNew()">
+                <input type="button" id="btnSave" class="btn btn-primary" value="Save" />
+                @Html.ActionLink("Back", "EmployeeQuadrants", "QuadrantMeasures")
+                @Html.ActionLink("Next", "SummaryComments", "QuadrantMeasures")    
+                @*<button type="button" class="btn btn-primary">Cancel</button>*@
+            </div>
+        </div>
+        <br>        
+    </div>
+    <br>
+</div>
+}

@@ -1,0 +1,179 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+@{
+    ViewBag.Title = "setQuadrantMeasures";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.testSelAll = $('.testSelAll').SumoSelect({ okCancelInMulti: true, selectAll: true });
+    });
+</script>
+<script>
+    $(function () {
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+
+
+        $("#ddlGoalTile").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == "") {
+                $("#spnper").css("display", "block");
+
+            } else {
+                $("#spnper").css("display", "none");
+            }
+        });
+
+        $("#ddlDeptTypeList").change(function () {
+            var val = $('option:selected', this).val();
+            if (val == 0) {
+                $("#spndep").css("display", "block");
+
+            } else {
+                $("#spndep").css("display", "none");
+            }
+        });
+
+        $("#txtMeasures").change(function () {
+            if ($("#txtMeasures").val().trim = "") {
+                $("#spnmeas").css("display", "block");
+            } else {
+                $("#spnmeas").css("display", "none");
+            }
+        });
+    });
+    function validation()
+    {
+        flag = 0;
+        if (typeof $("#ddlDeptTypeList option:selected").val() !== "undefined") {
+            $("#spndep").css("display", "none");
+        }
+        else {
+            $("#spndep").css("display", "block");
+            flag++;
+        }
+
+        if ($("#ddlGoalTile option:selected").val() != 0) {
+            $("#spnper").css("display", "none");
+        }
+        else {
+            $("#spnper").css("display", "block");
+            flag++;
+        }
+
+        if ($("#txtMeasures").val() == "") {
+            $("#spnmeas").css("display", "block");
+            flag++;
+        }
+        else {
+            $("#spnmeas").css("display", "none");
+        }
+
+        if(flag>0)
+        {
+            return false;
+        }
+    }
+
+    
+</script>
+
+
+@using (Html.BeginForm("setQuadrantMeasures", "QuadrantMeasures", FormMethod.Post))
+{
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Set Performance Quadrant</title>
+   
+
+    <link href="~/Content/sumoselect.css" rel="stylesheet" />
+    <script src="~/Content/jquery.sumoselect.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-12" style="float:right">
+            <div></div>
+            <div class="col-md-offset-10">
+                @Html.ActionLink("Quadrant List", "QuadrantsMeasureList", "QuadrantMeasures")
+            </div>
+        </div>
+        <br>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                
+                    <label>Department ID:</label>
+           
+                    @Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "testSelAll form-control ", id = "ddlDeptTypeList", multiple = "multiple" })
+                    
+                    <span id="spndep" style="display: none; color: red;">Please select department list</span>
+
+                </div>
+            <div class="col-md-4">
+              
+                    <label>Performance Quadrant</label>                    
+                    @Html.DropDownListFor(m => m.objEmpQudrants.objGoals, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoalTile", style = "display:inline" })
+
+                <span id="spnper" class="field-validation-valid" style="display: none; color: red;">Please select performance quadrant</span>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="bs-example">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><label>Quadrant Measure</label></td>
+                            </tr>
+                            <tr>
+                                <td>@*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                    @Html.TextAreaFor(m => m.objEmpQudrants.sMeasures, new { id = "txtMeasures", rows = "5", @class = "form-control" })
+                                </td>
+                                
+                            </tr>
+                            <tr><td><span id="spnmeas" style="display: none; color: red;">Please enter quadrants measures </span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-lg-12">
+                @*<button type="button" class="btn btn-primary">Save</button>*@
+                <input type="submit" class="btn btn-primary" value="Save" onclick="return validation();">
+                <button type="button" class="btn btn-primary" onclick="fnreset()">Reset</button>
+                @*<button type="button" class="btn btn-primary">Add New</button>*@
+                @*<button type="button" class="btn btn-primary">Cancel</button>*@
+            </div>
+        </div><br>
+    </div>
+</body>
+</html>
+}
+
+<script>
+    function fnreset() {
+        var obj = [];
+        $('option:selected').each(function () {
+            obj.push($(this).index());
+        });
+
+        for (var i = 0; i < obj.length; i++) {
+            $('.testSelAll')[0].sumo.unSelectItem(obj[i]);
+        }
+        $('select').val('').trigger('chosen:updated');
+        $("#txtMeasures").val('');
+        $("#spnmessage").hide();
+        $("#spndep").css("display", "none");
+        $("#spnper").css("display", "none");
+        $("#spnmeas").css("display", "none");
+
+        $('#ddlGoalTile option:eq(0)').attr('selected', '-selected-');
+        $(".field-validation-valid").css("display", "none");
+    }
+    </script>

@@ -1,0 +1,67 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#hdnMgrComment").val() == "") {          
+            $("#empAcceptance").attr('disabled', 'disabled');
+            $("#txtEmpName").attr('disabled', 'disabled');
+
+        }
+        if ($("#hdnEmpAccept").val() != "") {
+            $("#empAcceptance").val($("#hdnEmpAccept").val());
+            $("#btnSave").hide();
+            $("#btnUpdate").show();
+        }
+        if ($("#hdnEmpFlag").val() == "True") {
+            $("#empAcceptance").attr('disabled', 'disabled');
+        }
+    });
+</script>
+
+@using (Html.BeginForm("EmployeeAcceptance", "QuadrantMeasures", FormMethod.Post))
+{    
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="bs-example">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <label>Employee Acceptance:</label>
+                                        <br>
+                                        @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                        @Html.TextAreaFor(m => m.objReviewRating.sEmployeeAcceptance, new { @class = "form-control", rows = "5", id = "empAcceptance" })
+                                        @Html.HiddenFor(m => m.EmpAcceptance, new { id= "hdnEmpAccept"})
+                                        @Html.HiddenFor(m => m.EmpFlag, new {id="hdnEmpFlag" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Employee Signature</label></td>
+                                    <td>
+                                        @*<input type="text" class="form-control" placeholder="Signature" aria-describedby="basic-addon1">*@
+                                        @*@Html.DisplayFor(m => m.EmployeeName)*@
+                                        @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control", id = "txtEmpName", disabled = "disabled" })
+                                        @Html.HiddenFor(m => m.EmployeeName)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @Html.HiddenFor(m => m.MgrComment, new { id = "hdnMgrComment" })
+                    @Html.HiddenFor(m => m.ratingId, new { id = "hdnRatingId" })
+                    <div class="container">
+                        <div class="col-lg-12">
+                            <input type="submit" value="Save " id="btnSave" class="btn btn-primary" />
+                            <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '../QuadrantMeasures/UpdateEmployeeAcceptance'; this.form.submit();">  
+                            <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '../QuadrantMeasures/EmployeeAcceptanceSubmit'; this.form.submit();">  
+                            @Html.ActionLink("Back", "SummaryComments", "QuadrantMeasures")
+                            @*<button type="button" class="btn btn-primary">Cancel</button>*@
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>    
+}
+
+

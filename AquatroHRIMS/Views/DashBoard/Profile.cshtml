@@ -1,0 +1,51 @@
+﻿@model AquatroHRIMS.ViewModel.ProfileViewModel
+
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#home").addClass("active");
+
+    });
+</script>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Profile</legend>
+    <br>
+    <div class="col-md-12">
+        <div role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" id="tab1" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Personal Details</a></li>
+                <li role="presentation" id="tab2"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Qualification Details</a></li>
+                <li role="presentation" id="tab3"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Work Experience</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="home">
+               
+                         @Html.Partial("PersonalInformation",Model.objEmpPersonal)
+                </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <br><br>
+                        @Html.Partial("QualificationDetail",Model.objEmpEducation)
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">
+                        <br><br>
+                        @Html.Partial("ProfessionalInfo",Model.objEmpProfessional)
+                    </div>
+                </div>
+            @if (TempData["Prof"] != null)
+            { 
+            <script>
+                alert("Data updated sucessfully");
+            </script>
+            }
+
+        </div>
+    </div>
+  
+</fieldset>

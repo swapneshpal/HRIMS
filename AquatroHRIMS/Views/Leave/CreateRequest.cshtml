@@ -1,0 +1,304 @@
+﻿@model AquatroHRIMS.ViewModel.LeaveViewModel
+@{
+    ViewBag.Title = "CreateRequest";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<script>
+  
+   function fnValidation()
+   {
+     
+        var flag = 0;
+        var startDate = new Date($("#txtFromdate").val().toString('MM-dd-yyyy'));
+        var endDate = new Date($("#txtTodate").val().toString('MM-dd-yyyy'));
+
+        if ($("#ddlLeavetype option:selected").val() !== "")
+        {
+            $("#spnleavetype").css("display", "none");
+        }
+        else
+        {
+            $("#spnleavetype").css("display", "block");
+            flag++;
+        }
+
+        if ($("#txtFromdate").val()!="")
+        {
+            $("#spnfromdate").css("display", "none");
+        }
+        else
+        {
+       
+            $("#spnfromdate").css("display", "block");
+            flag++;
+        }
+
+        if ($("#txtTodate").val() != "") {
+            $("#spntodate").css("display", "none");
+        }
+        else {
+     
+            $("#spntodate").css("display", "block");
+            flag++;
+        }
+
+        if ($("#txtReason").val() != "") {
+            $("#spnreson").css("display", "none");
+        }
+        else {
+            
+            $("#spnreson").css("display", "block");
+            flag++;
+        }
+
+        if (startDate >= endDate) {
+            $("#spnDateValid1").show();
+            flag++;
+        }
+        else {
+          
+            $("#spnDateValid1").css("display", "none");
+        }
+   
+        if (flag > 0)
+        {
+            return false;
+        }
+    }
+
+
+   $(document).ready(function () {
+
+        $("#txtTodate").change("input", function () {      
+            var startDate = new Date($("#txtFromdate").val().toString('MM-dd-yyyy'));
+            var endDate = new Date($("#txtTodate").val().toString('MM-dd-yyyy'));
+            
+            if (startDate >= endDate) {
+                $("#spnDateValid1").show();
+                return false;
+            }
+            else {
+                $("#spnDateValid1").hide();
+            }
+            var startDate = new Date($("#txtFromdate").val())
+            var endDate = new Date($("#txtTodate").val())
+            var dateDiff = new Date();
+            dateDiff = Math.round(endDate - startDate);
+            var days = dateDiff / 1000 / 60 / 60 / 24;
+            $("#txtNo_ofDay").val(days);
+        });
+        $("#txtFromdate").change("input", function () {
+            var startDate = new Date($("#txtFromdate").val().toString('MM-dd-yyyy'));
+            var endDate = new Date($("#txtTodate").val().toString('MM-dd-yyyy'));
+         
+            if (startDate >= endDate) {
+                $("#spnDateValid1").show();
+
+                return false;
+            }
+            else {
+                $("#spnDateValid1").hide();
+            }
+            var startDate = 0;
+            startDate = new Date($("#txtFromdate").val())
+                var endDate = 0;
+                endDate = new Date($("#txtTodate").val())
+                var dateDiff = new Date();
+                if (endDate != "Invalid Date")
+                {
+                    dateDiff = Math.round(endDate - startDate);
+                    var days = dateDiff / 1000 / 60 / 60 / 24;
+                    $("#txtNo_ofDay").val(days);
+                }
+            else
+                    $("#txtNo_ofDay").val("0");
+        });
+
+        $("#txtFromdate").change(function () {
+
+            $("#spnfromdate").css("display", "none");
+        });
+
+
+        $("#txtTodate").change(function () {
+
+            $("#spntodate").css("display", "none");
+        });
+
+
+        $("#ddlLeavetype").change(function () {
+            $("#spnleavetype").css("display", "none");
+        });
+
+        $("#txtReason").change(function () {
+            $("#spnreson").css("display", "none");
+        });
+    });
+</script>
+@using (Ajax.BeginForm("CreateRequest", "Leave", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
+{
+    <div id="divResult">
+
+    </div>
+<div class="container">
+    <div class="row">
+
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Employee Details</legend>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-sm-3"><strong>Employee Code :</strong> <span>@Model.EmployeeCode</span></div>
+                    <div class="col-sm-3"><strong>Name :</strong> @Model.EmployeeName</div>
+                    <div class="col-sm-3"><strong>Designation :</strong> @Model.EmployeeDesignation</div>
+                    <div class="col-sm-3"><strong>Department :</strong> @Model.EmployeeDepartment</div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Leave Application</legend>
+           
+                <div class="col-sm-12 form_margin">
+                    <div class="col-sm-2"><strong>Reporting Head :</strong></div> <div class="col-sm-3">@Model.EmployeeReportingHead</div>
+                </div>
+
+                <div class="col-md-12 form_margin">
+                    @Html.LabelFor(model => model.objLeaveType.LeaveName, new { @class = "col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.SelectedLeaveType, new SelectList(Model.LeaveTypeList, "Value", "Text", Model.LeaveTypeList.SelectedValue), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlLeavetype" })   
+                        <span id="spnleavetype" style="display: none; color: red;">Please select leave type</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form_margin">
+                    @Html.LabelFor(model => model.objEmployeeLeave.FromDate, new { @class = "col-md-2" })
+                    <div class="col-md-2">
+                        <div class='input-group date' id='dateFrom'>
+                            @Html.TextBoxFor(model => model.objEmployeeLeave.FromDate, new { @class = "form-control ", @placeholder = "dd/mm/yyyy", id = "txtFromdate" })
+                     
+
+                        </div>
+                        @*<span id="fromdate" style=" color:red">  @Html.ValidationMessageFor(model => model.objEmployeeLeave.FromDate)</span>*@
+                        <span id="spnfromdate" style="display: none; color: red;">Please select from date </span>
+                    </div>
+
+                    @Html.LabelFor(model => model.objEmployeeLeave.ToDate, new { @class = "col-md-1" })
+                    <div class="col-md-2">
+                        <div class='input-group date' id='dateTo'>
+                            @Html.TextBoxFor(model => model.objEmployeeLeave.ToDate, new { @class = "form-control datepicker", @placeholder = "dd/mm/yyyy", id = "txtTodate" })
+                        </div>
+                        @*<span id="todate" style=" color:red">  @Html.ValidationMessageFor(model => model.objEmployeeLeave.ToDate)</span>*@
+                        <span id="spntodate" style="display: none; color: red;">Please select to date </span>
+                    </div>
+                    <span id="spnDateValid1" style="display: none; color:red">Start Date should not be less than or equal to end date</span>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <strong>No. of Days</strong>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" readonly placeholder="" id="txtNo_ofDay">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form_margin">
+                    @Html.LabelFor(model => model.objEmployeeLeave.Reason, new { @class = "col-md-2" })
+                    <div class="col-md-3">
+                        @Html.TextAreaFor(model => model.objEmployeeLeave.Reason, new { @class = "form-control ", id = "txtReason" })
+                        @*<span id="spnreson" style="color:red">@Html.ValidationMessageFor(model => model.objEmployeeLeave.Reason)</span>*@
+                        <span id="spnreson" style="display: none; color: red;">Please enter reason </span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4 col-md-push-2">
+                        <div class="btn-group">
+                            <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                            <input type="submit" value="Request " id="btnCreate" class="btn btn-primary" onclick=" return fnValidation();" />
+                            &nbsp; &nbsp; &nbsp;
+                            <input type="reset" value="Reset" class="btn btn-primary" onclick="fnReset();" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                      
+                    </div>
+                </div>
+           
+        </fieldset>
+    </div>
+</div>
+
+}
+<script>
+    $(function () {
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+    });
+
+</script>
+<script>
+    function Begin() {
+        $("#spnLoder").show();
+        $('#btnCreate').attr('disabled', 'disabled');
+       
+       
+
+    }
+    function Success(data) {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $("#divResult").remove();
+        alert("Request submitted successfully ");
+
+        fnReset();
+        var result = divResult.textContent
+
+           
+    }
+    function Complete() {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+      
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var date = new Date();
+        date.setDate(date.getDate());
+
+        $('#txtFromdate').datepicker({
+            startDate: date
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+        $('#txtTodate').datepicker({
+            startDate: date
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+    });
+
+
+    function fnReset() {
+        $(".field-validation-error").text('');
+        $("#spnMessage").css("display", "none");
+        $("#spnMessage").hide();
+        $("#txtFromdate").val('');
+        $("#txtTodate").val('');
+        $("#txtTodate").val('');
+        $("#txtNo_ofDay").val('');
+        $("#txtReason").val('');
+        
+        
+        $('select').val('').trigger('chosen:updated')
+        
+    }
+</script>

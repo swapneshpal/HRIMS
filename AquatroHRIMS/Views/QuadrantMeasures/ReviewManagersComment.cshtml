@@ -1,0 +1,134 @@
+﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+
+       
+        if ($("#hdnMgrComment").val() != "") {
+            $("#btnSave").remove();
+            $("#btnUpdate").css("display", "block");
+        } else {
+            $("#btnUpdate").remove();
+        }
+
+        if ($("#hdnReportingHeadFlag").val() == "True") {
+            $("#btnSave").show();
+            $("#btnUpdate").show();
+            $("#btnSubmit").show();          
+        } else if ($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False") {
+            $("#btnSave").hide();
+            $("#btnUpdate").hide();
+            $("#btnSubmit").hide();
+        }
+
+        $("#mgrComment").val($("#hdnMgrComment").val());
+        if ($("#hdnMgrComment").val() != "" && $("#hdnManagerFlag").val() == "True") {            
+            $("#mgrComment").attr('disabled', 'disabled');
+            $("#ddlRatingList").attr('disabled', 'disabled');
+            $("#txtManagerName").attr('disabled', 'disabled');
+            $("#btnUpdate").hide();
+            $("#btnSubmit").hide();
+        }
+       
+        
+
+
+        if ($("#hdnRatingId").val() != "" && $("#hdnRatingId").val() != 0) {
+            $("#ddlRatingList").val($("#hdnRatingId").val());
+        }
+    });
+    function fnValidateFields()
+    {       
+        var flag = false;        
+        if ($("#mgrComment").val() == "") {           
+            $("#lblCommentErrSpan").css("display", "block");
+            flag = true;
+        }
+        if ($("#ddlRatingList").val() == 0) {
+            $("#lblRatingtErrSpan").css("display", "block");
+            flag = true;
+        }
+        if (flag == true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function fnHideErrorMsg(value) {
+        $("#" + value).css("display", "none");
+    }
+</script>
+
+
+@using (Html.BeginForm("ReviewManagersComment", "QuadrantMeasures", FormMethod.Post))
+{
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="bs-example">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <label>Manager Review Comments:</label>
+                                    <br>
+                                    @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                    @Html.TextAreaFor(m => m.objReviewRating.sManagerComment, new { @class = "form-control", rows = "5", id = "mgrComment", onkeypress = "fnHideErrorMsg('lblCommentErrSpan')" })
+                                    @Html.LabelFor(m => m.objReviewRating.sManagerComment, "Please enter Manager Comment.", new { id = "lblCommentErrSpan", style = "display:none; color:red; font-size:12px;" })
+                                    @Html.HiddenFor(m => m.AdminFlag, new { id = "hdnAdminFlag" })
+                                    @Html.HiddenFor(m => m.ReportingHeadFlag, new { id = "hdnReportingHeadFlag" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Year Ending Rating</label></td>
+                                <td>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.objReviewRating.objRatings, new SelectList(Model.RatingModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlRatingList", style = "display:inline", onchange = "fnHideErrorMsg('lblRatingtErrSpan')" })
+                                        @Html.LabelFor(m => m.objReviewRating.objRatings, "Please select Ratings.", new { id = "lblRatingtErrSpan", style = "display:none; color:red; font-size:12px;" })
+                                        @Html.HiddenFor(m => m.hdnEmployeeID)
+                                         @*<form action="">
+                                              <select name="Expectation">
+                                                <option value="rating">Exceed Expectation</option>
+                                                <option value="rating">High Expectation</option>
+                                                <option value="rating">Meet Expectaion</option>
+                                                <option value="rating">Poor/Needs Improvement</option>
+                                              </select>
+                                            </form>*@
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Manager Signature</label></td>
+                                <td>
+                                    @*<input type="text" class="form-control" placeholder="Signature" aria-describedby="basic-addon1">*@
+                                    @Html.TextBoxFor(m => m.ManagerName, new { id = "txtManagerName", @class = "form-control", disabled = "disabled" })
+                                    @Html.HiddenFor(m => m.ManagerName, new { id = "hdnManagerName", @class = "form-control" })
+                                    @Html.HiddenFor(m => m.MangerFlag, new { id="hdnManagerFlag"})
+                                    @*@Html.DisplayFor(m => m.ManagerName)*@
+                                </td>
+                            </tr>
+                        </tbody>
+                        @Html.HiddenFor(m => m.MgrComment, new { id = "hdnMgrComment" })
+                        @Html.HiddenFor(m => m.ratingId, new { id = "hdnRatingId" })
+                    </table>
+                </div>
+                <div class="container">
+                    <div class="col-lg-12">
+                        @*<button type="button" class="btn btn-primary">Save</button>*@
+                        <input type="submit" value="Save " id="btnSave" class="btn btn-primary" onclick="return fnValidateFields()" />
+                        <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/UpdateManagerComment/@Model.hdnEmployeeID'; this.form.submit();">  
+                        <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/ReviewManagerCommentSubmit/@Model.hdnEmployeeID'; this.form.submit();">  
+                        @Html.ActionLink("Back", "ReviewSummaryComments", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" });
+                        @*<input type="button" class="btn btn-primary" id="back2" value="Back" onclick="location.href = '/QuadrantMeasures/SummaryComments'">
+                        <button type="button" class="btn btn-primary">Cancel</button>*@
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    
+}
+
+
+

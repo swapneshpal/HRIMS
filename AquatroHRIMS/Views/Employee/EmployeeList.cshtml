@@ -1,0 +1,133 @@
+﻿@model IEnumerable<AquatroHRIMS.Models.EmployeeList>
+@{
+    ViewBag.Title = "EmployeeList";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+
+<script>
+    function Delete(id) {
+        var conf = confirm("Are you sure you want to delete?");
+        if (conf) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Employee")',
+                dataType: 'json',
+                data: '{"ID":' + id + '}',
+                type: "POST",
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data == 2) {
+                        alert('You can not delete yourself.');
+                    }
+                    else {
+                        alert('Employee deleted successfully.');
+                        window.location.href = '@Url.Action("EmployeeList", "Employee")';
+                    }
+          
+                },
+                error: function (xhr, status, err) {
+                    if (xhr.status == "590") {
+
+                    }
+                    else {
+                        alert('Oops,Something went wrong.Please try after sometime.');
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    }
+
+
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="float:right">
+
+            <div class="col-md-offset-10">
+                <a href="javascript:void(0)" onclick="location.href = '@Url.Action("Add", "Employee")'">Add Employee </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+      
+        <div class="col-md-12">
+            <table id="EmployeeTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            EmpCode
+                        </th>
+                        <th>
+                            EmpName
+                        </th>
+
+                        <th>
+                            DepType
+                        </th>
+                        <th>
+                            Designation
+                        </th>
+                        <th>
+                            Email ID
+                        </th>
+                        <th>
+                            DOJ
+                        </th>
+                        <th>
+
+                    </th>
+                     
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeCode)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeName)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Designation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WorkEmail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DOJ)
+                            </td>
+                           <td>
+                               @*<a href="javascript:void()" onclick="Edit(@item.EmpID)">Edit</a>*@
+                               @Html.ActionLink("Edit", "Add", "Employee", new {@id =item.EmpID },null)
+                               <a href="javascript:void()" onclick="Delete(@item.EmpID)">Delete</a>
+                               @*@Html.ActionLink("Delete", "Add", "Employee", new { @ID = item.EmpID }, null)*@
+                        </td>
+                       
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('#EmployeeTable').dataTable();
+    });
+</script>

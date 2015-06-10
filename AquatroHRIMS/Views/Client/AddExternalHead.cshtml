@@ -1,0 +1,75 @@
+﻿@model AquatroHRIMS.Models.Externalhead
+@{
+    ViewBag.Title = "AddExternalHead";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<script src="~/JSValidation/Validation.js"></script>
+<script>
+   
+    function Reset()
+    {
+        $('#ddlClient option:eq(0)').attr('selected', '-selected-');
+        $(".field-validation-valid").css("display", "none");
+        $("#txtName").val('');
+        $("#txtEmail").val('');
+        $("#txtContact").val('');
+        $("#msg").text('');
+    }
+  
+</script>
+<br><br>
+@using(Html.BeginForm("AddExternalHead","Client",FormMethod.Post))
+{
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Add External Head</legend>
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <div>
+                <label class="control-label" for="textinput">Name</label>
+            @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control", minlength = "2" })
+                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgName" style="display:none">Please enter name</span></span>
+            </div><br>
+            <div>
+                <label class="control-label" for="textinput">Email Id</label>
+                @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", @placeholder = "Email id", @class = "form-control" })
+                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgEmail" style="display:none">Please enter email</span></span>
+            </div><br>
+            <div>
+                <label class="control-label" for="textinput">Contact No.</label>
+                @Html.TextBoxFor(m => m.Contact, new { id = "txtContact", @placeholder = "Contact no", @class = "form-control" })
+                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgContact" style="display:none">Please enter contact</span></span>
+            </div><br>
+            <div>
+                <label class="control-label" for="textinput">Client</label>
+               @Html.DropDownListFor(m => m.SelectedExternalClient, new SelectList(Model.ExternalClientList, "Value", "Text", Model.ExternalClientList.SelectedValue), new { @class = "form-control", id = "ddlClient", style = "width: 230px" })
+                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgClient" style="display:none">Please select client</span></span>
+            </div><br>
+            <div>
+
+                <input type="submit" value="Submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidation()">
+
+                <input type="button" value="Reset" class="btn btn-primary" onclick="Reset();">
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+            @if (ViewBag.DataSaved != null)
+            {
+               <script>
+                   alert("External head created successfully");
+                   Reset();
+               </script>
+            }
+                
+        </div>
+        </div>
+
+</fieldset>
+}
+
