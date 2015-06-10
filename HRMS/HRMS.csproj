@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65D52F40-C7DD-4EC6-B3BC-111D69FB78CE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HRMS</RootNamespace>
+    <AssemblyName>HRMS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\cActivity_Base.cs" />
+    <Compile Include="Base\cCareerDevelopmentPlan_Base.cs" />
+    <Compile Include="Base\cClient_Base.cs" />
+    <Compile Include="Base\cCountry_Base.cs" />
+    <Compile Include="Base\cDailyQuotes_Base.cs" />
+    <Compile Include="Base\cDepartmentType_Base.cs" />
+    <Compile Include="Base\cDepartment_Base.cs" />
+    <Compile Include="Base\cDesignation_Base.cs" />
+    <Compile Include="Base\cEmpAvailedLeave_Base.cs" />
+    <Compile Include="Base\cEmpDesigDepartmentType_Base.cs" />
+    <Compile Include="Base\cEmpEducationDetail_Base.cs" />
+    <Compile Include="Base\cEmpEmergencyContact_Base.cs" />
+    <Compile Include="Base\cEmpGoal_Base.cs" />
+    <Compile Include="Base\cEmpLeave_Base.cs" />
+    <Compile Include="Base\cEmpLogin_Base.cs" />
+    <Compile Include="Base\cEmployee_Base.cs" />
+    <Compile Include="Base\cEmpPersonalDetails_Base.cs" />
+    <Compile Include="Base\cEmpProfessionalDetail_Base.cs" />
+    <Compile Include="Base\cExternalProjectHead_Base.cs" />
+    <Compile Include="Base\cFile_Base.cs" />
+    <Compile Include="Base\cGoals_Base.cs" />
+    <Compile Include="Base\cHolidayList_Base.cs" />
+    <Compile Include="Base\cLeaveType_Base.cs" />
+    <Compile Include="Base\cNews_Base.cs" />
+    <Compile Include="Base\cPermissionEmpLogin_Base.cs" />
+    <Compile Include="Base\cPermissionRoleAccess_Base.cs" />
+    <Compile Include="Base\cPermission_Base.cs" />
+    <Compile Include="Base\cProjectAssigned_Base.cs" />
+    <Compile Include="Base\cProject_Base.cs" />
+    <Compile Include="Base\cQuadrantMeasure_Base.cs" />
+    <Compile Include="Base\cRatings_Base.cs" />
+    <Compile Include="Base\cReviewRating_Base.cs" />
+    <Compile Include="Base\cRoleAccess_Base.cs" />
+    <Compile Include="Base\cStatus_Base.cs" />
+    <Compile Include="Base\cSummaryComments_Base.cs" />
+    <Compile Include="Base\cTimeSheetActivityDes_Base.cs" />
+    <Compile Include="Base\cTimeSheetActivity_Base.cs" />
+    <Compile Include="Base\cTimesheet_Base.cs" />
+    <Compile Include="Base\cTitle_Base.cs" />
+    <Compile Include="cActivity.cs" />
+    <Compile Include="cCareerDevelopmentPlan.cs" />
+    <Compile Include="cClient.cs" />
+    <Compile Include="cCountry.cs" />
+    <Compile Include="cCustomApplication.cs" />
+    <Compile Include="cDailyQuotes.cs" />
+    <Compile Include="cDepartment.cs" />
+    <Compile Include="cDepartmentType.cs" />
+    <Compile Include="cDesignation.cs" />
+    <Compile Include="cEmpAvailedLeave.cs" />
+    <Compile Include="cEmpDesigDepartmentType.cs" />
+    <Compile Include="cEmpEducationDetail.cs" />
+    <Compile Include="cEmpEmergencyContact.cs" />
+    <Compile Include="cEmpGoal.cs" />
+    <Compile Include="cEmpLeave.cs" />
+    <Compile Include="cEmpLogin.cs" />
+    <Compile Include="cEmployee.cs" />
+    <Compile Include="cEmpPersonalDetails.cs" />
+    <Compile Include="cEmpProfessionalDetail.cs" />
+    <Compile Include="cExternalProjectHead.cs" />
+    <Compile Include="cFile.cs" />
+    <Compile Include="cGoals.cs" />
+    <Compile Include="cHolidayList.cs" />
+    <Compile Include="cLeaveType.cs" />
+    <Compile Include="cNews.cs" />
+    <Compile Include="cPermission.cs" />
+    <Compile Include="cPermissionEmpLogin.cs" />
+    <Compile Include="cPermissionRoleAccess.cs" />
+    <Compile Include="cProject.cs" />
+    <Compile Include="cProjectAssigned.cs" />
+    <Compile Include="cQuadrantMeasure.cs" />
+    <Compile Include="cRatings.cs" />
+    <Compile Include="cReviewRating.cs" />
+    <Compile Include="cRoleAccess.cs" />
+    <Compile Include="cStatus.cs" />
+    <Compile Include="cSummaryComments.cs" />
+    <Compile Include="cTimesheet.cs" />
+    <Compile Include="cTimeSheetActivity.cs" />
+    <Compile Include="cTimeSheetActivityDes.cs" />
+    <Compile Include="cTitle.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.A4.Web\Dev.A4.Web\Dev.A4.Web.csproj">
+      <Project>{bdad0edf-2d0a-4378-89b3-0a367e635786}</Project>
+      <Name>Dev.A4.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dev.A4\Dev.A4\Dev.A4.csproj">
+      <Project>{0b11838f-6c22-4b36-a841-865bab3849ae}</Project>
+      <Name>Dev.A4</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Dev.A4.dll" />
+    <Content Include="bin\Debug\Dev.A4.pdb" />
+    <Content Include="bin\Debug\Dev.A4.Web.dll" />
+    <Content Include="bin\Debug\Dev.A4.Web.pdb" />
+    <Content Include="bin\Debug\HRMS.dll" />
+    <Content Include="bin\Debug\HRMS.pdb" />
+    <Content Include="bin\Release\Dev.A4.dll" />
+    <Content Include="bin\Release\Dev.A4.pdb" />
+    <Content Include="bin\Release\Dev.A4.Web.dll" />
+    <Content Include="bin\Release\Dev.A4.Web.pdb" />
+    <Content Include="bin\Release\HRMS.dll" />
+    <Content Include="bin\Release\HRMS.pdb" />
+    <Content Include="obj\Debug\HRMS.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\HRMS.dll" />
+    <Content Include="obj\Debug\HRMS.pdb" />
+    <Content Include="obj\Release\HRMS.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\HRMS.dll" />
+    <Content Include="obj\Release\HRMS.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\HRMS.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\HRMS.csprojResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

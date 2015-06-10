@@ -1,0 +1,25 @@
+D:\Project\CommTool\BizLogic\bin\Dev.A4.Web.dll
+D:\Project\CommTool\BizLogic\bin\Dev.A4.Web.pdb
+D:\Project\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Project\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\Project\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+C:\Users\Dharam\Desktop\CommTool\BizLogic\bin\Dev.A4.Web.dll
+C:\Users\Dharam\Desktop\CommTool\BizLogic\bin\Dev.A4.Web.pdb
+C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+D:\Project\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+D:\Project\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+D:\Users Profiles\Pmaurya\Desktop\Final\28_05HMS\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+D:\Users Profiles\Pmaurya\Desktop\Final\28_05HMS\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+D:\Users Profiles\Pmaurya\Desktop\Final\28_05HMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Users Profiles\Pmaurya\Desktop\Final\28_05HMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\Users Profiles\Pmaurya\Desktop\Final\28_05HMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+F:\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+F:\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
