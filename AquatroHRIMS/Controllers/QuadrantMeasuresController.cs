@@ -43,8 +43,9 @@ namespace AquatroHRIMS.Controllers
         {
             try
             {
+                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 List<ddlGoalTitleList> objGoalTitleList = new List<ddlGoalTitleList>();
-                List<cGoals> objGoalTitle = cGoals.Find();
+                List<cGoals> objGoalTitle = cGoals.Find(" objEmpLogin = " + LoginID);
 
                 foreach (var item in objGoalTitle)
                 {
@@ -262,15 +263,11 @@ namespace AquatroHRIMS.Controllers
                 {
                     int ID = objQuadViewModel.EmpUniqueGoalID[i];
                     cEmpGoal objEmpGoal = cEmpGoal.Get_ID(ID);
-
-                    if (objQuadrantMeasure.ManagerComments!=null) 
-                          objEmpGoal.sManagerDescription = objQuadViewModel.ManagerComments[i];
-                           
-                        else
-                        objEmpGoal.sManagerDescription = "";
-               
-                    objEmpGoal.Save();
+                      objEmpGoal.sManagerDescription = objQuadViewModel.ManagerComments[i];                                 
+                      objEmpGoal.Save();                      
                 }
+                Session["ReviewQuadManagerComment"] = "Manager Comment added successfully";
+              //  tempData.ReviewQuadManagerComment = "Manager Comment added successfully";
                 objQuadrantMeasure.EmployeeModel = getEmployeeList();
                 objQuadrantMeasure.StatusModel = getStatusList();
                 //// string abc = getQuadrantName();
@@ -340,6 +337,7 @@ namespace AquatroHRIMS.Controllers
                 objReviewRating.objRatings.iObjectID = objQuadViewModel.objReviewRating.objRatings;
                 objReviewRating.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 objReviewRating.Save();
+                ViewBag.DataSaved = "External head added successfully";
                 //objQuadrantMeasure.RatingModel = getRatingList();
                 //int LoginId = Convert.ToInt32(HttpContext.User.Identity.Name);
                 //DataTable dt = cQuadrantMeasure.getEmployeeManagerName(LoginId);
@@ -358,7 +356,10 @@ namespace AquatroHRIMS.Controllers
             {
                 int LoginId = Convert.ToInt32(HttpContext.User.Identity.Name);
                 DataTable dt = cQuadrantMeasure.getEmployeeManagerName(LoginId);
-                objQuadrantMeasure.EmployeeName = dt.Rows[0]["EmployeeName"].ToString();
+                if (dt.Rows.Count > 0)
+                {
+                    objQuadrantMeasure.EmployeeName = dt.Rows[0]["EmployeeName"].ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -372,32 +373,10 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 int LoginId = Convert.ToInt32(HttpContext.User.Identity.Name);
-                string empAcceptance = "";
-                string empSignature = "";
-
-                if (objQuadViewModel.objReviewRating == null)
-                {
-                    
-                    empAcceptance = "";
-                }
-                else {
-                    if (objQuadViewModel.objReviewRating.sEmployeeAcceptance==null)
-                        empAcceptance = "";
-                    else
-                    empAcceptance = objQuadViewModel.objReviewRating.sEmployeeAcceptance;
-                }
-                if (objQuadViewModel.EmployeeName == null)
-                {
-                    empSignature = objQuadViewModel.EmployeeName;
-                }
-                else {
-                    empSignature = "";
-                }
-                
+                string empAcceptance = objQuadViewModel.objReviewRating.sEmployeeAcceptance;
+                string empSignature = objQuadViewModel.EmployeeName;
                 string abc = cQuadrantMeasure.updateEmployeeAcceptance(LoginId, empAcceptance, empSignature);
-                //DataTable dt = cQuadrantMeasure.getEmployeeManagerName(LoginId);
-                //objQuadrantMeasure.EmployeeName = dt.Rows[0]["EmployeeName"].ToString();
-                //return View(objQuadrantMeasure);
+                Session["empAcceptanceSave"] = "Employee Acceptance added successfully";
             }
             catch (Exception ex)
             {
@@ -418,6 +397,7 @@ namespace AquatroHRIMS.Controllers
                         item.bEmpFlag = true;
                         item.Save();
                     }
+                    Session["empAcceptanceSubmit"] = "Employee Acceptance submitted successfully.";
                 }
             }
             catch (Exception ex)
@@ -584,8 +564,9 @@ namespace AquatroHRIMS.Controllers
                     objEmpGoals.sMesaures = objQuadViewModel.Measures[i];
                     objEmpGoals.sDescription = objQuadViewModel.empComments[i];
                     objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                    objEmpGoals.Save();
+                    objEmpGoals.Save();                    
                 }
+                Session["EmpQudSave"] = "Employee Quadrants added successfully";
             }
             catch (Exception ex)
             {
@@ -607,6 +588,7 @@ namespace AquatroHRIMS.Controllers
                         item.bEmpFlag = true;
                         item.Save();
                     }
+                    Session["EmpQuadSubmit"] = "Employee Quadrants submitted successfully.";
                 }
             }
             catch (Exception ex)
@@ -628,6 +610,7 @@ namespace AquatroHRIMS.Controllers
                     objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
                     objEmpGoals.Save();
                 }
+                Session["EmpQuadUpdate"] = "Employee Quadrants updated successfully";
             }
             catch (Exception ex)
             {
@@ -644,8 +627,9 @@ namespace AquatroHRIMS.Controllers
                 cEmpGoal objEmpGoals = cEmpGoal.Get_ID(Convert.ToInt32(objQuadViewModel.EmpUniqueGoalID[i]));
                 objEmpGoals.sManagerDescription = objQuadViewModel.ManagerComments[i];
                 // objEmpGoals.objEmpLogin.iObjectID = objQuadViewModel.hdnEmployeeID;
-                objEmpGoals.Save();
+                objEmpGoals.Save();               
             }
+            Session["ReviewQuadUpdateManagerComment"] = "Manager Comment updated successfully";
             int empID = Convert.ToInt32(objQuadViewModel.hdnEmployeeID);
             return RedirectToAction("ReviewQuadrantDetails/" + empID);
         }
@@ -659,8 +643,9 @@ namespace AquatroHRIMS.Controllers
                 foreach (var item in aob)
                 {
                     item.bManagerFlag = true;
-                    item.Save();
+                    item.Save();                    
                 }
+                Session["ReviewQuadSubmitManagerComment"] = "Manager Comment submitted successfully";
             }
             return RedirectToAction("ReviewQuadrantDetails/" + objQuadViewModel.hdnEmployeeID);
         }
@@ -753,6 +738,7 @@ namespace AquatroHRIMS.Controllers
                     objDevelopmentPlan.sManagerComment = objQuadViewModel.ManagerComments[i];
                     objDevelopmentPlan.Save();
                 }
+                Session["ReviewDevGoal"] = "Manager Comment added successfully.";
             }
             catch (Exception ex)
             {
@@ -965,6 +951,7 @@ namespace AquatroHRIMS.Controllers
                 objReviewRating.objRatings.iObjectID = objQuadViewModel.objReviewRating.objRatings;
                 objReviewRating.objEmpLogin.iObjectID = objQuadViewModel.hdnEmployeeID;
                 objReviewRating.Save();
+                Session["RevMgrComment"] = "Manager Comment added successfully";
                 objQuadrantMeasure.RatingModel = getRatingList();
                 DataTable dt = cQuadrantMeasure.getEmployeeManagerName(objQuadViewModel.hdnEmployeeID);
                 objQuadrantMeasure.ManagerName = dt.Rows[0]["ManagerName"].ToString();
@@ -995,6 +982,7 @@ namespace AquatroHRIMS.Controllers
                     item.objRatings.iObjectID = objQuadViewModel.objReviewRating.objRatings;
                     item.objEmpLogin.iObjectID = objQuadViewModel.hdnEmployeeID;
                     item.Save();
+                    Session["RevMgrUpdateComment"] = "Manager Comment updated successfully";
                 }
             }
             catch (Exception ex)
@@ -1018,6 +1006,8 @@ namespace AquatroHRIMS.Controllers
                     item.sEmployeeAcceptance = objQuadViewModel.objReviewRating.sEmployeeAcceptance;
                     item.Save();
                 }
+                Session["empAcceptanceUpdate"] = "Employee Acceptance updated successfully.";
+
             }
             catch (Exception ex)
             {
@@ -1043,6 +1033,7 @@ namespace AquatroHRIMS.Controllers
                     item.bManagerFlag = true;
                     item.Save();
                 }
+                Session["RevMgrSubmitComment"] = "Manager Comment submitted successfully.";
             }
             catch (Exception ex)
             {

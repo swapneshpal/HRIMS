@@ -5,34 +5,38 @@
 
        
         if ($("#hdnMgrComment").val() != "") {
-            $("#btnSave").remove();
-            $("#btnUpdate").css("display", "block");
+          //  $("#btnSave").remove();
+            // $("#btnUpdate").css("display", "block");
+            $("#btnSave").attr("disabled", "disabled");
+            $("#btnUpdate").removeAttr("disabled");
+            $("#btnSubmit").removeAttr("disabled");
         } else {
-            $("#btnUpdate").remove();
+            //$("#btnUpdate").remove();
+            $("#btnUpdate").attr("disabled", "disabled");
         }
 
-        if ($("#hdnReportingHeadFlag").val() == "True") {
-            $("#btnSave").show();
-            $("#btnUpdate").show();
-            $("#btnSubmit").show();          
-        } else if ($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False") {
-            $("#btnSave").hide();
-            $("#btnUpdate").hide();
-            $("#btnSubmit").hide();
-        }
+        //if ($("#hdnReportingHeadFlag").val() == "True") {
+        //    $("#btnSave").show();
+        //    $("#btnUpdate").show();
+        //    $("#btnSubmit").show();          
+        //} else if ($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False") {
+        //    $("#btnSave").hide();
+        //    $("#btnUpdate").hide();
+        //    $("#btnSubmit").hide();
+        //}
 
         $("#mgrComment").val($("#hdnMgrComment").val());
         if ($("#hdnMgrComment").val() != "" && $("#hdnManagerFlag").val() == "True") {            
             $("#mgrComment").attr('disabled', 'disabled');
             $("#ddlRatingList").attr('disabled', 'disabled');
             $("#txtManagerName").attr('disabled', 'disabled');
-            $("#btnUpdate").hide();
-            $("#btnSubmit").hide();
+            //$("#btnUpdate").hide();
+            $("#btnUpdate").attr("disabled", "disabled");
+            $("#btnSubmit").attr("disabled", "disabled");
+           // $("#btnSubmit").hide();
         }
        
         
-
-
         if ($("#hdnRatingId").val() != "" && $("#hdnRatingId").val() != 0) {
             $("#ddlRatingList").val($("#hdnRatingId").val());
         }
@@ -62,7 +66,7 @@
 
 @using (Html.BeginForm("ReviewManagersComment", "QuadrantMeasures", FormMethod.Post))
 {
-    <div class="container">
+   
         <div class="container-fluid">
             <div class="row">
                 <div class="bs-example">
@@ -116,9 +120,9 @@
                     <div class="col-lg-12">
                         @*<button type="button" class="btn btn-primary">Save</button>*@
                         <input type="submit" value="Save " id="btnSave" class="btn btn-primary" onclick="return fnValidateFields()" />
-                        <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/UpdateManagerComment/@Model.hdnEmployeeID'; this.form.submit();">  
-                        <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/ReviewManagerCommentSubmit/@Model.hdnEmployeeID'; this.form.submit();">  
-                        @Html.ActionLink("Back", "ReviewSummaryComments", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" });
+                        <input type="button" class="btn btn-primary" disabled="disabled" id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/UpdateManagerComment/@Model.hdnEmployeeID'; this.form.submit();">  
+                        <input type="button" class="btn btn-primary" disabled="disabled" id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/ReviewManagerCommentSubmit/@Model.hdnEmployeeID'; this.form.submit();">  
+                        @Html.ActionLink("Back", "ReviewSummaryComments", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" })
                         @*<input type="button" class="btn btn-primary" id="back2" value="Back" onclick="location.href = '/QuadrantMeasures/SummaryComments'">
                         <button type="button" class="btn btn-primary">Cancel</button>*@
                     </div>
@@ -126,7 +130,32 @@
                 <br>
             </div>
         </div>
-    </div>
+   
+      <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+            @if (@Session["RevMgrComment"] != null)
+            {
+                <script>
+                    alert("Manager Comment added successfully.");                  
+                </script>
+                Session["RevMgrComment"] = null;
+            }   
+          @if (@Session["RevMgrUpdateComment"] != null)
+          {
+              <script>
+                  alert("Manager Comment updated successfully.");
+              </script>
+              Session["RevMgrUpdateComment"] = null;
+          }
+          @if (@Session["RevMgrSubmitComment"] != null)
+          {
+              <script>
+                  alert("Manager Comment submitted successfully.");
+              </script>
+              Session["RevMgrSubmitComment"] = null;
+          }
+          
+                  
+        </div>
     
 }
 

@@ -19,3 +19,10 @@ F:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
+E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb

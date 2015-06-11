@@ -12,66 +12,68 @@
     });
 </script>
 @model  IEnumerable<AquatroHRIMS.ViewModel.PendingLeave>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <table id="PendingLeaveTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Employee Name
-                        </th>
-                        <th>
-                            LeaveType
-                        </th>
-                        <th>
-                            Days
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Pending Leaves</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="PendingLeaveTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Employee Name
+                            </th>
+                            <th>
+                                LeaveType
+                            </th>
+                            <th>
+                                Days
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                     {
 
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmpName)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmpName)
 
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LeaveType)
-                         
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType)
 
-                            </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Days)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LeaveStatus)
-                                
-                            </td>
-                            <td>
-                                @Html.ActionLink("View", "ViewRequest", "Leave", new { @ID = item.LeaveID }, null)
+                        </td>
 
-                            </td>
-</tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveStatus)
+
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "ViewRequest", "Leave", new { @ID = item.LeaveID }, null)
+
+                        </td>
+                    </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
+
     </div>
-
-</div>
-
+    </fieldset>
 
 
 

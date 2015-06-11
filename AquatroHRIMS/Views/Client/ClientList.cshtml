@@ -80,64 +80,69 @@
     }
 </script>
 @model IEnumerable<AquatroHRIMS.Models.ClientList>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" style="float:right">
-            <div></div>
-            <div class="col-md-offset-10">
-               @Html.ActionLink("Add Client", "AddClient", "Client")
+        <div class="col-md-12">
+
+            <div class="pull-right btn1">
+             @Html.ActionLink("Add Client", "AddClient", "Client")
             </div>
         </div>
-        <div class="col-md-12">
-            <table id="ProjectTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>
-                            ClientName
-                        </th>
-                        <th>
-                            EmailID
-                        </th>
+    </div>
+</div>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Client List</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="ProjectTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Client Name
+                            </th>
+                            <th>
+                                Email ID
+                            </th>
 
-                        <th>
-                            Contact No.
-                        </th>
-                        <th>Edit/Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
+                            <th>
+                                Contact No.
+                            </th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                     {
 
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m => item.ClientName)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.ClientName)
 
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.ClientEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ClientEmail)
 
-                            </td>
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(m => item.ClientContact)
-                            </td>
-                           <td>
-                         
-                               @Html.ActionLink("Edit", "AddClient", "Client", new { @id = item.ClientID }, null)
-                      @*@Html.ActionLink("Edit", "ViewRequest", "Employee", new { @ID = item.EmpID }, null)*@
-                        <a href="javascript:void()" onclick="Delete(@item.ClientID)">Delete</a>
-                            </td>
-                            
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(m => item.ClientContact)
+                        </td>
+                        <td>
+
+                            @Html.ActionLink("Edit", "AddClient", "Client", new { @id = item.ClientID }, null)
+                            @*@Html.ActionLink("Edit", "ViewRequest", "Employee", new { @ID = item.EmpID }, null)*@
+                            <a href="javascript:void()" onclick="Delete(@item.ClientID)">Delete</a>
+                        </td>
+
+                    </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
     </div>
-
-</div>
-
+</fieldset>
 

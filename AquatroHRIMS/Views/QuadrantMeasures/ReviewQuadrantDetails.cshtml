@@ -11,32 +11,33 @@
 
             if($("#hdn"+i).val() !=""){
                 $("#txtManagerComment"+i).val($("#hdn"+i).val());
-                $("#btnUpdate").css("display","block");
-                $("#btnSave").hide();
+                //$("#btnUpdate").css("display","block");
+                $("#btnUpdate").removeAttr("disabled");
+                $("#btnSubmit").removeAttr("disabled");
+                $("#btnSave").attr("disabled","disabled");
+                //$("#btnSave").hide();
             }
 
             if($("#hdnManagerFlag"+i).val() == "True"){
                 $("#txtManagerComment"+i).attr('disabled', 'disabled');
-                $("#btnUpdate").hide();
-                $("#btnSave").hide();
-                $("#btnSubmit").hide();
+                $("#btnSave").attr("disabled", "disabled");
+                $("#btnUpdate").attr("disabled", "disabled");
+                $("#btnSubmit").attr("disabled", "disabled");
             }
         }
 
-        if($("#hdnReportingHeadFlag").val() == "True"){
-            $("#btnSave").show();
-        }else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
-            $("#btnSave").hide();
-            $("#btnUpdate").hide();
-            $("#btnSubmit").hide();
-        }
+        //if($("#hdnReportingHeadFlag").val() == "True"){
+        //    $("#btnSave").show();
+        //}else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
+        //    $("#btnSave").hide();
+        //    $("#btnUpdate").hide();
+        //    $("#btnSubmit").hide();
+        //}
 
         if( count == 0){
-            $("#divFooter").css("display","none");
             $("#divData").css("display","block");
         }
         else{
-            $("#divFooter").css("display","block");
             $("#divData").hide();
         }
 
@@ -76,14 +77,17 @@
     {
         <tbody>
             @foreach (var item in @Model.QuadList)
-            {
+            {   @Html.HiddenFor(m => m.GoalID[item.Count - 1], new { Value = item.GoalId })
+                                                        @Html.HiddenFor(m => m.EmpUniqueGoalID[item.Count - 1], new { Value = item.EmpGoalID })
+                                                        @Html.HiddenFor(m => m.AdminFlag, new { id = "hdnAdminFlag" })
+                                                        @Html.HiddenFor(m => m.ReportingHeadFlag, new { id = "hdnReportingHeadFlag" })
+                                                        @Html.HiddenFor(m => m.hdnEmployeeID)
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default" id="panel1">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-target="#collapseOne"
-                                   href="#collapseOne">
-                                    Collapsible Group Item # @Html.DisplayFor(modelItem => item.Count)
+                                <a>
+                                    Performance Quadrant @Html.DisplayFor(modelItem => item.Count)
                                 </a>
                             </h4>
                         </div>
@@ -97,14 +101,6 @@
                                                     <td><label>Performance Quadrant @Html.DisplayFor(modelItem => item.Count)</label></td>
                                                     <td><label>Quadrant Measure</label></td>
                                                     <td><label>Employee Accomplishment</label></td>
-                                                    <td rowspan="2">
-                                                        @*@Html.DisplayFor(modelItem => item.StatusName)*@
-                                                        @Html.HiddenFor(m => m.GoalID[item.Count - 1], new { Value = item.GoalId })
-                                                        @Html.HiddenFor(m => m.EmpUniqueGoalID[item.Count - 1], new { Value = item.EmpGoalID })
-                                                        @Html.HiddenFor(m => m.AdminFlag, new { id = "hdnAdminFlag" })
-                                                        @Html.HiddenFor(m => m.ReportingHeadFlag, new { id = "hdnReportingHeadFlag" })
-                                                        @Html.HiddenFor(m => m.hdnEmployeeID)
-                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     @*<td>Skills</td>*@
@@ -140,19 +136,59 @@
             }
         </tbody>
 
-
+            <div id="divData" class="panel-group">
+        <div class="panel panel-default" id="panel1">
+            <div class="panel-heading">
+                <h4 class="panel-title"></h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="container">
+                    <div class="row">
+                        <div class="bs-example">
+                            <div style="color:red;" class="col-sm-offset-4">
+                                <h4>No details Aailable</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <div id="divFooter" align="center">
-            <footer>
+     
 
                 <input type="submit" value="Save " id="btnSave" class="btn btn-primary" onclick="return fnValidateFields()" />
-                <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsUpdate/@Model.hdnEmployeeID'; this.form.submit();">
-                <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsSubmit/@Model.hdnEmployeeID'; this.form.submit();">
+                <input type="button" class="btn btn-primary" disabled="disabled"  id="btnUpdate" value="Update" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsUpdate/@Model.hdnEmployeeID'; this.form.submit();">
+                <input type="button" class="btn btn-primary" disabled="disabled"  id="btnSubmit" value="Submit" onclick="this.form.action = '/QuadrantMeasures/EmployeeReviewQuadrantsSubmit/@Model.hdnEmployeeID'; this.form.submit();">
                 @Html.ActionLink("Next", "ReviewDevelopmentGoal", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" })
 
-            </footer>
+            
         </div>
-        <div id="divData" style="display:none">
-            No Data Found.
+     
+         <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+            @if (@Session["ReviewQuadManagerComment"] != null)
+            {
+                <script>
+                    alert("Manager Comment added successfully.");                  
+                </script>
+                Session["ReviewQuadManagerComment"] = null;
+            }
+            @if (@Session["ReviewQuadUpdateManagerComment"] != null)
+            {
+                <script>
+                    alert("Manager Comment updated successfully.");                  
+                </script>
+                Session["ReviewQuadUpdateManagerComment"] = null;
+            }
+             @if (@Session["ReviewQuadSubmitManagerComment"] != null)
+             {
+                 <script>
+                     alert("Manager Comment submitted successfully.");
+                 </script>
+                 Session["ReviewQuadSubmitManagerComment"] = null;
+             }
+
+
         </div>
     }
 

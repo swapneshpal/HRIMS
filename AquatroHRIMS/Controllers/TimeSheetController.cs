@@ -46,13 +46,43 @@ namespace AquatroHRIMS.Controllers
                 dtList.Add(sow.AddDays(4).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(5).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(6).ToString("dd/MM/yyyy"));
-                string str = Convert.ToString(TimeCount(nd));
-                dtList.Add(str);
+                string workHours = Convert.ToString(TimeCount(nd));
+                var dot = workHours.Contains('.');
+                long mm = 0;
+                long hh = 0;
+                if (dot)
+                {
+                    string[] str = workHours.Split('.');
+                    string str1 = str[0];
+                    string str2 = str[1];
+                    hh = Convert.ToInt64(str1);
+
+                    if (str2.Length > 1)
+                    {
+                        mm = Convert.ToInt64(str2.Substring(0, 2));
+                        if (mm > 60)
+                        {
+                            hh = hh + 1;
+                            mm = mm - 60;
+                        }
+                    }
+                    else
+                    {
+                        mm = Convert.ToInt64(str2);
+                    }
+                    workHours = hh + " : " + mm;
+                }
+                else
+                {
+                    workHours = workHours + " : 00";
+                }
+
+                dtList.Add(workHours);
                 return Json(dtList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -79,13 +109,43 @@ namespace AquatroHRIMS.Controllers
                 dtList.Add(sow.AddDays(4).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(5).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(6).ToString("dd/MM/yyyy"));
-                string str = Convert.ToString(TimeCount(nd));
-                dtList.Add(str);
+                string workHours = Convert.ToString(TimeCount(nd));
+                var dot = workHours.Contains('.');
+                long mm = 0;
+                long hh = 0;
+                if (dot)
+                {
+                    string[] str = workHours.Split('.');
+                    string str1 = str[0];
+                    string str2 = str[1];
+                    hh = Convert.ToInt64(str1);
+
+                    if (str2.Length > 1)
+                    {
+                        mm = Convert.ToInt64(str2.Substring(0, 2));
+                        if (mm > 60)
+                        {
+                            hh = hh + 1;
+                            mm = mm - 60;
+                        }
+                    }
+                    else
+                    {
+                        mm = Convert.ToInt64(str2);
+                    }
+                    workHours = hh + " : " + mm;
+                }
+                else
+                {
+                    workHours = workHours + " : 00";
+                }
+
+                dtList.Add(workHours);
                 return Json(dtList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -106,20 +166,20 @@ namespace AquatroHRIMS.Controllers
                 timeSheet.EndDate = mon.AddDays(6);
                 string workHours = TimeCount(mon);
                 var dot = workHours.Contains('.');
-               long  mm = 0;
-                long  hh = 0;
-                if(dot)
+                long mm = 0;
+                long hh = 0;
+                if (dot)
                 {
                     string[] str = workHours.Split('.');
                     string str1 = str[0];
                     string str2 = str[1];
-                    hh=Convert.ToInt64(str1);
-                    
-                    if(str2.Length>1)
+                    hh = Convert.ToInt64(str1);
+
+                    if (str2.Length > 1)
                     {
                         string st = str2.Substring(0, 2);
-                        mm = Convert.ToInt64(str2.Substring(0,2));
-                        if(mm>60)
+                        mm = Convert.ToInt64(str2.Substring(0, 2));
+                        if (mm > 60)
                         {
                             hh = hh + 1;
                             mm = mm - 60;
@@ -129,13 +189,13 @@ namespace AquatroHRIMS.Controllers
                     {
                         mm = Convert.ToInt64(str2);
                     }
-                    workHours =hh+" : "+mm;
+                    workHours = hh + " : " + mm;
                 }
                 else
                 {
-                     workHours=workHours+ " : 00";
+                    workHours = workHours + " : 00";
                 }
-               
+
                 timeSheet.TotalTime = workHours;
                 timeSheet.ProjectList = getProjectList();
                 timeSheet.ActivityList = getActivityList();

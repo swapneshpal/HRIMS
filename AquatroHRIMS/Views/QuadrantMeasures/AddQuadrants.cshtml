@@ -75,14 +75,14 @@
             </div><br>
             <div>
                 <label class="control-label" for="textinput">Department Type</label>
-                @Html.DropDownListFor(m => m.SelectedQuadrantDepartmentType, new SelectList(Model.QuadrantDepartmentTypeList, "Value", "Text", Model.QuadrantDepartmentTypeList.SelectedValue), new { @class = "form-control clear", id = "ddlDeaprtmentType", style = "width: 230px" })
+                @Html.DropDownListFor(m => m.SelectedQuadrantDepartmentType, new SelectList(Model.QuadrantDepartmentTypeList, "Value", "Text", Model.QuadrantDepartmentTypeList.SelectedValue), new { @class = "form-control clear", id = "ddlDeaprtmentType" })
                 <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="ddlDeaprtment" style="display:none">Please select departmenttype</span></span>
             </div><br>
             <div>
                 
                 <input type="submit" value="submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidate();">
 
-                        <input type="reset" value="Reset" class="btn btn-primary" onclick="Reset()">
+                        <input type="reset" value="Reset" class="btn btn-dark" onclick="Reset()">
 
                     </div>
 

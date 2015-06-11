@@ -5,50 +5,54 @@
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
-
-@*@using (Ajax.BeginForm("CreateHolidayList", "Leave", new AjaxOptions {UpdateTargetId = "divResult", OnBegin = "Begin", OnFailure = "Failure", OnSuccess = "Sucess", OnComplete = "Complete"  }))
-    {*@
-<div class="container">
+<div class="col-md-12">
+    <div class="pull-right btn1">
+        <span> @Html.ActionLink("Holiday List", "HolidayList", "Leave")</span>
+    </div>
+</div>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-offset-10">
-            <span> @Html.ActionLink("Holiday List", "HolidayList", "Leave")</span>
-        </div>
         <fieldset class="scheduler-border">
             <legend class="scheduler-border">Create Holiday</legend>
             <br />
             @using (Html.BeginForm("CreateHolidayList", "Leave", FormMethod.Post))
             {
                 <div class="col-md-12 form_margin">
-                    @Html.LabelFor(m => m.Occassion, new { @class = "col-md-2" })
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Occassion, new { @class = "pull-right" })
+                    </div>
+                 
                     <div class="col-md-4">
                         @Html.TextBoxFor(m => m.Occassion, new { @class = "form-control", minlength = "2", maxlength = "50", id = "txtoccassion" })
                         <span style="color:red">@Html.ValidationMessageFor(m => m.Occassion)</span>
                     </div>
                 </div>
                 <div class="col-md-12 form_margin">
-                    @Html.LabelFor(model => model.Description, new { @class = "col-md-2" })
-                    <div class="col-md-4">
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "txtdescription" })
-                        <span style="color:red"> @Html.ValidationMessageFor(model => model.Description)</span>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Description, new { @class = "pull-right" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "txtdescription" })
+                            <span style="color:red"> @Html.ValidationMessageFor(model => model.Description)</span>
+                        </div>
                     </div>
-                </div>
 
 
                 <div class="col-md-12 form_margin">
-                    @Html.LabelFor(model => model.Date, new { @class = "col-md-2" })
-                    <div class="col-md-4">
-                        <div class='input-group date' id='dateFrom'>
-                            @Html.TextBoxFor(model => model.Date, new { @class = "form-control", @placeholder = "mm/dd/yyyy", id = "txtdate" })
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Date, new { @class = "pull-right" })
                         </div>
-                        <span style="color:red">
-                            @Html.ValidationMessageFor(model => model.Date)
-                        </span>
+                        <div class="col-md-4">
+                            <div class='input-group date' id='dateFrom'>
+                                @Html.TextBoxFor(model => model.Date, new { @class = "form-control", @placeholder = "mm/dd/yyyy", id = "txtdate" ,@readonly=true})
+
+
+                            </div>
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(model => model.Date)
+                            </span>
+                        </div>
                     </div>
-                </div>
                
                 @*<div class="col-md-12 ">
                     <div class="col-md-6 col-md-push-2 ">
@@ -64,7 +68,7 @@
                         <div class="col-md-offset-3 col-md-10">
                             <input type="submit" value="Create " id="btnCreate" class="btn btn-primary" />
                             <input type="submit" value="Update " id="btnUpdateClient" style="display:none" class="btn btn-primary" />     
-                            <input type="reset" value="Reset" id="btnReset" class="btn btn-primary" onclick="fnReset();" />
+                            <input type="reset" value="Reset" id="btnReset" class="btn btn-dark" onclick="fnReset();" />
                         </div>
                     </div>
                  <div class="form-group">
@@ -91,7 +95,10 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#dateFrom').datepicker().on('changeDate', function (e) {
+        $("#txtdate").datepicker({
+            changeMonth: true,
+            changeYear: true
+        }).on('changeDate', function (e) {
             $(this).datepicker('hide');
         });;
     });

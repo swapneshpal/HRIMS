@@ -51,10 +51,22 @@
 
 @using (Ajax.BeginForm("AssignProject", "Project", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
 {
-        <div id="divResult">
+   <div id="divResult">
 
     </div>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="pull-right btn1">
+                @Html.ActionLink("Project List", "ProjectList", "Project")
+            </div>
+        </div>
+    </div>
+</div>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Assign Project</legend>
+    <div class="container-fluid">
         <div class="row">
 
             <div class="form-group">
@@ -88,7 +100,7 @@
                             <td></td>
                             <td><span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
                                 <input type="submit" value="Assign " id="btnCreate" onclick="return validate();" class="btn btn-primary" />
-                                <input type="reset" value="Reset " id="btnrest" onclick="return fnreset()" class="btn btn-primary" />
+                                <input type="reset" value="Reset " id="btnrest" onclick="return fnreset()" class="btn btn-dark" />
                             </td>
                             <td>
                             </td>
@@ -101,6 +113,7 @@
             </div>
         </div>
     </div>
+    </fieldset>
 }
 
 <script>

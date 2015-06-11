@@ -3,55 +3,92 @@
     ViewBag.Title = "AddExternalHead";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
-<script src="~/JSValidation/Validation.js"></script>
+
 <script>
-   
+    $(document).ready(function () {
+        $("#ddlExternalClient").change(function () {
+            if ($('#ddlExternalClient option:selected').val() == 0) {
+                $("#smnClient").css("display", "block");
+                cnt++;
+                return false;
+            }
+            else {
+                $("#smnClient").css("display", "none");
+            }
+        })
+    })
+
+    function fnValidation()
+    {
+        $(".spnValidMGS").css("display", "block");
+        if ($('#ddlExternalClient option:selected').val() == "0")
+        {
+            $("#smnClient").css("display", "block");
+        }
+        else
+        {
+
+            $("#smnClient").css("display", "none");
+        }
+        
+        return true;
+    }
     function Reset()
     {
-        $('#ddlClient option:eq(0)').attr('selected', '-selected-');
-        $(".field-validation-valid").css("display", "none");
+        $('#ddlExternalClient option:eq(0)').attr('selected', '-selected-');
+        $(".spnValidMGS").css("display", "none");
         $("#txtName").val('');
         $("#txtEmail").val('');
         $("#txtContact").val('');
         $("#msg").text('');
+        $("#smnClient").css("display", "none");
     }
   
 </script>
+
 <br><br>
-@using(Html.BeginForm("AddExternalHead","Client",FormMethod.Post))
+@using (Ajax.BeginForm("AddExternalHead", "Client", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnSuccess = "Success", OnComplete = "Complete", OnFailure = "Error" }))
 {
+    <div id="divResult">
+
+    </div>
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Add External Head</legend>
     <div class="col-md-12">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div>
-                <label class="control-label" for="textinput">Name</label>
-            @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control", minlength = "2" })
-                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
-                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgName" style="display:none">Please enter name</span></span>
+                <label class="control-label">Name</label>
+                     @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control"})
+                <span style="color:red" class="spnValidMGS">@Html.ValidationMessageFor(model=>model.Name)</span>
             </div><br>
             <div>
-                <label class="control-label" for="textinput">Email Id</label>
+                <label class="control-label" >Email Id</label>
                 @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", @placeholder = "Email id", @class = "form-control" })
                 @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
-                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgEmail" style="display:none">Please enter email</span></span>
+                <span style="color:red" class="spnValidMGS">
+                    @Html.ValidationMessageFor(model => model.Email)
+               
+            </span>
             </div><br>
             <div>
-                <label class="control-label" for="textinput">Contact No.</label>
+                <label class="control-label" >Contact No.</label>
                 @Html.TextBoxFor(m => m.Contact, new { id = "txtContact", @placeholder = "Contact no", @class = "form-control" })
                 @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
-                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgContact" style="display:none">Please enter contact</span></span>
+                <span style="color:red" class="spnValidMGS">
+                    @Html.ValidationMessageFor(model => model.Contact)
+                @*<span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgContact" style="display:none"></span>*@
+            </span>
             </div><br>
             <div>
-                <label class="control-label" for="textinput">Client</label>
-               @Html.DropDownListFor(m => m.SelectedExternalClient, new SelectList(Model.ExternalClientList, "Value", "Text", Model.ExternalClientList.SelectedValue), new { @class = "form-control", id = "ddlClient", style = "width: 230px" })
-                <span style="color:red"><span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgClient" style="display:none">Please select client</span></span>
+                <label class="control-label">Client</label>
+               @Html.DropDownListFor(m => m.SelectedExternalClient, new SelectList(Model.ExternalClientList, "Value", "Text", Model.ExternalClientList.SelectedValue), new { @class = "form-control", id = "ddlExternalClient" })
+                <span style="color:red;display:none" id="smnClient">Please select client</span>
             </div><br>
             <div>
 
                 <input type="submit" value="Submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidation()">
 
-                <input type="button" value="Reset" class="btn btn-primary" onclick="Reset();">
+                <input type="button" value="Reset" class="btn btn-dark" onclick="Reset();">
 
             </div>
 
@@ -59,6 +96,7 @@
         </div>
 
         <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+            <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
             @if (ViewBag.DataSaved != null)
             {
                <script>
@@ -72,4 +110,40 @@
 
 </fieldset>
 }
+<script>
+    function Begin() {
+        $(".spnValidMGS").css("display", "block");
+        if ($('#ddlClient option:selected').val() == "0") {
+            $("#smnClient").css("display", "block");
+            return false;
+        }
+        $("#smnClient").css("display", "none");
+        return true;
+
+    }
+    function Success(data) {
+       $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+
+        if (data == "1") {
+            $("#divResult").remove();
+            alert("External head created successfully ");
+
+            fnReset();
+
+        }
+       
+    }
+    //function Error(e) {
+    //    alert('err');
+    //    alert(e.responseText);
+    //}
+
+
+    function Complete() {
+        $("#spnLoder").hide();
+        $('#btnCreate').removeAttr("disabled");
+        $('#btnUpdate').removeAttr("disabled");
+    }
+</script>
 

@@ -3,9 +3,13 @@
 
     Layout = "~/Views/Shared/_Home.cshtml";
 }
-<div>
-    @{Html.RenderPartial("ReviewManagersComment", Model);}
-</div>
-<div>
-    @{Html.RenderPartial("ReviewEmployeeAcceptance", Model);}
-</div>
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Manager Review Rating</legend>
+    <div>
+        @{Html.RenderPartial("ReviewManagersComment", Model);}
+    </div>
+    <div>
+        @{Html.RenderPartial("ReviewEmployeeAcceptance", Model);}
+    </div>
+</fieldset>

@@ -11,7 +11,6 @@ namespace AquatroHRIMS.Models
 
 
         [Required(ErrorMessage = "Please enter occasion name")]
-        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Please use alphabets only")]
         [Display(Name = "Occasion")]
         public string Occassion { get; set; }
 

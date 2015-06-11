@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,12 +40,13 @@ namespace AquatroHRIMS.Models
         [System.Web.Mvc.Remote("CheckOldPassword", "Login", ErrorMessage = "Invalid old password")]
         public string CurrentPassword { get; set; }
 
-        [StringLength(30, MinimumLength = 6, ErrorMessage = "Please enter 6 digit password")]
+        [StringLength(30, MinimumLength = 6, ErrorMessage = "Please enter atleast 6 characters")]
         [Required(ErrorMessage = "Please enter new password")]
         public string NewPassword { get; set; }
 
-        [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
-        public string ConfirmPassword { get; set; }
+
+        [System.Web.Mvc.Compare("NewPassword",ErrorMessage="New password and Confirm password do not match")]
+        public string LoginConfirmPassword { get; set; }
 
     }
 }

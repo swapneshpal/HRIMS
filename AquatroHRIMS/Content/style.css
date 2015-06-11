@@ -263,3 +263,15 @@ color:#676767;
   height: 265px !important;
   overflow:hidden;
 }
+.btn1 {
+  border: 2px solid #29A1D3 !important;
+  padding: 8px 15px !important;
+  border-radius:5px;
+  background: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
+  color:#fff;
+            
+
+}
+.btn1 a {
+    color:#fff !important;
+    }

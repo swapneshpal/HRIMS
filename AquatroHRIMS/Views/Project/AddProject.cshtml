@@ -145,11 +145,10 @@
 </script>
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" style="float:right">
-            <div></div>
-            <div class="col-md-offset-10">
+        <div class="col-md-12">
+            <div class="pull-right btn1">
                 @Html.ActionLink("Project List", "ProjectList", "Project")
             </div>
         </div>
@@ -164,83 +163,93 @@
                     </div>
 
                     <div class="form-horizontal">
-                        <div style="height:15px"></div>
                         @Html.HiddenFor(m=>m.hdnProjectID)
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                @Html.LabelFor(model => model.objProject.ProjectName, new { @class = "col-md-2" })
+                                <div class="col-sm-2">
+                                @Html.LabelFor(model => model.objProject.ProjectName, new { @class = "pull-right" })
+                                    </div>
                                 <div class="col-md-3">
                                     @Html.TextBoxFor(model => model.objProject.ProjectName, new { @class = "form-control", @placeholder = " Project Name ", id = "txtProjectName", minlength = "2", maxlength = "25" })
                                     <span style="color:red"> @Html.ValidationMessageFor(model => model.objProject.ProjectName)</span>
 
                                 </div>
-                                @Html.LabelFor(model => model.objProject.InternalHead, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.SelectedInternalHead, new SelectList(Model.Internalheadlist, "Value", "Text", ViewBag.InternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", Id = "ddlinternalhead" })
-                                    @Html.ValidationMessageFor(model => model.objProject.InternalHead)
-                                    <span id="spnInternalhrad" class="clr" style="display: none; color: red;">Please select department</span>
-                                </div>
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.objProject.InternalHead, new { @class = "pull-right" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.SelectedInternalHead, new SelectList(Model.Internalheadlist, "Value", "Text", ViewBag.InternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", Id = "ddlinternalhead" })
+                                            @Html.ValidationMessageFor(model => model.objProject.InternalHead)
+                                            <span id="spnInternalhrad" class="clr" style="display: none; color: red;">Please select department</span>
+                                        </div>
 
-                            </div>
+                                    </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                @Html.LabelFor(model => model.objProject.ClientID, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.SelectedClient, new SelectList(Model.ClientList, "Value", "Text", ViewBag.ClientID), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlclient" })
-                                    @Html.ValidationMessageFor(model => model.objProject.InternalHead)
-                                    <span id="spnclient" class="clr" style="display: none; color: red;">Please select department</span>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.ClientID, new { @class = "pull-right" })
                                 </div>
-
-                                @Html.LabelFor(model => model.objProject.ExternalHead, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.SelectedExternalHead, new SelectList(Model.ExternalHeadList, "Value", "Text", ViewBag.ExternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", @Id = "ddlexternalhead" })
-                                    @Html.ValidationMessageFor(model => model.objProject.ExternalHead)
-                                    <span id="spnexternalhead" class="clr" style="display: none; color: red;">Please select department</span>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.SelectedClient, new SelectList(Model.ClientList, "Value", "Text", ViewBag.ClientID), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlclient" })
+                                        @Html.ValidationMessageFor(model => model.objProject.InternalHead)
+                                        <span id="spnclient" class="clr" style="display: none; color: red;">Please select department</span>
+                                    </div>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.ExternalHead, new { @class = "pull-right" })
                                 </div>
-                            </div>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.SelectedExternalHead, new SelectList(Model.ExternalHeadList, "Value", "Text", ViewBag.ExternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", @Id = "ddlexternalhead" })
+                                        @Html.ValidationMessageFor(model => model.objProject.ExternalHead)
+                                        <span id="spnexternalhead" class="clr" style="display: none; color: red;">Please select department</span>
+                                    </div>
+                                </div>
                         </div>
                         <div class="form-group">
 
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-
-                                @Html.LabelFor(model => model.objProject.StartDate, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.TextBoxFor(model => model.objProject.StartDate, new { @class = "form-control", id = "txtProjectStartDate", @placeholder = "mm/dd/yyyy", @readonly = true })
-                                    <span style="color:red">   @Html.ValidationMessageFor(model => model.objProject.StartDate)</span>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.StartDate, new { @class = "pull-right" })
                                 </div>
-
-                                @Html.LabelFor(model => model.objProject.EndDate, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.TextBoxFor(model => model.objProject.EndDate, new { @class = "form-control", id = "txtProjectEndDate", placeholder = "mm/dd/yyyy", @readonly = true })
-                                    <span style="color:red" id="spnMsg">
-                                        @Html.ValidationMessageFor(model => model.objProject.EndDate)
-                                    </span>
-                                    <span id="spnDateValid1" style="display: none; color:red">End date should be greater than start date</span>
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(model => model.objProject.StartDate, new { @class = "form-control", id = "txtProjectStartDate", @placeholder = "mm/dd/yyyy", @readonly = true })
+                                        <span style="color:red">   @Html.ValidationMessageFor(model => model.objProject.StartDate)</span>
+                                    </div>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.EndDate, new { @class = "pull-right" })
                                 </div>
-                            </div>
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(model => model.objProject.EndDate, new { @class = "form-control", id = "txtProjectEndDate", placeholder = "mm/dd/yyyy", @readonly = true })
+                                        <span style="color:red" id="spnMsg">
+                                            @Html.ValidationMessageFor(model => model.objProject.EndDate)
+                                        </span>
+                                        <span id="spnDateValid1" style="display: none; color:red">End date should be greater than start date</span>
+                                    </div>
+                                </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-12">
-
-                                @Html.LabelFor(model => model.objProject.status, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(Model.StatusList, "Value", "Text", ViewBag.status), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlStatus" })
-                                    @Html.ValidationMessageFor(model => model.objProject.status)
-                                    <span id="spnStatus" class="clr" style="display: none; color: red;">Please select department</span>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.status, new { @class = "pull-right" })
                                 </div>
-
-                                @Html.LabelFor(model => model.objProject.Description, new { @class = "col-md-2" })
-                                <div class="col-md-3">
-                                    @Html.TextAreaFor(model => model.objProject.Description, new { @class = "form-control ", @placeholder = " Project Description ", id = "txtProjectDescription" })
-                                    <span style="color:red"> @Html.ValidationMessageFor(model => model.objProject.Description)</span>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(Model.StatusList, "Value", "Text", ViewBag.status), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlStatus" })
+                                        @Html.ValidationMessageFor(model => model.objProject.status)
+                                        <span id="spnStatus" class="clr" style="display: none; color: red;">Please select department</span>
+                                    </div>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.objProject.Description, new { @class = "pull-right" })
                                 </div>
-                            </div>
+                                    <div class="col-md-3">
+                                        @Html.TextAreaFor(model => model.objProject.Description, new { @class = "form-control ", @placeholder = " Project Description ", id = "txtProjectDescription" })
+                                        <span style="color:red"> @Html.ValidationMessageFor(model => model.objProject.Description)</span>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -254,13 +263,13 @@
 
                                <input type="submit" value="Create" id="btnCreate" class="btn btn-primary" onclick="javascript:fnValidation();" />
 
-                                <input type="reset" value="Reset" class="btn btn-primary" onclick="fnProjectReset()" />
+                                <input type="reset" value="Reset" class="btn btn-dark" onclick="fnProjectReset()" />
                             }
                             else
                             {
                                 <input type="submit" value="Update " id="btnUpdate" onclick="fnValidation()" class="btn btn-primary" />
 
-                                <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("ProjectList", "Project")'" />
+                                <input type="button" value="Cancel" class="btn btn-dark" id="btnBack" onclick="location.href='@Url.Action("ProjectList", "Project")'" />
                             }
 
 

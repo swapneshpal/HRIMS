@@ -16,3 +16,12 @@ F:\HRIMS\HRMS\bin\Release\Dev.A4.pdb
 F:\HRIMS\HRMS\obj\Release\HRMS.csprojResolveAssemblyReference.cache
 F:\HRIMS\HRMS\obj\Release\HRMS.dll
 F:\HRIMS\HRMS\obj\Release\HRMS.pdb
+E:\HRIMS\HRMS\bin\Release\HRMS.dll
+E:\HRIMS\HRMS\bin\Release\HRMS.pdb
+E:\HRIMS\HRMS\bin\Release\Dev.A4.dll
+E:\HRIMS\HRMS\bin\Release\Dev.A4.Web.dll
+E:\HRIMS\HRMS\bin\Release\Dev.A4.Web.pdb
+E:\HRIMS\HRMS\bin\Release\Dev.A4.pdb
+E:\HRIMS\HRMS\obj\Release\HRMS.csprojResolveAssemblyReference.cache
+E:\HRIMS\HRMS\obj\Release\HRMS.dll
+E:\HRIMS\HRMS\obj\Release\HRMS.pdb

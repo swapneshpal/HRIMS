@@ -8,12 +8,14 @@
         var count = @Model.list2.Count;
 
         if( count == 0){
-            $("#divFooter").css("display","none");
+            $("#btnSave").hide();
+          //  $("#divFooter").css("display","none");
             $("#divData").show();
+            $("#container3").hide();
         }
         else{
             $("#divFooter").css("display","block");
-            $("#divData").hide();
+            $("#divData").hide();           
         }
 
         for(i=1;i<= count ;i++){
@@ -21,12 +23,7 @@
                 $("#txtManagerComment"+i).val($("#hdnManagerComment"+i).val());
             }
         }
-
-        if($("#hdnReportingHeadFlag").val() == "True"){           
-            $("#btnSave").show();
-        }else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){            
-            $("#btnSave").hide();
-        }
+        
     });
 
     function fnValidateFields()
@@ -61,6 +58,25 @@
 </style>
 @using (Html.BeginForm("ReviewDevelopmentGoal", "QuadrantMeasures", FormMethod.Post))
 {
+
+    <div id="divData" class="panel-group">
+        <div class="panel panel-default" id="panel1">
+            <div class="panel-heading">
+                <h4 class="panel-title"></h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="container">
+                    <div class="row">
+                        <div class="bs-example">
+                            <div style="color:red;" class="col-sm-offset-4">
+                                <h4>Development goals not set by employee.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <tbody>
         @foreach (var item in @Model.list2)
         {
@@ -127,7 +143,7 @@
             </div>
             
         }
-        <div class="container" id="container2">
+        <div class="container" id="container3">
             <br>
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default" id="panel1">
@@ -166,18 +182,18 @@
             <br>
         </div>
         <div class="container" id="divFooter">
-            <div class="col-lg-12">
+            <div class="col-sm-offset-5">
                 <input type="submit" id="btnSave" class="btn btn-primary" value="Save" onclick="return fnValidateFields()" />
                 @Html.ActionLink("Back", "ReviewQuadrantDetails", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" })
                 @Html.ActionLink("Next", "ReviewSummaryComments", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, new { @class = "btn btn-primary" })
-                @*<input type="button" class="btn btn-primary" id="back2" value="Back" onclick="location.href = '/QuadrantMeasures/ReviewQuadrantDetails'">
-                @Html.ActionLink("Next", "ReviewSummaryComments", "QuadrantMeasures", new { @id = Url.RequestContext.RouteData.Values["ID"] }, null)*@
-                @*<input type="button" class="btn btn-primary" id="next1" value="Next" onclick="location.href = '/QuadrantMeasures/ReviewSummaryComments'">
-                <button type="button" class="btn btn-primary">Cancel</button>*@
             </div>
         </div>
-        <div id="divData" style="display:none">
-            No Data Found.
-        </div>
+        @if (@Session["ReviewDevGoal"] != null)
+        {
+            <script>
+                alert("Manager Comment added successfully.");
+            </script>
+            Session["ReviewDevGoal"] = null;
+        }
         </tbody>
 }

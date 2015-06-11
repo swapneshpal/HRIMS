@@ -1,13 +1,13 @@
 ﻿
 
+
 <script type="text/javascript">
 
     var a = 2;
     $(document).ready(function (e) {
         $("#btnSave").click(function (e) {
             var s = fnValidation();
-            if (s)
-            {
+            if (s) {
                 var tbodyLength = $("#tblPerofession tbody").length;
                 var Exp = { Employee: [] };
                 var jsonObj = [];
@@ -22,13 +22,13 @@
                     jsonObj.push(temp_obj);
 
                 }
-                this.form.action = '/DashBoard/EmpProfessional?Professional=' + JSON.stringify(jsonObj);
+                this.form.action = '../DashBoard/EmpProfessional?Professional=' + JSON.stringify(jsonObj);
                 this.form.submit();
             }
             else {
                 return false;
             }
-            
+
         });
 
         //var tbodyLength = $("#tblPerofession tbody").length;
@@ -36,8 +36,8 @@
 
 
         //removetable();
-   
-      
+
+
     });
 
 
@@ -65,7 +65,7 @@
 
         var tbody = document.createElement("tbody");
         tbody.setAttribute("id", "tbody" + Count);
-        
+
 
         var rowCount = tbody.rows.length;
         var row = tbody.insertRow(rowCount);
@@ -116,7 +116,7 @@
         var row = tbody.insertRow(rowCount);
 
         var cell13 = row.insertCell(0);
-   
+
         var element13 = document.createElement("label");
         element13.id = "lblFromDate" + Count;
         element13.innerText = "From Date";
@@ -148,7 +148,7 @@
         element22.hidden = "span";                  //hide span on dynamic span
         $("#spnstrat12").css('color', 'red');
 
-        
+
         var cell8 = row.insertCell(1);
         var element8 = document.createElement('input');
         var element23 = document.createElement('span');
@@ -171,7 +171,7 @@
         element50.className = "btnRemove";
         element50.innerText = "Remove";
         var i = "tbody";
-       
+
 
         cell50.appendChild(element50);
         table.appendChild(tbody);
@@ -198,9 +198,8 @@
         var alphabates = /^[a-zA-Z0-9 ]+$/;
         var tbodyLength = $("#tblPerofession tbody").length;
         for (i = 1; i <= tbodyLength; i++) {
-            if ($("#txtDesignation" + i).val() == "" || $("#txtDesignation" + i).val().length < 2 )
-            {
-               
+            if ($("#txtDesignation" + i).val() == "" || $("#txtDesignation" + i).val().length < 2) {
+
                 flag = true;
             }
             //if ($("#txtDesignation" + i).val() == /^[a-zA-Z0-9 ]+$/)
@@ -212,7 +211,7 @@
 
                 flag = true;
             }
-            if ($("#txtFromdate" + i).val() == "" || $("#txtFromdate" + i).val() > $("#txtEndDate" + i).val()) {
+            if ($("#txtFromdate" + i).val() == "" || Date.parse($("#txtFromdate" + i).val()) > Date.parse($("#txtEndDate" + i).val())) {
 
                 flag = true;
             }
@@ -222,7 +221,7 @@
             }
         }
         if (flag == true) {
-            $("#errorMsg").text("Please provide correct data in correct format...");
+            $("#errorMsg").text("Please provide correct data ");
             return false;
         } else {
             $("#errorMsg").text("");
@@ -238,25 +237,26 @@
     //    });
     //})
     var s = 1;
-    function removetable(s)
-    {
+    function removetable(s) {
         var dd = 0;
         if (dd < 1) {
-            
+
             $(".btnRemove").on("click", function () {
                 var a = $(this).attr("id");
                 var st = a.substr(9, a.length);
                 $("#tbody" + st).remove();
             })
-            
+
         }
-     
+
         dd++;
-           
-        
- 
-        }
+
+
+
+    }
 </script>
+
+
 
 <style>
     .labelName {

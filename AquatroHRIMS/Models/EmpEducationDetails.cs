@@ -11,7 +11,7 @@ namespace AquatroHRIMS.Models
 
         public int iID { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please use alphabets only")]
+        [RegularExpression(@"^[a-zA-Z.\s]+$", ErrorMessage = "Please use alphabets only")]
         [Required(ErrorMessage = "Please enter institute ")]
         [Display(Name="Institute")]
         public string InstituteName { get; set; }
@@ -41,6 +41,7 @@ namespace AquatroHRIMS.Models
         [Display(Name = "Percentage")]
         public double Percentage { get; set; }
 
+        [RegularExpression(@"^[a-zA-Z.\s]+$", ErrorMessage = "Please use alphabets only ")]
         [Required(ErrorMessage = "Please enter specialization ")]
         [Display(Name = "Specialization")]
         public string  Specialization { get; set; }
@@ -51,7 +52,7 @@ namespace AquatroHRIMS.Models
 
 
 
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please use alphabets only ")]
+        [RegularExpression(@"^[a-zA-Z.\s]+$", ErrorMessage = "Please use alphabets only ")]
         [Required(ErrorMessage = "Please enter institute")]
         [Display(Name = "Institute")]
         public string SecInstituteName { get; set; }
@@ -74,7 +75,7 @@ namespace AquatroHRIMS.Models
         public double SecPercentage { get; set; }
 
 
-        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please use alphabets only")]
+        [RegularExpression(@"^[a-zA-Z.\s]+$", ErrorMessage = "Please use alphabets only")]
         [Required(ErrorMessage = "Please enter institute")]
         [Display(Name = "Institute")]
         public string HighlySecInstituteName { get; set; }
@@ -97,7 +98,7 @@ namespace AquatroHRIMS.Models
 
         [Display(Name = "Specialization")]
         [Required(ErrorMessage = "Please enter specialization")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use alphabets only")]
+        [RegularExpression(@"^[a-zA-Z.\s]+$", ErrorMessage = "Please use alphabets only ")]
         public string HighlySecSpecialization { get; set; }
 
         public bool IsActive { get; set; }

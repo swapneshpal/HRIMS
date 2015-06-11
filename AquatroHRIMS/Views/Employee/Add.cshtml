@@ -55,9 +55,9 @@
 
     </div>
     <div id="divEmployeeAdd">
-        <div class="col-md-12" style="float:right">
-            <div></div>
-            <div class="col-md-offset-10">
+        <div class="col-md-12">
+  
+            <div class="pull-right btn1">
                 @*<input type="button" value="Back" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("employeeSearch", "Employee")'" />*@
 
                 <a href="javascript:void(0)" onclick="location.href = '@Url.Action("EmployeeList", "Employee")'">Employee List </a>
@@ -252,20 +252,20 @@
                     </div>
                 </div>
                 <div class="form-group" style="margin:60px">
-                    <div class="col-md-offset-5 col-md-10">
+                    <div class="col-md-offset-5">
                         <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
                         @if (Model.hdnEmployeeID == null)
                         {
 
                        <input type="submit" value="Create " id="btnCreate" class="btn btn-primary" onclick="fnValidation()" />
                             
-                        <input type="reset" value="Reset" class="btn btn-primary" onclick="fnReset()" />
+                        <input type="reset"  value="Reset" class="btn btn-dark" onclick="fnReset()" />
                         }
                         else
                         {
                        <input type="submit" value="Update " id="btnUpdate" onclick="fnValidation()" class="btn btn-primary" />
-                                   
-                      <input type="button" value="Cancel" class="btn btn-primary" id="btnBack" onclick="location.href='@Url.Action("EmployeeList", "Employee")'" />
+
+    <input type="button" value="Cancel" class="btn btn-dark" id="btnBack" onclick="location.href='@Url.Action("EmployeeList", "Employee")'" />
                         }
 
 

@@ -40,71 +40,79 @@
     
 </script>
 @model IEnumerable<AquatroHRIMS.Models.ProjectList>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" style="float:right">
-            <div></div>
-            <div class="col-md-offset-10">
+        <div class="col-md-12">
+
+            <div class="pull-right btn1">
                 @Html.ActionLink("Add Project", "AddProject", "Project")
             </div>
         </div>
-        <div class="col-md-12">
-            <table id="ProjectTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>
-                            ProjectName
-                        </th>
-                        <th>
-                            Internal Head
-                        </th>
+    </div>
+</div>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Project List</legend>
+    <div class="container-fluid">
+        <div class="row">
+   
+            <div class="col-md-12">
+                <table id="ProjectTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Project Name
+                            </th>
+                            <th>
+                                Internal Head
+                            </th>
 
-                        <th>
-                            External Head
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th>Edit/Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
+                            <th>
+                                External Head
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                     {
 
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m => item.ProjectName)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.ProjectName)
 
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.InternalHead)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.InternalHead)
 
-                            </td>
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(m => item.ExternalHead)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Status)
-                            </td><td>
+                        <td>
+                            @Html.DisplayFor(m => item.ExternalHead)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Status)
+                        </td>
+                        <td>
 
-                                @Html.ActionLink("Edit", "AddProject", "Project", new { @id = item.ProjectID }, null)
-                                @*@Html.ActionLink("Edit", "ViewRequest", "Employee", new { @ID = item.EmpID }, null)*@
-                                @*<a href="javascript:void()" onclick="Delete(@item.ProjectID)">Delete</a>*@
-                            </td>
+                            @Html.ActionLink("Edit", "AddProject", "Project", new { @id = item.ProjectID }, null)
+                            @*@Html.ActionLink("Edit", "ViewRequest", "Employee", new { @ID = item.EmpID }, null)*@
+                            @*<a href="javascript:void()" onclick="Delete(@item.ProjectID)">Delete</a>*@
+                        </td>
 
-                        </tr>
+                    </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
+
     </div>
-
-</div>
-
+</fieldset>
 
 
 

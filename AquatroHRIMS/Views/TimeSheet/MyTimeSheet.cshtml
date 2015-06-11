@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script>
     count = 0;
-    countNext = 0;
+    countNext = 3;
     var curDt = new Date();
     $(document).ready(function () {
         $("#ddlActivity1").prop("disabled", true);
@@ -85,7 +85,7 @@
                 var n = 1;
                 while ($("#ddlProject" + n + " :selected").val() != "")
                 {
-                    
+
                     if ($("#ddlActivity"+n+" :selected").val() == "")
                     {
                         PCount++;
@@ -145,34 +145,19 @@
 
     });
     function Prev() {
-        countNext--;
+
         $("#Nextbtn").show();
         if (count < 3) {
             $("#Prevbtn").show();
             count++;
+            countNext--;
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("PrevDate", "TimeSheet")',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    var array = data[7].split('.')
-                    var hh = parseInt(array[0]);
-                    var mm = parseFloat(array[1]);
-                    var mm1 = mm.toString();
-                    if (mm > 10) {
-                        mm = parseInt(mm1.substring(0, 1));
-
-                        if (mm > 60) {
-                            hh++;
-                            mm = mm - 60;
-                        }
-                    }
-                    if (isNaN(mm)) {
-                        mm = 0;
-                    }
-
-                    $("#spnTotal").text(hh + ":" + mm);
+                    $("#spnTotal").text(data[7]);
                     $("#spnStart").text(data[0])
                     $("#spnEnd").text(data[1])
                     $("#Hmon").text(data[0].substring(0, 5));
@@ -193,35 +178,22 @@
         }
     }
     function Next() {
-        count--;
-        countNext++;
+
         $("#Prevbtn").show();
-        if (countNext == 0) {
+        if (countNext >2) {
             $("#Nextbtn").hide();
         }
         else {
+            count--;
+            countNext++;
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("NextDate", "TimeSheet")',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    var array = data[7].split('.')
-                    var hh = parseInt(array[0]);
-                    var mm = parseFloat(array[1]);
-                    var mm1 = mm.toString();
-                    if (mm > 10) {
-                        mm = parseInt(mm1.substring(0, 1));
 
-                        if (mm > 60) {
-                            hh++;
-                            mm = mm - 60;
-                        }
-                    }
-                    if (isNaN(mm)) {
-                        mm = 0;
-                    }
-                    $("#spnTotal").text(hh + ":" + mm);
+                    $("#spnTotal").text(data[7]);
                     $("#spnStart").text(data[0])
                     $("#spnEnd").text(data[1])
                     $("#Hmon").text(data[0].substring(0, 5));
@@ -239,7 +211,7 @@
         }
     }
 </script>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <fieldset class="scheduler-border">
             <legend class="scheduler-border">MyTimeSheet</legend>
@@ -509,17 +481,19 @@
                     </tbody>
                 </table>
             </div>
-        </fieldset>
-        <div class="col-md-12">
-            <div class="col-md-4 col-md-push-4">
-                <div class="btn-group">
+            <hr style="border:1px solid black" />
+            <div class="col-md-12">
+                <div class="col-md-4 col-md-push-5">
+
                     @*<button type="button" class="btn btn-primary">Add New</button>*@
                     <button type="button" class="btn btn-primary col-md-push-1" id="btnSave">Save</button>
-                    <button type="reset" class="btn btn-primary col-md-push-2">Reset</button>
-                </div>
+                    <button type="reset" class="btn btn-dark col-md-push-2">Reset</button>
 
+
+                </div>
             </div>
-        </div>
+        </fieldset>
+
     </div>
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

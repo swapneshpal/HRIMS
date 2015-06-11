@@ -5,37 +5,42 @@
 }
 <script type="text/javascript">
     $(document).ready(function (e) {
-        
-        var count = @Model.list1.Count;
-        for(i=1 ;i <= count ; i++ ){           
-            $("#txtEmpComments"+i).val($("#hdn"+i).val());
-            $("#btnUpdate").css("display","block");
 
-            
+        var count = @Model.list1.Count;
+        for(i=1 ;i <= count ; i++ ){
+            $("#txtEmpComments"+i).val($("#hdn"+i).val());
+            //$("#btnUpdate").css("display","block");
+            $("#btnUpdate").removeAttr("disabled");
+            $("#btnSubmit").removeAttr("disabled");
+
             if($("#hdnManagerFlag"+i).val() == "True")
             {
                 $("#txtManagerComment"+i).val($("#hdnManagerComent"+i).val());
             }
-        }   
-        
-       
-                if($("#hdn1").val() !="")
-                {
-                    $("#btnSave").remove();
-                }
-                else{
-                    $("#btnUpdate").remove();
-                }
-        // After submiting quadrants employee can check quadrants               
-                if($("#hdnEmpFlag1").val() == "True")
-                {
-                    $("#btnUpdate").remove();
-                    $("#btnSubmit").remove();
-                }
-                
+        }
+
+        if($("#hdn1").val() !="")
+        {
+            //$("#btnSave").remove();
+            $("#btnSave").attr("disabled","disabled");
+        }
+        else{
+            //$("#btnUpdate").remove();
+            $("#btnUpdate").attr("disabled","disabled");
+            $("#btnSubmit").attr("disabled","disabled");
+        }
+        // After submiting quadrants employee can check quadrants
+        if($("#hdnEmpFlag1").val() == "True")
+        {
+            //$("#btnUpdate").remove();
+            $("#btnUpdate").attr("disabled","disabled");
+            $("#btnSubmit").attr("disabled","disabled");
+            // $("#btnSubmit").remove();
+        }
+
     });
     function fnValidateFields()
-    {        
+    {
         var count = @Model.list1.Count;
         var flag = false;
         for(i=1; i<= count ;i++)
@@ -44,7 +49,7 @@
             {
                 $("#lbl"+i).css("display","block");
                 flag =true;
-            }           
+            }
 
         }
         if(flag == true){
@@ -62,97 +67,141 @@
 </script>
 
 @using (Html.BeginForm("EmployeeQuadrants", "QuadrantMeasures", FormMethod.Post))
-{       
- <tbody>
-@foreach (var item in @Model.list1)
-{       
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default" id="panel1">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-target="#collapseOne"
-                       href="#collapseOne">
-                        Performance Quadrant @Html.DisplayFor(modelItem => item.Count)
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="container">
-                    <div class="row">
-                        <div class="bs-example">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>                                                                                
-                                        <td><label>Performance Quadrant @Html.DisplayFor(modelItem => item.Count)</label></td>
-                                        <td><label>Quadrant Measure</label></td>
-                                        <td><label>Employee Accomplishment</label></td>
-                                        <td rowspan="2">                                                                                  
-                                            @*@Html.DropDownListFor(m => m.goalStatusID[item.Count-1], new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList" })*@
-                                            @Html.HiddenFor(m => m.GoalID[item.Count - 1], new { Value = item.GoalId })
-                                            @Html.HiddenFor(m => m.EmployeeGoalID[item.Count - 1], new { Value = item.EmpGoalID })
-                                            @Html.HiddenFor(modelItem => item.EmpFlag, new { id = "hdnEmpFlag" + @Html.DisplayFor(modelItem => item.Count) })
-                                            @*<select name="Status">
-                                                    <option value="Completed">Completed</option>
-                                                    <option value="Ongoing">Ongoing</option>
-                                                    <option value="Pending">Pending</option>
-                                                </select>*@
+{
+    if (@Model.list1.Count != 0)
+    {
+        <tbody>
+            @foreach (var item in @Model.list1)
+            {
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" id="panel1">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-target="#collapseOne"
+                               href="#collapseOne">
+                                Performance Quadrant @Html.DisplayFor(modelItem => item.Count)
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="container">
+                            <div class="row">
+                                <div class="bs-example">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td><label>Performance Quadrant @Html.DisplayFor(modelItem => item.Count)</label></td>
+                                                <td><label>Quadrant Measure</label></td>
+                                                <td><label>Employee Accomplishment</label></td>
+                                                <td rowspan="2">
+                                                    @*@Html.DropDownListFor(m => m.goalStatusID[item.Count-1], new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList" })*@
+                                                    @Html.HiddenFor(m => m.GoalID[item.Count - 1], new { Value = item.GoalId })
+                                                    @Html.HiddenFor(m => m.EmployeeGoalID[item.Count - 1], new { Value = item.EmpGoalID })
+                                                    @Html.HiddenFor(modelItem => item.EmpFlag, new { id = "hdnEmpFlag" + @Html.DisplayFor(modelItem => item.Count) })
+                                                    @*<select name="Status">
+                                                            <option value="Completed">Completed</option>
+                                                            <option value="Ongoing">Ongoing</option>
+                                                            <option value="Pending">Pending</option>
+                                                        </select>*@
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        @*<td>Skills</td>*@
-                                        <td>@Html.DisplayFor(modelItem => item.GoalName)</td>
-                                        
-                                        <td>                                            
-                                            @*@Html.TextAreaFor(m => m.measures[0], new { @Value = item.GoalName, id = "txtArea" + item.Count, rows = "5", @class = "form-control" })*@                                           
-                                            <textarea class="form-control" rows="5" id="comment" disabled="disabled">@Html.DisplayFor(modelItem => item.Measures)</textarea>
-                                            @Html.HiddenFor(m => m.Measures[item.Count - 1], new { Value = item.Measures })
-                                        </td>
-                                        <td>
-                                        @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
-                                            @Html.HiddenFor(modelItem => item.ManagerComment, new { id = "hdnManagerComent" + @Html.DisplayFor(modelItem => item.Count) })
-                                            @Html.HiddenFor(modelItem => item.ManagerFlag, new { id = "hdnManagerFlag" + @Html.DisplayFor(modelItem => item.Count) })
-                                        @Html.HiddenFor(modelItem => item.empcomment, new { id = "hdn" + @Html.DisplayFor(modelItem => item.Count) })
-                                        @Html.TextAreaFor(m => m.empComments[item.Count - 1], new { rows = "5", @class = "form-control", id = "txtEmpComments" + @Html.DisplayFor(modelItem => item.Count), onkeypress = "fnHideErrorMessage(id,value)" })                                        
-                                        @Html.LabelFor(m => m.empComments, "Please enter Employee Accomplishment.", new { id = "lbl" + @Html.DisplayFor(modelItem => item.Count), style = "display:none; color:red; font-size:12px;" })
-                                                                              
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">
-                                            <label>Manager Comments:</label><br>
-                                            @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
-                                            @Html.TextAreaFor(m => m.ManagerComments[item.Count - 1], new { rows = "5", @class = "form-control", disabled = "disabled" ,id= "txtManagerComment"+ @Html.DisplayFor(modelItem => item.Count) })
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                @*<td>Skills</td>*@
+                                                <td>@Html.DisplayFor(modelItem => item.GoalName)</td>
+
+                                                <td>
+                                                    @*@Html.TextAreaFor(m => m.measures[0], new { @Value = item.GoalName, id = "txtArea" + item.Count, rows = "5", @class = "form-control" })*@
+                                                    <textarea class="form-control" rows="5" id="comment" disabled="disabled">@Html.DisplayFor(modelItem => item.Measures)</textarea>
+                                                    @Html.HiddenFor(m => m.Measures[item.Count - 1], new { Value = item.Measures })
+                                                </td>
+                                                <td>
+                                                    @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                                    @Html.HiddenFor(modelItem => item.ManagerComment, new { id = "hdnManagerComent" + @Html.DisplayFor(modelItem => item.Count) })
+                                                    @Html.HiddenFor(modelItem => item.ManagerFlag, new { id = "hdnManagerFlag" + @Html.DisplayFor(modelItem => item.Count) })
+                                                    @Html.HiddenFor(modelItem => item.empcomment, new { id = "hdn" + @Html.DisplayFor(modelItem => item.Count) })
+                                                    @Html.TextAreaFor(m => m.empComments[item.Count - 1], new { rows = "5", @class = "form-control", id = "txtEmpComments" + @Html.DisplayFor(modelItem => item.Count), onkeypress = "fnHideErrorMessage(id,value)" })
+                                                    @Html.LabelFor(m => m.empComments, "Please enter Employee Accomplishment.", new { id = "lbl" + @Html.DisplayFor(modelItem => item.Count), style = "display:none; color:red; font-size:12px;" })
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <label>Manager Comments:</label><br>
+                                                    @*<textarea class="form-control" rows="5" id="comment"></textarea>*@
+                                                    @Html.TextAreaFor(m => m.ManagerComments[item.Count - 1], new { rows = "5", @class = "form-control", disabled = "disabled" ,id= "txtManagerComment"+ @Html.DisplayFor(modelItem => item.Count) })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            }
+        </tbody>
+        <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+            @if (@Session["EmpQudSave"] != null)
+            {
+            <script>
+                    alert("Employee Quadrants added successfully.");
+            </script>
+                Session["EmpQudSave"] = null;
+            }
+            @if (@Session["EmpQuadUpdate"] != null)
+        {
+            <script>
+                alert("Employee Quadrants updated successfully.");
+            </script>
+            Session["EmpQuadUpdate"] = null;
+        }
+            @if (@Session["EmpQuadSubmit"] != null)
+        {
+            <script>
+                alert("Employee Quadrants submitted successfully.");
+            </script>
+            Session["EmpQuadSubmit"] = null;
+        }
+
+        </div>
+
+        <div align="center">
+
+            @*<button type="submit" class="btn btn-primary">Save</button>*@
+            <input type="submit" value="Save " id="btnSave" class="btn btn-primary " onclick="return fnValidateFields()" />
+            <input type="button" class="btn btn-primary" disabled="disabled" id="btnUpdate" value="Update" onclick="this.form.action = '../QuadrantMeasures/EmployeeQuadrantsUpdate'; this.form.submit();">
+            <input type="button" class="btn btn-primary" disabled="disabled" id="btnSubmit" value="Submit" onclick="this.form.action = '../QuadrantMeasures/EmployeeQuadrantsSubmit'; this.form.submit();">
+            @*<button type="button" class="btn btn-primary">Submit</button>*@
+            @Html.ActionLink("Next", "DevelopmentGoals", "QuadrantMeasures", null, new { @class = "btn btn-primary" })
+            @*<button type="button" class="btn btn-primary">Cancel</button>*@
+
+        </div>
+    }
+    else
+    {
+        <div id="divData" class="panel-group">
+            <div class="panel panel-default" id="panel1">
+                <div class="panel-heading">
+                    <h4 class="panel-title"></h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="container">
+                        <div class="row">
+                            <div class="bs-example">
+                                <div style="color:red;" class="col-sm-offset-4">
+                                    <h4>        There is no Quardant set by Your Manager.</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
-}
-        </tbody> 
-    if (@Model.list1.Count != 0)
-    {        
-        <div align="center">
-            <footer>
-                @*<button type="submit" class="btn btn-primary">Save</button>*@
-                <input type="submit" value="Save " id="btnSave" class="btn btn-primary" onclick="return fnValidateFields()" /> 
-                <input type="button" class="btn btn-primary" style="display:none" id="btnUpdate" value="Update" onclick="this.form.action = '../QuadrantMeasures/EmployeeQuadrantsUpdate'; this.form.submit();">  
-                <input type="button" class="btn btn-primary" id="btnSubmit" value="Submit" onclick="this.form.action = '../QuadrantMeasures/EmployeeQuadrantsSubmit'; this.form.submit();">  
-                @*<button type="button" class="btn btn-primary">Submit</button>*@                                
-                @Html.ActionLink("Next", "DevelopmentGoals", "QuadrantMeasures");  
-                @*<button type="button" class="btn btn-primary">Cancel</button>*@
-            </footer>
-        </div>
-    }
-    else { 
-    <span style="color:red">
-There is no Quardant set by Your Manager.
-    </span>
+
+
     }
 
 }

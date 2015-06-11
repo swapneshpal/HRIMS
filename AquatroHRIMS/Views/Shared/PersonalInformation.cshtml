@@ -29,7 +29,10 @@
         $("#btnProfileEdit").show();
 
     };
-
+    $(function () {
+        var dob = $("#txtDOB").val();
+        $("#txtDOB").val(dob.substring(0, dob.indexOf(" ")));
+    })
 </script>
 <script>
     function fnUpdate()
@@ -150,6 +153,7 @@
         }).on('changeDate', function (e) {
             $(this).datepicker('hide');
         });
+
     });
 </script>
 

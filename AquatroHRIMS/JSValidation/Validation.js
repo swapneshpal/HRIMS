@@ -14,7 +14,7 @@
         if (txt.length < 2)
         {
             cnt++;
-            $("#msgName").css("display", "block").text("Please enter atleast 2 character");
+            $("#msgName").css("display", "block").text("Please enter atleast 2 characters");
         }
         else{
             $("#msgName").css("display", "none");
@@ -30,14 +30,24 @@
         $("#msgEmail").css("display", "none");
     }
     else {
-        $("#msgEmail").css("display", "block");
+        if (email == "")
+        {
+            $("#msgEmail").css("display", "block").text("Please enter email id");
+        }
+        else
+        $("#msgEmail").css("display", "block").text("Please enter valid email id");
         cnt++;
     }
     if (pattern.test(contact)) {
         $("#msgContact").css("display", "none");
     }
     else {
-        $("#msgContact").css("display", "block");
+        if (contact == "")
+        {
+            $("#msgContact").css("display", "block").text("Please enter contact no");
+        }
+        else
+            $("#msgContact").css("display", "block").text("Please enter valid contact no");
         cnt++;
     }
 

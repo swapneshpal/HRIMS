@@ -2,10 +2,14 @@
      @{
          
          Layout = "~/Views/Shared/_Home.cshtml";
-     }     
- <div>        
-     @{Html.RenderPartial("ManagersComment",Model);}     
- </div>
-<div>  
-    @{Html.RenderPartial("EmployeeAcceptance", Model);}
-</div>
+     }  
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Employee Review Rating</legend>
+    <div>
+        @{Html.RenderPartial("ManagersComment", Model);}
+    </div>
+    <div>
+        @{Html.RenderPartial("EmployeeAcceptance", Model);}
+    </div>
+    </fieldset>

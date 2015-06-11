@@ -280,6 +280,15 @@ namespace AquatroHRIMS.Controllers
                     //{
                     if (hdnEmployeeID != null && hdnEmployeeID != "")
                     {
+                        string strTitle = "0";
+                        if (emp.SelectedTitle[0] == "")
+                        {
+                            strTitle = "0";
+                        }
+                        else
+                        {
+                            strTitle = emp.SelectedTitle[0];
+                        }
                         int ID = Convert.ToInt32(hdnEmployeeID);
                         cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
                         objEmpLogin.sEmailID = emp.EmployeeEmailIdUpdate;
@@ -312,7 +321,7 @@ namespace AquatroHRIMS.Controllers
                         aobjEmp[0].objEmpLogin.iObjectID = objEmpLogin.iID;
                         aobjEmp[0].sEmployeeID = aobjEmp[0].sEmployeeID;
                         aobjEmp[0].objEmpLogin.iObjectID = Convert.ToInt32(objEmpLogin.iID);
-                        aobjEmp[0].objTitle.iObjectID = Convert.ToInt32(emp.SelectedTitle[0]);
+                        aobjEmp[0].objTitle.iObjectID = Convert.ToInt32(strTitle);
                         aobjEmp[0].iJobLocation = Convert.ToInt32(emp.SelectedLocation[0]);
                         aobjEmp[0].dtDOJ = Convert.ToDateTime(emp.Employee.DOJ);
                         aobjEmp[0].Save();
@@ -325,6 +334,15 @@ namespace AquatroHRIMS.Controllers
                     }
                     else
                     {
+                        string strTitle = "0";
+                        if (emp.SelectedTitle[0] == "")
+                        {
+                            strTitle = "0";
+                        }
+                        else
+                        {
+                            strTitle = emp.SelectedTitle[0];
+                        }
                         cEmpLogin objEmpLogin = cEmpLogin.Create();
                         objEmpLogin.sEmailID = emp.EmployeeEmailId;
                         objEmpLogin.objRoleAccess.iObjectID = Convert.ToInt32(emp.SelectedRollAccess[0]);
@@ -360,7 +378,7 @@ namespace AquatroHRIMS.Controllers
                         objEmp.objEmpDesigDepartmentType.iObjectID = objDesigDepart.iID;
                         objEmp.objEmpLogin.iObjectID = Convert.ToInt32(objEmpLogin.iID);
                         objEmp.iJobLocation = Convert.ToInt32(emp.SelectedLocation[0]);
-                        objEmp.objTitle.iObjectID = Convert.ToInt32(emp.SelectedTitle[0]);
+                        objEmp.objTitle.iObjectID = Convert.ToInt32(strTitle);
                         objEmp.dtDOJ = Convert.ToDateTime(emp.Employee.DOJ);
                         objEmp.Save();
                         MailCreateEmployee(objEmpLogin.sEmailID, objEmpLogin.sPassword, "Create");

@@ -55,7 +55,7 @@ namespace AquatroHRIMS.Models
         [DataType(DataType.Time)]
         public DateTime DOB { get; set; }
 
-        [Required(ErrorMessage = "Please enter pan card/social security no.")]
+        [Required(ErrorMessage = "Please enter pan card/social security no")]
         [Display(Name = "Government id")]
         public string GovID { get; set; }
 
@@ -104,8 +104,8 @@ namespace AquatroHRIMS.Models
         public string EmergancyContactName { get; set; }
 
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use alphabets only")]
-        [Required(ErrorMessage = "Please enter relationShip  name")]
-        [Display(Name = "RelationShip")]
+        [Required(ErrorMessage = "Please enter relationship  name")]
+        [Display(Name = "Relationship")]
         public string RelationShip { get; set; }
 
         [Required(ErrorMessage = "Please enter phone no")]
@@ -122,7 +122,7 @@ namespace AquatroHRIMS.Models
         public string PersonalEmail { get; set; }
 
 
-        [Required(ErrorMessage = "Please enter email name")]
+        [Required(ErrorMessage = "Please enter email id")]
         [Display(Name = "Work Email Id")]
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter valid email id")]
         public string WorkEmail { get; set; }

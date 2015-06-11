@@ -31,7 +31,7 @@ namespace AquatroHRIMS.ViewModel
         [Display(Name = "Work Email Id")]
         public string EmployeeEmailIdUpdate { get; set; }
 
-        [Required(ErrorMessage = "Please enter email name")]
+        [Required(ErrorMessage = "Please enter email id")]
         [Display(Name = "Personal Email Id")]
         [Remote("CheckPersonalEmail", "Employee", ErrorMessage = "Email id already registered")]
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter valid email id")]
@@ -39,7 +39,7 @@ namespace AquatroHRIMS.ViewModel
 
         public string hdnEmployeeID { get; set; }
 
-        [Required(ErrorMessage = "Please enter email name")]
+        [Required(ErrorMessage = "Please enter email id")]
         [Display(Name = "Personal Email Id")]
         [Remote("CheckPersoanlEmailUpdate", "Employee", AdditionalFields = "hdnEmployeeID", ErrorMessage = "Email id already registered")]
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter valid email id")]

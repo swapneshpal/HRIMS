@@ -11,72 +11,59 @@
         $('#MyLeaveTable').dataTable();
     });
 </script>
-<div class="container">
-    <div class="row">
 
-        @*<fieldset class="scheduler-border">
-            <legend class="scheduler-border">Leave Details</legend>
 
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="col-sm-3"><strong>Employee Code :</strong> <span></span></div>
-                    <div class="col-sm-3"><strong>Name :</strong> </div>
-                    <div class="col-sm-3"><strong>Designation :</strong> </div>
-                    <div class="col-sm-3"><strong>Department :</strong></div>
-                </div>
-            </div>
-        </fieldset>*@
-        <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Previous History</legend>
+    
        
-   @model  IEnumerable<AquatroHRIMS.ViewModel.PendingLeave>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <table id="MyLeaveTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>
-                            LeaveType
-                        </th>
-
-                        <th>
-                            Days
-                        </th>
-                        <th>
-                            Status
-                        </th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+ @model  IEnumerable<AquatroHRIMS.ViewModel.PendingLeave>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">My Leave History</legend>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="MyLeaveTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LeaveType)
+                            <th>
+                                Leave Type
+                            </th>
 
-                            </td>
+                            <th>
+                                Days
+                            </th>
+                            <th>
+                                Status
+                            </th>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Days)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LeaveStatus)
 
-                            </td>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType)
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveStatus)
+
+                        </td>
+                    </tr>
                     }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
-    </div>
-
-</div>
-  </fieldset>
 
     </div>
+</fieldset>
 
-</div>
+
+

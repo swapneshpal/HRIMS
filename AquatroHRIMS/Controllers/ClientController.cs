@@ -112,7 +112,7 @@ namespace AquatroHRIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult  AddExternalHead(Externalhead head)
+        public JsonResult  AddExternalHead(Externalhead head)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace AquatroHRIMS.Controllers
                 ExtHead.Save();
                 head.ExternalClientList = getIClientList();
                 ViewBag.DataSaved = "External head added successfully";
-                return View(head);
+                return Json("1");
             }
             catch (Exception ex)
             {
