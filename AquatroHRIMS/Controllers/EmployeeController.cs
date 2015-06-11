@@ -309,7 +309,7 @@ namespace AquatroHRIMS.Controllers
                         {
                             aobjEmployeePersonalDetails[0].sMiddleName = aobjEmployeePersonalDetails[0].sMiddleName;
                         }
-                        aobjEmployeePersonalDetails[0].sMiddleName = emp.EmpPersonal.MiddleName;
+                        //aobjEmployeePersonalDetails[0].sMiddleName = emp.EmpPersonal.MiddleName;
 
                         aobjEmployeePersonalDetails[0].sLastName = emp.EmpPersonal.LastName;
                         aobjEmployeePersonalDetails[0].sPersoanlEmailID = emp.PersonalEmailUpdate;
