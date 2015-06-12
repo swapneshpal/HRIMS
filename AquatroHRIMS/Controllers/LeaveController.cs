@@ -31,6 +31,7 @@ namespace AquatroHRIMS.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult CreateHolidayList(HolidayList objholidaylist)
         {
@@ -41,6 +42,7 @@ namespace AquatroHRIMS.Controllers
                 objholiday.dtOccDate = Convert.ToDateTime(objholidaylist.Date);
                 objholiday.sDescription = objholidaylist.Description;
                 objholiday.Save();
+                Session["Result"] = "1";
                 LeaveViewModel objleaveviewmodel = new LeaveViewModel();
                 return RedirectToAction("HolidayList");
             }
@@ -52,6 +54,7 @@ namespace AquatroHRIMS.Controllers
 
 
         }
+
         public ActionResult HolidayList()
         {
             try
@@ -72,6 +75,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         [HttpGet]
         public ActionResult CreateRequest()
         {
@@ -110,6 +114,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         [HttpPost]
         public JsonResult CreateRequest(LeaveViewModel objViewModel)
         {
@@ -145,6 +150,7 @@ namespace AquatroHRIMS.Controllers
 
 
         }
+
         public ActionResult MyLeave()
         {
             try
@@ -164,6 +170,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         public ActionResult LeaveBalance()
         {
             try
@@ -183,6 +190,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         private SelectList getLeaveTypeList()
         {
             try
@@ -204,6 +212,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         public ActionResult PendingLeaves()
         {
             try
@@ -223,6 +232,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         public ActionResult ViewRequest(int ID)
         {
             try
@@ -252,6 +262,7 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
+
         public ActionResult ApproveLeave(PendingLeave pd)
         {
             try
@@ -267,6 +278,7 @@ namespace AquatroHRIMS.Controllers
                 throw;
             }
         }
+
         public JsonResult Delete(string ID)
         {
             try

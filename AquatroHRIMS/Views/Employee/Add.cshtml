@@ -190,7 +190,7 @@
                             @Html.LabelFor(model => model.Password, new { @class = "pull-right" })
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @Placeholder = "Password", id = "txtPassword", type = "password", minlength = "6" })
+                            @Html.TextBoxFor(m => m.Password, new {@Value= ViewBag.Password, @class = "form-control", @Placeholder = "Password", id = "txtPassword", type = "password", minlength = "6" })
                             <span style="color:red"> @Html.ValidationMessageFor(model => model.Password)</span>
                         </div>
                         <div class="col-md-3">
@@ -199,7 +199,7 @@
 
                         </div>
                         <div class="col-md-3">
-                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @Placeholder = "Password", id = "txtConfirmPassword", type = "password", minlength = "6" })
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @Value = ViewBag.Password, @class = "form-control", @Placeholder = "Password", id = "txtConfirmPassword", type = "password", minlength = "6" })
                             <span style="color:red"> @Html.ValidationMessageFor(model => model.ConfirmPassword)</span>
                         </div>
                     </div>
@@ -299,7 +299,7 @@
         if (data == "3") {
             $("#divResult").remove();
             alert("Employee created successfully ");
-
+            window.location.href = '@Url.Action("Add", "Employee")';
             fnReset();
 
         }

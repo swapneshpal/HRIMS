@@ -40,6 +40,7 @@ namespace AquatroHRIMS.Controllers
                     objEmpViewMod.hdnEmployeeID = objEmpLogin.iID.ToString();
                     ViewBag.FirstName = aobPerso[0].sFirstName;
                     ViewBag.LastName = aobPerso[0].sLastName;
+                    ViewBag.Password = objEmpLogin.sPassword;
                     ViewBag.MiddleName = aobPerso[0].sMiddleName;
                     ViewBag.DOJ = aobEmp[0].dtDOJ.ToString("dd/MM/yyyy");
                     ViewBag.TitleName = aobEmp[0].objTitle.iObjectID;
@@ -147,7 +148,7 @@ namespace AquatroHRIMS.Controllers
 
                     foreach (var item in objReportHead)
                     {
-                        objReportHeadList.Add(new ddlReportHead { Value = item.objEmpLogin.iObjectID, Text = item.sFirstName });
+                        objReportHeadList.Add(new ddlReportHead { Value = item.objEmpLogin.iObjectID, Text = item.sFirstName + " " + item.sMiddleName + " " + item.sLastName });
                     }
                 }
 
