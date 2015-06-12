@@ -67,15 +67,16 @@
                     <div class="col-md-12">
 
                         <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.intGoalTitleId, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoal" })
 
-                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                            @*<select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
                                 <option value="0">Performance Quadrant</option>
                                 <option value="2">A4</option>
                                 <option value="3">A4</option>
                                 <option value="4">A4</option>
                                 <option value="5">Aquatro</option>
                                 <option value="7">test</option>
-                            </select>
+                            </select>*@
 
                         </div>
 
@@ -250,6 +251,77 @@
                 $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
             });
         });
+        function fnAddNewRow() {
+            var tbodyLength = $("#tblSetQuadrantMeasures tbody").length;
+            var table = document.getElementById("tblSetQuadrantMeasures");
+            var Count = tbodyLength + 1;
+
+            var tbody = document.createElement("tbody");
+            tbody.setAttribute("id", "tbody" + Count);
+
+            var rowCount = tbody.rows.length;
+            var row = tbody.insertRow(rowCount);
+            var idRowCount = rowCount + 1;
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("label");
+            element1.id = "lblQuadrantLabel" + Count;
+            element1.innerText = "Performance Quadrant :";
+            cell1.appendChild(element1);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("Select");
+            var abc = fnFillSelectList(element4);
+            element2.id = "ddlGoalList" + Count;
+            element2.className = "form-control";
+            element2.onchange = function () {
+                $("#lbl" + Count).css("display", "none");
+            }
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement('button');
+            element3.id = "btnAddNew" + Count;
+            element3.className = "btn btn-primary";
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement('button');
+            element4.id = "btnAddNew" + Count;
+            element4.className = "btn btn-primary";
+            cell4.appendChild(element4);
+
+            var cell5 = row.insertCell(4);
+            var element5 = document.createElement('label');
+            element5.id = "lblCheckbox" + Count;
+            element5.className = "btn btn-primary";
+            cell5.appendChild(element5);
+
+            var cell6 = row.insertCell(4);
+            var element6 = document.createElement('checkbox');
+            element6.id = "chkAllLevels" + Count;
+            element6.className = "btn btn-primary";
+            cell6.appendChild(element6);
+
+
+            rowCount = rowCount + 1;
+            var row = tbody.insertRow(rowCount);
+
+            var cell7 = row.insertCell(0);
+            var element7 = document.createElement('label');
+            element7.id = "lblTextArea" + Count;
+            element7.className = "btn btn-primary";
+            cell7.appendChild(element7);
+
+            rowCount = rowCount + 1;
+            var row = tbody.insertRow(rowCount);
+
+            var cell8 = row.insertCell(0);
+            var element8 = document.createElement('textarea');
+            element8.id = "txtQuadrantMeasures" + Count;
+            element8.className = "btn btn-primary";
+            cell8.appendChild(element8);
+        }
     </script>
     <script src="js/cssParser.js"></script>
     <script src="js/css-filters-polyfill.js"></script>
