@@ -13,13 +13,16 @@
     <!-- Latest compiled and minified CSS -->
 
     <!-- For Change Password Remove File -->
-
-
+    @if (HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() != "ChangePassword")
+    {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    }
 
-        <link href="~/Content/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   
+   
     
     <link href="~/assets/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
     <!-- Optional theme -->
@@ -59,7 +62,7 @@
 
             if (@Session["LoginName"] != null)
             { 
-                 <span style="font-family:Calibri">Welcome:- @Session["LoginName"].ToString()</span>  
+                 <span>Welcome:- @Session["LoginName"].ToString()</span>  
             }
      
            

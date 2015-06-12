@@ -208,7 +208,7 @@
                 flag = true;
             }
         }
-        flag=ValidateExtension();
+       // flag=ValidateExtension();
         if (flag == true) {
             return false;
         } else {
@@ -296,7 +296,7 @@
                     </div>
                 </div>
                 <br>
-                <div id="divData" class="panel-group">
+                <div id="divData"  class="panel-group">
                     <div class="panel panel-default" id="panel1">
                         <div class="panel-heading">
                             <h4 class="panel-title">Attachment</h4>
@@ -306,7 +306,7 @@
                                 <div class="row">
                                     <div class="bs-example">
                                         @Html.TextBoxFor(m => m.File, new { type = "file", @multiple = "multiple" })
-                                        
+                                       
                                         <span id="lblError" style="color: red;"></span>
                                     </div>
                                 </div><br>
@@ -329,33 +329,33 @@
     </fieldset>
 }
 <script type="text/javascript">
-    function ValidateExtension() {
-        var allowedFiles = [".doc", ".docx", ".pdf"];
-        var fileUpload = document.getElementById("File");
-        alert(fileUpload.size)
-        var lblError = document.getElementById("lblError");
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
-        if (!regex.test(fileUpload.value.toLowerCase())) {
-            lblError.innerHTML = "Please upload files having extensions: <b>" + allowedFiles.join(', ') + "</b> only.";
-            return true;
-        }
-        lblError.innerHTML = "";
-        return false;
-    }
     document.getElementById('File').addEventListener('change', checkFile, false);
     function checkFile(e) {
+        var fileSiaze=0;
+        var fileExtension='';
         var file_list = e.target.files;
         for (var i = 0, file; file = file_list[i]; i++) {
             var fileExtension = file.name.split('.')[file.name.split('.').length - 1].toLowerCase();
             var iConvert = (file.size / 1024).toFixed(2);
-
+            fileSiaze+=file.size;
             txt = "File type : " + fileExtension + "\n";
             if (file.size > (1024 * 1024)) {
                 txt += "Size: " + (file.size / (1024 * 1024)).toFixed(2) + " MB \n";
             } else {
                 txt += "Size: " + (file.size / 1024).toFixed(2) + " KB \n";
             }
-            alert(txt);
+            if(fileExtension=="exe")
+            {
+                alert("You can not upload exe file");
+                var fileUpload = document.getElementById("File").value='';
+            }
+       
         }
+        if(fileSiaze/(1024 * 1024)>25)
+        {
+            alert("File size should not exceed 25 mb");
+            var fileUpload = document.getElementById("File").value='';
+        }
+
     }
 </script>
