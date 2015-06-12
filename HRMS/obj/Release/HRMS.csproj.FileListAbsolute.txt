@@ -1,12 +1,3 @@
-D:\Project\HRIMS\HRMS\bin\Release\HRMS.dll
-D:\Project\HRIMS\HRMS\bin\Release\HRMS.pdb
-D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.dll
-D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.Web.dll
-D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.Web.pdb
-D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.pdb
-D:\Project\HRIMS\HRMS\obj\Release\HRMS.csprojResolveAssemblyReference.cache
-D:\Project\HRIMS\HRMS\obj\Release\HRMS.dll
-D:\Project\HRIMS\HRMS\obj\Release\HRMS.pdb
 F:\HRIMS\HRMS\bin\Release\HRMS.dll
 F:\HRIMS\HRMS\bin\Release\HRMS.pdb
 F:\HRIMS\HRMS\bin\Release\Dev.A4.dll
@@ -25,3 +16,12 @@ E:\HRIMS\HRMS\bin\Release\Dev.A4.pdb
 E:\HRIMS\HRMS\obj\Release\HRMS.csprojResolveAssemblyReference.cache
 E:\HRIMS\HRMS\obj\Release\HRMS.dll
 E:\HRIMS\HRMS\obj\Release\HRMS.pdb
+D:\Project\HRIMS\HRMS\bin\Release\HRMS.dll
+D:\Project\HRIMS\HRMS\bin\Release\HRMS.pdb
+D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.dll
+D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.Web.dll
+D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.Web.pdb
+D:\Project\HRIMS\HRMS\bin\Release\Dev.A4.pdb
+D:\Project\HRIMS\HRMS\obj\Release\HRMS.csprojResolveAssemblyReference.cache
+D:\Project\HRIMS\HRMS\obj\Release\HRMS.dll
+D:\Project\HRIMS\HRMS\obj\Release\HRMS.pdb

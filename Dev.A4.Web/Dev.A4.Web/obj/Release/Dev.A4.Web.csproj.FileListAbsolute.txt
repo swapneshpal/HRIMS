@@ -5,13 +5,6 @@ C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
 C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
 C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
 C:\Users\Dharam\Desktop\CommTool\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
-D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
 F:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
@@ -26,3 +19,10 @@ E:\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
 E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
 E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
 E:\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
+D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
