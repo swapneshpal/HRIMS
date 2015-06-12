@@ -789,44 +789,7 @@ namespace AquatroHRIMS.Controllers
             }
             return View(objQuadrantMeasure);
         }
-        //Added Swpnesh:-
-        [HttpGet]
-        public ActionResult AddQuadrants()
-        {
-            AddQuadrant quadrant = new AddQuadrant();
-            try
-            {
-
-                quadrant.QuadrantDepartmentTypeList = getDepartmentTypeList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View(quadrant);
-        }
-        [HttpPost]
-        public ActionResult AddQuadrants(AddQuadrant quadrant)
-        {
-            try
-            {
-                cGoals goal = cGoals.Create();
-                goal.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                goal.objDepartmentType.iObjectID = Convert.ToInt32(quadrant.SelectedQuadrantDepartmentType[0]);
-                goal.sName = quadrant.QuadrantName;
-                goal.bIsActive = true;
-                goal.Save();
-                quadrant.QuadrantDepartmentTypeList = getDepartmentTypeList();
-                ViewBag.DataSaved = "Goal added successfully";
-                return View(quadrant);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
+    
         private SelectList getDepartmentTypeList()
         {
             try

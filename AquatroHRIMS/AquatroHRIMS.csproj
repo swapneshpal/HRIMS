@@ -2709,7 +2709,16 @@
     <Content Include="Images\Edit.png" />
     <Content Include="Images\error-img.png" />
     <Content Include="Images\l2.gif" />
+    <Content Include="JSValidation\classie.js" />
+    <Content Include="JSValidation\component.css" />
+    <Content Include="JSValidation\css-filters-polyfill.js" />
+    <Content Include="JSValidation\cssParser.js" />
+    <Content Include="JSValidation\default.css" />
     <Content Include="JSValidation\Employee.js" />
+    <Content Include="JSValidation\modalEffects.js" />
+    <Content Include="JSValidation\modernizr.custom.js" />
+    <Content Include="JSValidation\style %282%29.css" />
+    <Content Include="JSValidation\style.css" />
     <Content Include="JSValidation\Validation.js" />
     <Content Include="Scripts\bic_calendar.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -3206,6 +3215,7 @@
     <Content Include="Views\QuadrantMeasures\QuadrantsMeasureList.cshtml" />
     <Content Include="Views\QuadrantMeasures\DevelopmentGoalList.cshtml" />
     <Content Include="Views\QuadrantMeasures\SummaryCommentList.cshtml" />
+    <Content Include="Views\Performance\Index.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
@@ -3241,7 +3251,6 @@
     <Folder Include="File\" />
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\PaySlip\" />
-    <Folder Include="Views\Performance\" />
     <Folder Include="Views\Recruitment\" />
   </ItemGroup>
   <PropertyGroup>

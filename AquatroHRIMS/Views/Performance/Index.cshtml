@@ -1,0 +1,321 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Set Quadrant</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">*@
+    <link href="~/JSValidation/style.css" rel="stylesheet" type="text/css">
+    <link href="~/JSValidation/component.css" rel="stylesheet" type="text/css">
+    <link href="~/JSValidation/default.css" rel="stylesheet" type="text/css">
+    <link href="~/JSValidation/style (2).css" rel="stylesheet" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>*@
+    @*<script src="~/JSValidation/modernizr.custom.js"></script>*@
+    <style>
+        /* CSS REQUIRED */
+        .state-icon {
+            left: -5px;
+        }
+
+        .list-group-item-primary {
+            color: rgb(255, 255, 255);
+            background-color: rgb(66, 139, 202);
+        }
+        /* DEMO ONLY - REMOVES UNWANTED MARGIN */
+        .well .list-group {
+            margin-bottom: 0px;
+        }
+    </style>
+
+<script>
+    function addNew() {
+       
+       
+
+        var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
+        var span = 0;
+        var table = document.getElementById("tblPerformanceQaudrant");
+        var Count = tbodyLength + 1;
+
+        var tbody = document.createElement("tbody");
+        tbody.setAttribute("id", "tbody" + Count);
+
+
+        var rowCount = tbody.rows.length;
+        var row = tbody.insertRow(rowCount);
+        var idRowCount = rowCount + 1;
+
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("label");
+        element1.id = "lblCompanyName" + Count;
+        element1.innerText = "Performance Quadrant :";
+        var element2 = document.createElement("option");
+        element2.id = "txt" + Count;
+        cell1.appendChild(element1);
+        cell1.appendChild(element2);
+        table.appendChild(tbody)
+    }
+
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <div class="panel-group" id="accordion">
+
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Set Quadrant</legend>
+         
+                <div class="container-fluid">
+                        <div class="row">
+                            <div class="bs-example">
+                                <div class="col-md-12" id="divFilterDepartment">
+                                    <div class="col-md-9" style="margin-left: 54%;">
+                                        <div class="col-md-4">
+                                            <label class="pull-right">Filter By Department :</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                                                <option value="0">--Select--</option>
+                                                <option value="2">A4</option>
+                                                <option value="3">A4</option>
+                                                <option value="4">A4</option>
+                                                <option value="5">Aquatro</option>
+                                                <option value="7">test</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="divTableQuadrant" style="padding-top:50px;">
+                                    <table width="100%" id="tblPerformanceQaudrant" class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">
+                                                    <div>
+                                                        <div class="col-md-6" style="margin-top:6px;">
+                                                            <label>Performance Quadrant :</label>
+                                                        </div>
+                                                        <div class="col-md-5" style="margin-left:-50px;">
+                                                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                                                                <option value="0">--Select--</option>
+                                                                <option value="2">A4</option>
+                                                                <option value="3">A4</option>
+                                                                <option value="4">A4</option>
+                                                                <option value="5">Aquatro</option>
+                                                                <option value="7">test</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="md-overlay"></div>
+                                                        <div class="col-md-2" style="margin-left:-25px;">
+                                                            <div id="thanks"><p><a data-toggle="modal" href="#form-content" class="btn btn-primary btn-large">Add New</a></p></div>
+                                                            @*<button type="button" class="btn btn-primary md-trigger" target="#form-content" data-modal="modal-16">Add New</button>*@
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td colspan="3" width="40%">
+                                                    <label class="pull-right"> Apply this Quadrant to all level below <input type="checkbox"></label>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="3"><label>Quadrant Measure</label></td>
+                                                <td rowspan="2">
+                                                    <div style="max-height:155px; overflow:auto;">
+                                                        <ul class="list-group checked-list-box">
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item" data-checked="true">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                            <li class="list-group-item">Select 1</li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><textarea class="form-control" rows="5" id="comment"></textarea></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+        
+                <br><br>
+                <div class="container">
+                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary">Reset</button><br><br>
+                    <button type="button" class="btn btn-primary" onclick="addNew()">Set New Quadrant</button>
+                    <button type="button" class="btn btn-primary">Release Quadrant</button>
+                </div>
+
+            </fieldset>
+        </div>
+        <div id="form-content" class="modal fade in" >
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Send me a message</h3>
+            </div>
+            <div class="modal-body">
+                <form class="contact" name="contact">
+                    <label class="label" for="name">Your Name</label><br>
+                    <input type="text" id="txtQuadrant" name="name" class="input-xlarge"><br>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-success" type="submit" value="Send!" id="submit">
+            </div>
+        </div>
+        <br>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("input#submit").click(function () {
+                var txt = $("#txtQuadrant").val();
+                alert(txt);
+                $.ajax({
+                    url: '@Url.Action("AddQuadrants", "Performance")',
+                    dataType: 'json',
+                    data: '{"QuadrantName":' + txt + '}',
+                    contentType: 'application/json',
+                    success: function (data) {
+    
+                    },
+                    error: function (xhr, status, err) {
+                        if (xhr.status == "590") {
+
+                        }
+                        else {
+                            alert('Oops,Something went wrong.Please try after sometime.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <style type="text/css">
+        body {
+            margin: 50px;
+            background: url(assets/bglight.png);
+        }
+
+        .well {
+            background: #fff;
+            text-align: center;
+        }
+
+        .modal {
+            text-align: left;
+        }
+    </style>
+    <script src="~/JSValidation/classie.js"></script>
+    <script>
+        // this is important for IEs
+        var polyfilter_scriptpath = '/js/';
+        $(function () {
+            $('.list-group.checked-list-box .list-group-item').each(function () {
+
+                // Settings
+                var $widget = $(this),
+                    $checkbox = $('<input type="checkbox" class="hidden" />'),
+                    color = ($widget.data('color') ? $widget.data('color') : "primary"),
+                    style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                $widget.css('cursor', 'pointer')
+                $widget.append($checkbox);
+
+                // Event Handlers
+                $widget.on('click', function () {
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                });
+                $checkbox.on('change', function () {
+                    updateDisplay();
+                });
+
+
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $widget.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $widget.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $widget.addClass(style + color + ' active');
+                    } else {
+                        $widget.removeClass(style + color + ' active');
+                    }
+                }
+
+                // Initialization
+                function init() {
+
+                    if ($widget.data('checked') == true) {
+                        $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    }
+
+                    updateDisplay();
+
+                    // Inject the icon if applicable
+                    if ($widget.find('.state-icon').length == 0) {
+                        $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
+                    }
+                }
+                init();
+            });
+
+            $('#get-checked-data').on('click', function (event) {
+                event.preventDefault();
+                var checkedItems = {}, counter = 0;
+                $("#check-list-box li.active").each(function (idx, li) {
+                    checkedItems[counter] = $(li).text();
+                    counter++;
+                });
+                $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+            });
+        });
+    </script>
+    <script src="~/JSValidation/cssParser.js"></script>
+    <script src="~/JSValidation/css-filters-polyfill.js"></script>
+
+</body>
+</html>
+
