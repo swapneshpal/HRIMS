@@ -7,21 +7,35 @@
         
         var count = @Model.list2.Count;
 
-        if( count == 0){
-            $("#btnSave").hide();
-          //  $("#divFooter").css("display","none");
-            $("#divData").show();
-            $("#container3").hide();
-        }
-        else{
-            $("#divFooter").css("display","block");
-            $("#divData").hide();           
-        }
-
-        for(i=1;i<= count ;i++){
-            if($("#hdnManagerComment"+i).val() != ""){
-                $("#txtManagerComment"+i).val($("#hdnManagerComment"+i).val());
+        if ($("#hdnReportingHeadFlag").val() == "True") {
+            $("#btnSave").show();
+            if( count == 0){               
+                $("#btnSave").hide();
+                //  $("#divFooter").css("display","none");
+                $("#divData").show();
+                $("#container3").hide();
             }
+            else{               
+                $("#divFooter").css("display","block");
+                $("#divData").hide();           
+            }
+
+            for(i=1;i<= count ;i++){
+                if($("#hdnManagerComment"+i).val() != ""){
+                    $("#txtManagerComment"+i).val($("#hdnManagerComment"+i).val());
+                }
+            }
+        }
+        else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
+            if( count == 0){   
+                $("#divData").show();
+            }
+            else{
+                $("#divData").hide();
+            }
+            $("#btnSave").attr("disabled", "disabled");
+            $("#btnUpdate").attr("disabled", "disabled");
+            $("#btnSubmit").attr("disabled", "disabled");
         }
         
     });
