@@ -160,7 +160,6 @@
         element4.className = "form-control";
         element4.onchange = function () {
             $("#lbl" + Count).css("display", "none");
-
         }
 
         var element12 = document.createElement('span');
@@ -220,7 +219,7 @@
     }
     function fnHideErrorMsg(id, value, errorSpan, controlName) {
         $("#" + errorSpan).css("display", "none");
-    }
+    }    
 </script>
 <style>
     .labelName {
@@ -263,7 +262,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-
                                                 <td>
                                                     <input type="text" class="form-control" id="txtGoalName1" onkeypress="fnHideErrorMsg(id, value, 'spnGoalName1','txtGoalName1')" />
                                                     <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter Development Goal.</span>

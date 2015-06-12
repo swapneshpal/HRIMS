@@ -1,181 +1,257 @@
 ﻿@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
 @{
-    ViewBag.Title = "setQuadrantMeasures";
+    ViewBag.Title = "SetQuadrantMeasures";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        window.testSelAll = $('.testSelAll').SumoSelect({ okCancelInMulti: true, selectAll: true });
-    });
-</script>
-<script>
-    $(function () {
-        $(".chzn-select").chosen();
-        $(".chzn-select-deselect").chosen({
-            allow_single_deselect: true
-        });
+<h2>SetQuadrantMeasures</h2>
+<head>
+    <meta charset="utf-8">
+    <title>Set Performance Quadrant</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/component.css" rel="stylesheet" type="text/css">
+    <link href="css/default.css" rel="stylesheet" type="text/css">
 
-        $("#ddlGoalTile").change(function () {
-            var val = $('option:selected', this).val();
-            if (val == "") {
-                $("#spnper").css("display", "block");
-
-            } else {
-                $("#spnper").css("display", "none");
-            }
-        });
-
-        $("#ddlDeptTypeList").change(function () {
-            var val = $('option:selected', this).val();
-            if (val == 0) {
-                $("#spndep").css("display", "block");
-
-            } else {
-                $("#spndep").css("display", "none");
-            }
-        });
-
-        $("#txtMeasures").change(function () {
-            if ($("#txtMeasures").val().trim = "") {
-                $("#spnmeas").css("display", "block");
-            } else {
-                $("#spnmeas").css("display", "none");
-            }
-        });
-    });
-    function validation()
-    {
-        flag = 0;
-        if (typeof $("#ddlDeptTypeList option:selected").val() !== "undefined") {
-            $("#spndep").css("display", "none");
-        }
-        else {
-            $("#spndep").css("display", "block");
-            flag++;
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <style>
+        /* CSS REQUIRED */
+        .state-icon {
+            left: -5px;
         }
 
-        if ($("#ddlGoalTile option:selected").val() != 0) {
-            $("#spnper").css("display", "none");
+        .list-group-item-primary {
+            color: rgb(255, 255, 255);
+            background-color: rgb(66, 139, 202);
         }
-        else {
-            $("#spnper").css("display", "block");
-            flag++;
+        /* DEMO ONLY - REMOVES UNWANTED MARGIN */
+        .well .list-group {
+            margin-bottom: 0px;
         }
+    </style>
+</head>
 
-        if ($("#txtMeasures").val() == "") {
-            $("#spnmeas").css("display", "block");
-            flag++;
-        }
-        else {
-            $("#spnmeas").css("display", "none");
-        }
-
-        if(flag>0)
-        {
-            return false;
-        }
-    }
-
-    
-</script>
-
-
-@using (Html.BeginForm("setQuadrantMeasures", "QuadrantMeasures", FormMethod.Post))
-{
-
-
-   
-
-    <link href="~/Content/sumoselect.css" rel="stylesheet" />
-    <script src="~/Content/jquery.sumoselect.js"></script>
+<body>
     <div class="container-fluid">
+
         <div class="row">
+            <br>
 
-      
-           <div class="col-md-12">
-            <div class="pull-right btn1">
-                @Html.ActionLink("Quadrant List", "QuadrantsMeasureList", "QuadrantMeasures")
+            <div class="col-md-12">
+
+                <div class="col-md-3 pull-right">
+                    <!--<label>Filter By Department :</label>-->
+                    <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                        <option value="0">Filter By Department</option>
+                        <option value="2">A4</option>
+                        <option value="3">A4</option>
+                        <option value="4">A4</option>
+                        <option value="5">Aquatro</option>
+                        <option value="7">test</option>
+                    </select>
+                </div>
+
             </div>
-               </div>
-        </div>
-        </div>
-        <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Set Quadrant</legend>
-    <div class="container-fluid">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="col-md-3">
-                    <label>Department:</label>
-                </div>
-                <div class="col-md-5">
 
-                    @Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "testSelAll form-control  chzn-select-deselec ", id = "ddlDeptTypeList", multiple = "multiple" })
+            <tbody>
 
-                    <span id="spndep" style="display: none; color: red;">Please select department list</span>
-                    </div>
-                </div>
-            <div class="col-md-6">
-                <div class="col-md-4">
-                    <label>Performance Quadrant</label>
-                    </div>
-                <div class="col-md-6">
-                    @Html.DropDownListFor(m => m.objEmpQudrants.objGoals, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoalTile", style = "display:inline" })
+                <div class="container-fluid">
 
-                    <span id="spnper" class="field-validation-valid" style="display: none; color: red;">Please select performance quadrant</span>
+                    <div class="col-md-12">
+
+                        <div class="col-md-3">
+
+                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                                <option value="0">Performance Quadrant</option>
+                                <option value="2">A4</option>
+                                <option value="3">A4</option>
+                                <option value="4">A4</option>
+                                <option value="5">Aquatro</option>
+                                <option value="7">test</option>
+                            </select>
+
+                        </div>
+
+                        <div class="md-modal md-effect-16" id="modal-16">
+
+                            <div class="md-content">
+                                <h3>Modal Dialog</h3>
+
+                                <div>
+                                    <input type="text" value="Quadrant Measure">
+                                    <button class="btn btn-primary">Submit</button>
+
+                                    <button class="btn btn-primary md-close">Close</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="md-overlay"></div>
+
+                        <div class="col-md-2" style="margin:-3px 0px 0px -28px;">
+                            <button type="button" class="btn btn-primary md-trigger" data-modal="modal-16">Add New</button>
+                        </div>
+
+                        <div class="col-md-4">
+                            <p style="margin:15px 0px 0px 30px">
+                                Apply this Quadrant to all level below <input type="checkbox">
+                            </p>
+                        </div>
+
                     </div>
+
                 </div>
+
         </div>
+
         <div class="container-fluid">
+
             <div class="row">
+
                 <div class="bs-example">
-                    <table class="table table-bordered">
+                    <table width="100%" class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td><label>Quadrant Measure</label></td>
+                                <td class="col-md-7"><label>Quadrant Measure</label></td>
+                                <td class="col-md-3" rowspan="2">
+                                    <div style="max-height:155px; overflow:auto;">
+                                        <ul class="list-group checked-list-box">
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item" data-checked="true">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                            <li class="list-group-item">Select 1</li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td>@*<textarea class="form-control" rows="5" id="comment"></textarea>*@
-                                    @Html.TextAreaFor(m => m.objEmpQudrants.sMeasures, new { id = "txtMeasures", rows = "5", @class = "form-control" })
-                                </td>
-                                
+                                <td class="col-md-7"><textarea class="form-control" rows="5" id="comment"></textarea></td>
                             </tr>
-                            <tr><td><span id="spnmeas" style="display: none; color: red;">Please enter quadrants measures </span></td></tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
+
+        </div>        
+        <br>
+
+        </tbody>
+        <div class="container">
+
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary">Reset</button>
+            </div>
+
         </div>
         <div class="container">
-            <div class="col-sm-offset-5">
-                <input type="submit" class="btn btn-primary" value="Save" onclick="return validation();">
-                <button type="button" class="btn btn-dark" onclick="fnreset()">Reset</button>
+            <button type="button" class="btn btn-primary">Set Quadrant</button>
+            <button type="button" class="btn btn-primary">Release Quadrant</button>
+        </div>
+        <br>
 
-            </div>
-        </div><br>
     </div>
-            </fieldset>
-}
+    <script src="js/classie.js"></script>
+    <script src="js/modalEffects.js"></script>
+   
+    <script>
+        // this is important for IEs
+        var polyfilter_scriptpath = '/js/';
+        $(function () {
+            $('.list-group.checked-list-box .list-group-item').each(function () {
+                // Settings
+                var $widget = $(this),
+                    $checkbox = $('<input type="checkbox" class="hidden" />'),
+                    color = ($widget.data('color') ? $widget.data('color') : "primary"),
+                    style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
 
-<script>
-    function fnreset() {
-        var obj = [];
-        $('option:selected').each(function () {
-            obj.push($(this).index());
+                $widget.css('cursor', 'pointer')
+                $widget.append($checkbox);
+
+                // Event Handlers
+                $widget.on('click', function () {
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                });
+                $checkbox.on('change', function () {
+                    updateDisplay();
+                });
+
+
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $widget.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $widget.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $widget.addClass(style + color + ' active');
+                    } else {
+                        $widget.removeClass(style + color + ' active');
+                    }
+                }
+
+                // Initialization
+                function init() {
+
+                    if ($widget.data('checked') == true) {
+                        $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    }
+
+                    updateDisplay();
+
+                    // Inject the icon if applicable
+                    if ($widget.find('.state-icon').length == 0) {
+                        $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
+                    }
+                }
+                init();
+            });
+
+            $('#get-checked-data').on('click', function (event) {
+                event.preventDefault();
+                var checkedItems = {}, counter = 0;
+                $("#check-list-box li.active").each(function (idx, li) {
+                    checkedItems[counter] = $(li).text();
+                    counter++;
+                });
+                $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
+            });
         });
-
-        for (var i = 0; i < obj.length; i++) {
-            $('.testSelAll')[0].sumo.unSelectItem(obj[i]);
-        }
-        $('select').val('').trigger('chosen:updated');
-        $("#txtMeasures").val('');
-        $("#spnmessage").hide();
-        $("#spndep").css("display", "none");
-        $("#spnper").css("display", "none");
-        $("#spnmeas").css("display", "none");
-
-        $('#ddlGoalTile option:eq(0)').attr('selected', '-selected-');
-        $(".field-validation-valid").css("display", "none");
-    }
     </script>
+    <script src="js/cssParser.js"></script>
+    <script src="js/css-filters-polyfill.js"></script>
+</body>
+

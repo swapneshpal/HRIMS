@@ -3141,6 +3141,7 @@
     <Content Include="Scripts\ValidationEmployeeGoals.js" />
     <Content Include="Scripts\validationProject.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\QuadrantMeasures\setQuadrantMeasures.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3181,7 +3182,6 @@
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\QuadrantMeasures\ReviewQuadrantDetails.cshtml" />
     <Content Include="Views\QuadrantMeasures\ReviewQuadrants.cshtml" />
-    <Content Include="Views\QuadrantMeasures\setQuadrantMeasures.cshtml" />
     <Content Include="Views\Shared\PersonalInformation.cshtml" />
     <Content Include="Views\Shared\ProfessionalInfo.cshtml" />
     <Content Include="Views\Shared\QualificationDetail.cshtml" />
@@ -3206,6 +3206,7 @@
     <Content Include="Views\QuadrantMeasures\QuadrantsMeasureList.cshtml" />
     <Content Include="Views\QuadrantMeasures\DevelopmentGoalList.cshtml" />
     <Content Include="Views\QuadrantMeasures\SummaryCommentList.cshtml" />
+    <Content Include="Views\QuadrantMeasures\View1.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
