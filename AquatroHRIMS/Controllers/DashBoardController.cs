@@ -265,7 +265,7 @@ namespace AquatroHRIMS.Controllers
             {
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 List<cEmpEducationDetail> objeducation = cEmpEducationDetail.Find(" objEmpLogin = " + LoginID);
-                if (objeducation == null)
+                if (objeducation == null || objeducation.Count==0)
                 {
                     cEmpEducationDetail objCreateEdu = cEmpEducationDetail.Create();
                     objCreateEdu.sInstituteName = objEmpEducation.InstituteName;
