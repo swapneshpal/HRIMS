@@ -171,7 +171,7 @@
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Personal Details</legend>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.FirstName, new { @class = "control-label", @for = "textinput" })
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name", id = "txtFirstName", minlength = "2" })
@@ -191,7 +191,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.MotherName, new { @class = "control-label", @for = "textinput" })
                 @Html.TextBoxFor(m => m.MotherName, new { @class = "form-control", @placeholder = "Mother Name", id = "txtMotherName", minlength = "2" })
@@ -199,11 +199,11 @@
             </div>
 
             <div class="col-md-4">
-                @Html.LabelFor(model => model.Gender, new { @class = " control-label", @for = "textinput" })
+                @Html.LabelFor(model => model.Gender, new { @class = " control-label", @for = "textinput" })<br>
                 <label>
-                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "rdmale" }) Male                
+                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "rdmale" }) Male
                 </label>
-                <label>
+                <label class="col-sm-offset-2">
                     @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "rdfemale" })Female
                 </label>
             </div>
@@ -217,7 +217,7 @@
 
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
 
                 @Html.LabelFor(model => model.CurrentAddress, new { @class = "control-label", @for = "textinput" })
@@ -227,7 +227,7 @@
 
             <div class="col-md-4">
                 @Html.LabelFor(model => model.PermanentAddress, new { @class = " control-label", @for = "textinput" })
-                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", @Placeholder = "Permanent Address", id = "txtPermanentAdd"})
+                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", @Placeholder = "Permanent Address", id = "txtPermanentAdd" })
                 <span style="color:red">@Html.ValidationMessageFor(m => m.PermanentAddress)</span>
             </div>
 
@@ -239,7 +239,7 @@
 
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.Country, new { @class = "control-label", @for = "textinput" })
                 @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @placeholder = "Location", id = "txtCountry", minlength = "2" })
@@ -259,7 +259,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.ZipCode, new { @class = "control-label", @for = "textinput" })
 
@@ -282,7 +282,7 @@
         </div>
 
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.WorkEmail, new { @class = "control-label", @for = "textinput" })
                 @Html.TextBoxFor(model => model.WorkEmail, new { @class = "form-control", @Placeholder = "Work Email", id = "txtworkemail", @readonly = "readonly" })
@@ -293,7 +293,7 @@
                 @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control", @placeholder = "Personal Email", id = "txtpersonalemail" })
                 <span style="color:red">@Html.ValidationMessageFor(m => m.PersonalEmail)</span>
             </div>
-            
+
             <div class="col-md-4">
                 @Html.LabelFor(model => model.WorkContact, new { @class = "control-label", @for = "textinput" })
                 @Html.TextBoxFor(model => model.WorkContact, new { @class = "form-control", @Placeholder = "Work Telephone", id = "txtworkcontact" })
@@ -301,10 +301,10 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top:20px">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.GovID, new { @class = "control-label", @for = "textinput" })
-                @Html.TextBoxFor(model => model.GovID, new { @class = "form-control", @Placeholder = "PAN / Social Security No.", id = "txtGovNO"})
+                @Html.TextBoxFor(model => model.GovID, new { @class = "form-control", @Placeholder = "PAN / Social Security No.", id = "txtGovNO" })
                 <span style="color:red">@Html.ValidationMessageFor(model => model.GovID)</span>
             </div>
 
