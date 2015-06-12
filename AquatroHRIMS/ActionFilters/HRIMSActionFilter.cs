@@ -23,14 +23,14 @@ namespace AquatroHRIMS.ActionFilters
             }
             else
             {
-                //int i = Log("OnActionExecuting", filterContext.RouteData);
-                //if (i == 0)
-                //{
-                //    var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
-                //    var urlHelper = new UrlHelper(context);
-                //    var url = urlHelper.Action("Denied", "PageAccess");
-                //    System.Web.HttpContext.Current.Response.Redirect(url);
-                //}
+                int i = Log("OnActionExecuting", filterContext.RouteData);
+                if (i == 0)
+                {
+                    var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
+                    var urlHelper = new UrlHelper(context);
+                    var url = urlHelper.Action("Denied", "PageAccess");
+                    System.Web.HttpContext.Current.Response.Redirect(url);
+                }
                 base.OnActionExecuting(filterContext);
             }
 

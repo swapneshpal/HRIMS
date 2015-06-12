@@ -78,13 +78,11 @@
     <!-- BEGIN LOGIN -->
     <div class="content">
   
-@using (Ajax.BeginForm("Index", "Login", new AjaxOptions { UpdateTargetId = "divResult", OnBegin = "Begin", OnFailure = "Failure", OnSuccess = "Sucess", OnComplete = "Complete" }, new { @class = "form-horizontal", role = "form" }))
+@using (Ajax.BeginForm("Index", "Login", new AjaxOptions {  OnBegin = "Begin", OnFailure = "Failure", OnSuccess = "Sucess", OnComplete = "Complete" }, new { @class = "form-horizontal", role = "form" }))
 {
 
 
-    <div id="divResult"  class="alert alert-error hide">
-      
-    </div>
+
           <!-- BEGIN LOGIN FORM -->
     <div id="divLogin">
         <h3 class="form-title">Account Login</h3>
@@ -94,7 +92,7 @@
                
                     <div class="input-icon left">
                         <i class="icon-envelope"></i>
-                        @Html.TextBoxFor(m => m.EmailID, new { @class = "m-wrap placeholder-no-fix", @placeholder = "User Email Id", id = "txtusername", onkeyup = "OnChange()" })
+                        @Html.TextBoxFor(m => m.EmailID, new { @class = "m-wrap placeholder-no-fix", @placeholder = "User Email Id", id = "txtusername", onkeypress = "OnChange()" })
                         <span style="color:red"> @Html.ValidationMessageFor(m => m.EmailID)</span>
                     </div>
                
@@ -104,7 +102,7 @@
                 
                     <div class="input-icon left">
                         <i class="icon-lock"></i>
-                        @Html.PasswordFor(m => m.Password, new { @class = "m-wrap placeholder-no-fix", @placeholder = "Password", id = "txtpassword", onkeyup = "OnChange()" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "m-wrap placeholder-no-fix", @placeholder = "Password", id = "txtpassword"})
                         <span style="color:red"> @Html.ValidationMessageFor(m => m.Password)</span>
                     </div>
                
@@ -137,7 +135,7 @@
       
                 <div class="input-icon left">
                     <i class="icon-envelope"></i>
-                    @Html.TextBoxFor(m => m.ForgotEmailID, new { @class = "m-wrap placeholder-no-fix", @placeholder = "User Email Id", id = "txtForgotEmail", onkeyup = "OnChange()" })
+                    @Html.TextBoxFor(m => m.ForgotEmailID, new { @class = "m-wrap placeholder-no-fix", @placeholder = "User Email Id", id = "txtForgotEmail" })
                     <span style="color:red"> @Html.ValidationMessageFor(m => m.ForgotEmailID)</span>
                 </div>
           
@@ -169,35 +167,30 @@
         $("#txtPassword").val("dharam6990");
         //Remove above code after Testing:-
     });
-    function OnChange() {
-        $("#divResult").addClass("hide");
-    }
+    //function OnChange() {
+    //    $("#divResult").css("display", "none")
+    //}
 
     function Begin() {
     }
     function Sucess(response, status, xhr) {
-        switch (divResult.textContent) {
+        alert(response);
+        switch (response) {
             case "0":
-                $("#divResult").remove();
                 window.location.href = '@Url.Action("ChangePassword", "Login")';
                 break;
             case "1":
-                $("#divResult").remove();
                 window.location.href = '@Url.Action("Profile", "Dashboard")';
                 break;
             case "2":
-                $("#divResult").remove();
                 window.location.href = '@Url.Action("Index", "Dashboard")';
                 break;
-
             case "3":
-                $("#divResult").text("Username or Password does not match");
-                $("#divResult").removeClass("hide")
+                alert("Username or Password does not match");
                 break;
             case "4":
                 $("#txtForgotEmail").val("");
-                $("#divResult").text("Mail sent successfully");
-                $("#divResult").removeClass("hide");
+                alert("Mail sent successfully");
                 break;
 
             default:
@@ -214,7 +207,6 @@
     <script>
         
         function ShowLoginDiv() {
-            $("#divResult").addClass("hide");
             $("#divLogin").show();
             $("#divForgorPassword").hide();
             $(".field-validation-error").text('');

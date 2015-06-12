@@ -14,7 +14,11 @@
 </script>
 
 @model  IEnumerable<AquatroHRIMS.Models.HolidayList>
-
+@if (Session["Result"]!=null)
+{
+    <script>alert("Holiday added successfully")</script>
+    Session["Result"] = null;
+}
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">

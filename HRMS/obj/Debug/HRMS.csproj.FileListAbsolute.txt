@@ -43,3 +43,12 @@ E:\HRIMS\HRMS\bin\Debug\Dev.A4.pdb
 E:\HRIMS\HRMS\obj\Debug\HRMS.csprojResolveAssemblyReference.cache
 E:\HRIMS\HRMS\obj\Debug\HRMS.dll
 E:\HRIMS\HRMS\obj\Debug\HRMS.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\HRMS.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\HRMS.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\Dev.A4.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\Dev.A4.Web.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\Dev.A4.Web.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\Dev.A4.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.csprojResolveAssemblyReference.cache
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.pdb

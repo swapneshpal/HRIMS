@@ -43,7 +43,6 @@
             async: false,
             dataType: 'json',
             success: function (data) {
-
                 var op = new Option();
                 op.value = 0;
                 op.text = "-- Select --";
@@ -160,7 +159,6 @@
         element4.className = "form-control";
         element4.onchange = function () {
             $("#lbl" + Count).css("display", "none");
-
         }
 
         var element12 = document.createElement('span');
@@ -211,7 +209,6 @@
             }
         }
         flag=ValidateExtension();
-        alert(flag);
         if (flag == true) {
             return false;
         } else {
@@ -220,13 +217,14 @@
     }
     function fnHideErrorMsg(id, value, errorSpan, controlName) {
         $("#" + errorSpan).css("display", "none");
-    }
+    }    
 </script>
 <style>
     .labelName {
         font-weight: bold;
     }
 </style>
+
 
 @using (Html.BeginForm("DevelopmentGoals", "QuadrantMeasures", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -247,6 +245,8 @@
                                href="#Development">Development Plan</a>
                         </h4>
                     </div>
+
+
                     <div id="Development" class="panel-collapse collapse in">
                         <div class="container-fluid">
                             <div class="row">
@@ -263,18 +263,17 @@
                                                 </td>
                                             </tr>
                                             <tr>
-
                                                 <td>
                                                     <input type="text" class="form-control" id="txtGoalName1" onkeypress="fnHideErrorMsg(id, value, 'spnGoalName1','txtGoalName1')" />
                                                     <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter Development Goal.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtAction1" onkeypress="fnHideErrorMsg(id, value, 'spnAction1', 'txtAction1')"></textarea>
-                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Action Required.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtTracking1" onkeypress="fnHideErrorMsg(id, value, 'spnTracking1', 'txtTracking1')"></textarea>
-                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Tracking.</span>
                                                 </td>
                                                 <td>
                                                     @Html.DropDownListFor(m => m.goalStatusID, new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList1", onchange = "fnHideErrorMsg(id, value, 'lbl1','ddlStatusList1')" })
@@ -321,7 +320,6 @@
                         <input type="button" id="btnSave" class="btn btn-primary" value="Save" />
                         @Html.ActionLink("Back", "EmployeeQuadrants", "QuadrantMeasures", null, new { @class = "btn btn-primary" })
                         @Html.ActionLink("Next", "SummaryComments", "QuadrantMeasures", null, new { @class = "btn btn-primary" })
-                        @*<button type="button" class="btn btn-primary">Cancel</button>*@
                     </div>
                 </div>
                 <br>

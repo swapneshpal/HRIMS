@@ -56,8 +56,12 @@
     <div style="float:right;margin-top:-23px;margin-right:20px;">
         @if (HttpContext.Current.User.Identity.IsAuthenticated)
         {
-      
-          <span style="font-family:Calibri">Welcome:- @Session["LoginName"].ToString()</span>  
+
+            if (@Session["LoginName"] != null)
+            { 
+                 <span style="font-family:Calibri">Welcome:- @Session["LoginName"].ToString()</span>  
+            }
+     
            
         }
 
