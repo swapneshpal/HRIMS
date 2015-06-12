@@ -29,7 +29,7 @@
                     jsonObj.push(temp_obj);
                 }
 
-
+               
                 this.form.action = '../QuadrantMeasures/DevelopmentPlan?DevelopmentPlan=' + JSON.stringify(jsonObj);
                 this.form.submit();
                 alert("Development Goals added successfully");
@@ -334,6 +334,7 @@
     function ValidateExtension() {
         var allowedFiles = [".doc", ".docx", ".pdf"];
         var fileUpload = document.getElementById("File");
+        alert(fileUpload.size)
         var lblError = document.getElementById("lblError");
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
         if (!regex.test(fileUpload.value.toLowerCase())) {
@@ -342,5 +343,21 @@
         }
         lblError.innerHTML = "";
         return false;
+    }
+    document.getElementById('File').addEventListener('change', checkFile, false);
+    function checkFile(e) {
+        var file_list = e.target.files;
+        for (var i = 0, file; file = file_list[i]; i++) {
+            var fileExtension = file.name.split('.')[file.name.split('.').length - 1].toLowerCase();
+            var iConvert = (file.size / 1024).toFixed(2);
+
+            txt = "File type : " + fileExtension + "\n";
+            if (file.size > (1024 * 1024)) {
+                txt += "Size: " + (file.size / (1024 * 1024)).toFixed(2) + " MB \n";
+            } else {
+                txt += "Size: " + (file.size / 1024).toFixed(2) + " KB \n";
+            }
+            alert(txt);
+        }
     }
 </script>
