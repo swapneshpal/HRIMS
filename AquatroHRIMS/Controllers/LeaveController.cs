@@ -42,7 +42,7 @@ namespace AquatroHRIMS.Controllers
                 objholiday.dtOccDate = Convert.ToDateTime(objholidaylist.Date);
                 objholiday.sDescription = objholidaylist.Description;
                 objholiday.Save();
-                TempData["Result"] = "1";
+                Session["Result"] = "1";
                 LeaveViewModel objleaveviewmodel = new LeaveViewModel();
                 return RedirectToAction("HolidayList");
             }
