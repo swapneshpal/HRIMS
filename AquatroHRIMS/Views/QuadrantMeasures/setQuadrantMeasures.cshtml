@@ -3,8 +3,6 @@
     ViewBag.Title = "SetQuadrantMeasures";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
-
-<h2>SetQuadrantMeasures</h2>
 <head>
     <meta charset="utf-8">
     <title>Set Performance Quadrant</title>
@@ -18,8 +16,8 @@
     <link href="css/default.css" rel="stylesheet" type="text/css">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    @*<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>*@
     <script src="js/modernizr.custom.js"></script>
     <style>
         /* CSS REQUIRED */
@@ -67,16 +65,16 @@
                     <div class="col-md-12">
 
                         <div class="col-md-3">
-                            @Html.DropDownListFor(m => m.intGoalTitleId, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoal" })
+                            @*@Html.DropDownListFor(m => m.intGoalTitleId, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoal" })*@
 
-                            @*<select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
                                 <option value="0">Performance Quadrant</option>
                                 <option value="2">A4</option>
                                 <option value="3">A4</option>
                                 <option value="4">A4</option>
                                 <option value="5">Aquatro</option>
                                 <option value="7">test</option>
-                            </select>*@
+                            </select>
 
                         </div>
 

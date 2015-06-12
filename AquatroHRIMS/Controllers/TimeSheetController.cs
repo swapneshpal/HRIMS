@@ -693,7 +693,7 @@ namespace AquatroHRIMS.Controllers
                         {
                             foreach (var items in objPersonal)
                             {
-                                objEmp.Add(new ddlEmp { Value = itemEmp.iID, Text = items.sFirstName });
+                                objEmp.Add(new ddlEmp { Value = itemEmp.iID, Text = items.sFirstName + " " + items.sMiddleName + " " + items.sLastName });
                             }
                         }
 

@@ -3206,7 +3206,6 @@
     <Content Include="Views\QuadrantMeasures\QuadrantsMeasureList.cshtml" />
     <Content Include="Views\QuadrantMeasures\DevelopmentGoalList.cshtml" />
     <Content Include="Views\QuadrantMeasures\SummaryCommentList.cshtml" />
-    <Content Include="Views\QuadrantMeasures\View1.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

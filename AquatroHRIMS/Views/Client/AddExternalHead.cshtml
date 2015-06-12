@@ -58,7 +58,7 @@
         <div class="col-md-3">
             <div>
                 <label class="control-label">Name</label>
-                     @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control"})
+                     @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control", minlength = "2" })
                 <span style="color:red" class="spnValidMGS">@Html.ValidationMessageFor(model=>model.Name)</span>
             </div><br>
             <div>
