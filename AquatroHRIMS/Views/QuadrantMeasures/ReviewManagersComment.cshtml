@@ -2,28 +2,27 @@
 <script type="text/javascript">
     $(document).ready(function () {
         
+             
 
-       
-        if ($("#hdnMgrComment").val() != "") {
-          //  $("#btnSave").remove();
-            // $("#btnUpdate").css("display", "block");
+        if ($("#hdnReportingHeadFlag").val() == "True") {
+            $("#btnSave").show();
+           
+            if ($("#hdnMgrComment").val() != "") {
+                //  $("#btnSave").remove();
+                // $("#btnUpdate").css("display", "block");
+                $("#btnSave").attr("disabled", "disabled");
+                $("#btnUpdate").removeAttr("disabled");
+                $("#btnSubmit").removeAttr("disabled");
+            } else {
+                //$("#btnUpdate").remove();
+                $("#btnUpdate").attr("disabled", "disabled");
+            }
+
+        } else if ($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False") {
             $("#btnSave").attr("disabled", "disabled");
-            $("#btnUpdate").removeAttr("disabled");
-            $("#btnSubmit").removeAttr("disabled");
-        } else {
-            //$("#btnUpdate").remove();
             $("#btnUpdate").attr("disabled", "disabled");
+            $("#btnSubmit").attr("disabled", "disabled");
         }
-
-        //if ($("#hdnReportingHeadFlag").val() == "True") {
-        //    $("#btnSave").show();
-        //    $("#btnUpdate").show();
-        //    $("#btnSubmit").show();          
-        //} else if ($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False") {
-        //    $("#btnSave").hide();
-        //    $("#btnUpdate").hide();
-        //    $("#btnSubmit").hide();
-        //}
 
         $("#mgrComment").val($("#hdnMgrComment").val());
         if ($("#hdnMgrComment").val() != "" && $("#hdnManagerFlag").val() == "True") {            

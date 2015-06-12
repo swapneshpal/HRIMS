@@ -7,32 +7,32 @@
 <script type="text/javascript">
     $(document).ready(function (e) {
         var count = @Model.QuadList.Count;
-        for(i=1 ;i <= count ; i++ ){
+        
+        if($("#hdnReportingHeadFlag").val() == "True"){
+            $("#btnSave").show();
+            for(i=1 ;i <= count ; i++ ){
 
-            if($("#hdn"+i).val() !=""){
-                $("#txtManagerComment"+i).val($("#hdn"+i).val());
-                //$("#btnUpdate").css("display","block");
-                $("#btnUpdate").removeAttr("disabled");
-                $("#btnSubmit").removeAttr("disabled");
-                $("#btnSave").attr("disabled","disabled");
-                //$("#btnSave").hide();
-            }
+                if($("#hdn"+i).val() !=""){
+                    $("#txtManagerComment"+i).val($("#hdn"+i).val());
+                    //$("#btnUpdate").css("display","block");
+                    $("#btnUpdate").removeAttr("disabled");
+                    $("#btnSubmit").removeAttr("disabled");
+                    $("#btnSave").attr("disabled","disabled");
+                    //$("#btnSave").hide();
+                }
 
-            if($("#hdnManagerFlag"+i).val() == "True"){
-                $("#txtManagerComment"+i).attr('disabled', 'disabled');
-                $("#btnSave").attr("disabled", "disabled");
-                $("#btnUpdate").attr("disabled", "disabled");
-                $("#btnSubmit").attr("disabled", "disabled");
+                if($("#hdnManagerFlag"+i).val() == "True"){
+                    $("#txtManagerComment"+i).attr('disabled', 'disabled');
+                    $("#btnSave").attr("disabled", "disabled");
+                    $("#btnUpdate").attr("disabled", "disabled");
+                    $("#btnSubmit").attr("disabled", "disabled");
+                }
             }
+        }else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
+            $("#btnSave").attr("disabled", "disabled");
+            $("#btnUpdate").attr("disabled", "disabled");
+            $("#btnSubmit").attr("disabled", "disabled");
         }
-
-        //if($("#hdnReportingHeadFlag").val() == "True"){
-        //    $("#btnSave").show();
-        //}else if($("#hdnAdminFlag").val() == "True" && $("#hdnReportingHeadFlag").val() == "False"){
-        //    $("#btnSave").hide();
-        //    $("#btnUpdate").hide();
-        //    $("#btnSubmit").hide();
-        //}
 
         if( count == 0){
             $("#divData").css("display","block");

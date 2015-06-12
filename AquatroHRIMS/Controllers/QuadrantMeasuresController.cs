@@ -120,50 +120,50 @@ namespace AquatroHRIMS.Controllers
                 throw;
             }
         }
-        public ActionResult setQuadrantMeasures()
-        {
-            try
-            {
-                objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
-                objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+        //public ActionResult setQuadrantMeasures()
+        //{
+        //    try
+        //    {
+        //        objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+        //        objQuadrantMeasure.GoalTileModel = getGoalTitleList();
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View(objQuadrantMeasure);
-        }
-        [HttpPost]
-        public ActionResult setQuadrantMeasures(QuadrantMeasuresViewModel quadViewModel)
-        {
-            QuadrantMeasuresViewModel objMeasures = new QuadrantMeasuresViewModel();
-            try
-            {
-                if (quadViewModel.SelectedDeptList.Count() > 0)
-                {
-                    foreach (var item in quadViewModel.SelectedDeptList)
-                    {
-                        cQuadrantMeasure objQuadrantMeasure = cQuadrantMeasure.Create();
-                        objQuadrantMeasure.objDepartmentType.iObjectID = Convert.ToInt32(item.ToString());
-                        objQuadrantMeasure.objGoals.iObjectID = Convert.ToInt32(quadViewModel.objEmpQudrants.objGoals);
-                        objQuadrantMeasure.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                        objQuadrantMeasure.sMeasures = quadViewModel.objEmpQudrants.sMeasures;
-                        objQuadrantMeasure.bIsActive = true;
-                        objQuadrantMeasure.Save();
-                        TempData["Result"] = 1;
-                    }
-                }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return View(objQuadrantMeasure);
+        //}
+        //[HttpPost]
+        //public ActionResult setQuadrantMeasures(QuadrantMeasuresViewModel quadViewModel)
+        //{
+        //    QuadrantMeasuresViewModel objMeasures = new QuadrantMeasuresViewModel();
+        //    try
+        //    {
+        //        if (quadViewModel.SelectedDeptList.Count() > 0)
+        //        {
+        //            foreach (var item in quadViewModel.SelectedDeptList)
+        //            {
+        //                cQuadrantMeasure objQuadrantMeasure = cQuadrantMeasure.Create();
+        //                objQuadrantMeasure.objDepartmentType.iObjectID = Convert.ToInt32(item.ToString());
+        //                objQuadrantMeasure.objGoals.iObjectID = Convert.ToInt32(quadViewModel.objEmpQudrants.objGoals);
+        //                objQuadrantMeasure.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
+        //                objQuadrantMeasure.sMeasures = quadViewModel.objEmpQudrants.sMeasures;
+        //                objQuadrantMeasure.bIsActive = true;
+        //                objQuadrantMeasure.Save();
+        //                TempData["Result"] = 1;
+        //            }
+        //        }
 
-                objMeasures.DepartmentTypeModel = getDepartmentTypeID();
-                objMeasures.GoalTileModel = getGoalTitleList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View(objMeasures);
-        }
+        //        objMeasures.DepartmentTypeModel = getDepartmentTypeID();
+        //        objMeasures.GoalTileModel = getGoalTitleList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return View(objMeasures);
+        //}
         public ActionResult ReviewQuadrants(string Val)
         {
             try
@@ -1100,7 +1100,6 @@ namespace AquatroHRIMS.Controllers
             }
 
         }
-
         //List For CareerDevelopmentPlan
         public ActionResult DevelopmentGoalList()
         {
@@ -1146,6 +1145,11 @@ namespace AquatroHRIMS.Controllers
             {
                 throw ex;
             }
+        }
+        public ActionResult SetQuadrantMeasures()
+        {
+         //   objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+            return View(objQuadrantMeasure);
         }
     }
 }

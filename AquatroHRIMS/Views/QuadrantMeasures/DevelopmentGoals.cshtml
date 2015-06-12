@@ -159,7 +159,6 @@
         element4.className = "form-control";
         element4.onchange = function () {
             $("#lbl" + Count).css("display", "none");
-
         }
 
         var element12 = document.createElement('span');
@@ -218,7 +217,7 @@
     }
     function fnHideErrorMsg(id, value, errorSpan, controlName) {
         $("#" + errorSpan).css("display", "none");
-    }
+    }    
 </script>
 <style>
     .labelName {
@@ -264,18 +263,17 @@
                                                 </td>
                                             </tr>
                                             <tr>
-
                                                 <td>
                                                     <input type="text" class="form-control" id="txtGoalName1" onkeypress="fnHideErrorMsg(id, value, 'spnGoalName1','txtGoalName1')" />
                                                     <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter Development Goal.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtAction1" onkeypress="fnHideErrorMsg(id, value, 'spnAction1', 'txtAction1')"></textarea>
-                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Action Required.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtTracking1" onkeypress="fnHideErrorMsg(id, value, 'spnTracking1', 'txtTracking1')"></textarea>
-                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Goal Name.</span>
+                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Tracking.</span>
                                                 </td>
                                                 <td>
                                                     @Html.DropDownListFor(m => m.goalStatusID, new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList1", onchange = "fnHideErrorMsg(id, value, 'lbl1','ddlStatusList1')" })
