@@ -22,6 +22,7 @@ namespace AquatroHRIMS.Models
         public DateTime ToDate { get; set; }
 
         public int no_ofDay { get; set; }
+
         [Required(ErrorMessage="Please enter leave reason")]
         public string Reason { get; set; }
 

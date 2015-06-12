@@ -78,13 +78,13 @@ namespace AquatroHRIMS.Models
 
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter valid email id")]
         [Display(Name = "Email Id")]
-        [Required(ErrorMessage = "Please enter external head name")]
+        [Required(ErrorMessage = "Please enter email id")]
         public string Email { get; set; }
 
         [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone number")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Contact No.")]
-        [Required(ErrorMessage = "Please enter external head name")]
+        [Required(ErrorMessage = "Please enter contact no")]
         public string Contact { get; set; }
 
         [Required(ErrorMessage = "Please select external client ")]
