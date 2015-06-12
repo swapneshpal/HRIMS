@@ -702,12 +702,8 @@ namespace AquatroHRIMS.Controllers
                 }
                 objQuadrantMeasure.list2 = list;
 
-
-
-
-                //" objEmpLogin = " + ID
                 //For Get File List:
-                List<cFile> aobFile = cFile.Find();
+                List<cFile> aobFile = cFile.Find(" objEmpLogin = " + ID);
                 List<FileAttachment> aobfile = new List<FileAttachment>();
                 if (aobFile.Count > 0)
                 {

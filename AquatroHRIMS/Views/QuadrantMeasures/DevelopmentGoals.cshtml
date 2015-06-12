@@ -43,7 +43,6 @@
             async: false,
             dataType: 'json',
             success: function (data) {
-
                 var op = new Option();
                 op.value = 0;
                 op.text = "-- Select --";
@@ -211,7 +210,6 @@
             }
         }
         flag=ValidateExtension();
-        alert(flag);
         if (flag == true) {
             return false;
         } else {
@@ -321,7 +319,6 @@
                         <input type="button" id="btnSave" class="btn btn-primary" value="Save" />
                         @Html.ActionLink("Back", "EmployeeQuadrants", "QuadrantMeasures", null, new { @class = "btn btn-primary" })
                         @Html.ActionLink("Next", "SummaryComments", "QuadrantMeasures", null, new { @class = "btn btn-primary" })
-                        @*<button type="button" class="btn btn-primary">Cancel</button>*@
                     </div>
                 </div>
                 <br>
