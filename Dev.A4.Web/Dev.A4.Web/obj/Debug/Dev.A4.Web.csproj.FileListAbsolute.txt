@@ -28,3 +28,8 @@ D:\Users Profiles\Spal\Desktop\hrms10-6-15\Today\HRIMS\BizLogic\bin\Dev.A4.Web.p
 D:\Users Profiles\Spal\Desktop\hrms10-6-15\Today\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
 D:\Users Profiles\Spal\Desktop\hrms10-6-15\Today\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
 D:\Users Profiles\Spal\Desktop\hrms10-6-15\Today\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
