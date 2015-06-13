@@ -24,21 +24,21 @@ namespace AquatroHRIMS.Controllers
                   return View(objQuadrantMeasure);
         }
         //Added Swpnesh:-
-        [HttpGet]
-        public ActionResult AddQuadrants()
-        {
-            AddQuadrant quadrant = new AddQuadrant();
-            try
-            {
+      
+        //public ActionResult AddQuadrants()
+        //{
+        //    AddQuadrant quadrant = new AddQuadrant();
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return View(quadrant);
-        }
-        [HttpPost]
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return View(quadrant);
+        //}
+
         public JsonResult AddQuadrants(string QuadrantName)
         {
             try
@@ -48,7 +48,6 @@ namespace AquatroHRIMS.Controllers
                 goal.sName = QuadrantName.ToString();
                 goal.bIsActive = true;
                 goal.Save();
-                ViewBag.DataSaved = "Goal added successfully";
                 return Json("1");
             }
             catch (Exception ex)
