@@ -39,14 +39,15 @@
     </style>
 
     <script>
-    function addNew() {
+        var t = 1;
+        function addNew() {
+            t++;
         var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
         var span = 0;
         var table = document.getElementById("tblPerformanceQaudrant");
         var Count = tbodyLength + 1;
-
         var tbody = document.createElement("tbody");
-        tbody.setAttribute("id", "tbody" + Count);
+        tbody.setAttribute("id", "tbody" + t);
 
 
         var rowCount = tbody.rows.length;
@@ -106,12 +107,8 @@
 
         element8.id = "divCHKList" + Count;
         element8.setAttribute("style", "max-height:155px; overflow:auto");
-        element7.id = "chk" + Count;
-        element7.type = "checkbox";
-        element7.setAttribute("rowspan", "2");
-        element7.className = "list-group checked-list-box";
         cell5.setAttribute("rowspan", "2");
-        cell5.appendChild(element8).appendChild(element7);
+        cell5.appendChild(element8);
 
 
         row = tbody.insertRow(++rowCount);
@@ -123,9 +120,8 @@
         element6.setAttribute("colspan", "3");
         cell4.appendChild(element6);
         table.appendChild(tbody)
-
         //Function For Load Data:-
-        LoadData(element2.id, element7.id, Count);
+        LoadData(element2.id, element8.id, t);
     }
     function LoadData(ddlID, chklID, Count) {
         $.ajax({
@@ -142,7 +138,7 @@
                 $('#' + chklID).append("<table width='100%'><tbody><tr><td width='20px'><input type='checkbox' id='chkSelectAll" + Count + "' class='chkclass' onclick='GetCheck(" + Count + ")' value='All' /></td><td width='100px'>Select All</td></tr></tbody></table>");
                 $('#' + chklID).append("<table id='tblChk" + Count + "' width='100%'></table>");
                 $.each(data.DepartmentTypeModel, function (index, optionData) {
-                    var checkBoxId = "chk" + Count;
+                    var checkBoxId ="tbody"+Count+"chk"+optionData.Value;
                     var tdId = "td" + optionData.Value;
                     $('#tblChk' + Count).append("<tbody><tr><td width='20px'><input type='checkbox' id=" + checkBoxId + " class='chkclass' value=" + optionData.Value + " /></td><td id='" + tdId + "' width='100px'>" + optionData.Text + "</td></tr></tbody>");
                 });
@@ -176,18 +172,16 @@
     <script>
 
         function GetCheck(d) {
-            alert('d'+d);
             if ($("#chkSelectAll"+d+"").is(":checked")) {
-                var tbodyLength = $("#tblChk" + d + " tbody").length;
-                alert(tbodyLength);
+                var tbodyLength = $("#tbody" + d + " #tblChk" + d + " tbody").length;
                 for (var i = 1; i <= tbodyLength; i++) {
-                    $("#chk" + i).prop('checked', true);
+                    $("#tbody" + d + "chk" + i).prop('checked', true);
                 }
             }
             else {
                 var tbodyLength = $("#tblChk" + d + " tbody").length;
                 for (var i = 1; i <= tbodyLength; i++) {
-                    $("#chk" + i).prop('checked', false);
+                    $("#tbody"+d+"chk" + i).prop('checked', false);
                 }
             }
 
@@ -230,7 +224,7 @@
 
                             <div id="divTableQuadrant" style="padding-top:50px;">
                                 <table width="100%" id="tblPerformanceQaudrant" class="table table-bordered">
-                                    <tbody>
+                                    <tbody id="tbody1">
                                         <tr>
                                             <td width="50%">
                                                 <div>
@@ -298,7 +292,7 @@
                                                     <table width="100%" id="tblChk1">
                                                         @foreach (var names in @Model.DepartmentTypeModel)
                                                         {
-                                                            var checkBoxId = "chk" + names.Value;
+                                                            var checkBoxId = "tbody1chk" + names.Value;
                                                             var tdId = "td" + names.Value;
                                                             <tbody>
                                                                 <tr>
