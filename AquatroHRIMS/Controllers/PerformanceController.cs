@@ -9,8 +9,8 @@ using HRIMS;
 using AquatroHRIMS.ViewModel;
 namespace AquatroHRIMS.Controllers
 {
-     [HRIMSActionFilter]
-     [CustomException]
+     //[HRIMSActionFilter]
+     //[CustomException]
     public class PerformanceController : Controller
     {
         //

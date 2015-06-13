@@ -39,135 +39,162 @@
     </style>
 
     <script>
-        function addNew() {
-            var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
-            var span = 0;
-            var table = document.getElementById("tblPerformanceQaudrant");
-            var Count = tbodyLength + 1;
+    function addNew() {
+        var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
+        var span = 0;
+        var table = document.getElementById("tblPerformanceQaudrant");
+        var Count = tbodyLength + 1;
 
-            var tbody = document.createElement("tbody");
-            tbody.setAttribute("id", "tbody" + Count);
-
-
-            var rowCount = tbody.rows.length;
-            var row = tbody.insertRow(rowCount);
-            var idRowCount = rowCount + 1;
-
-            var cell1 = row.insertCell(0);
-            var element1 = document.createElement("label");
-            var element11 = document.createElement("div");
-            var element12 = document.createElement("div");
-            var element30 = document.createElement("input");
-            element30.type = "button";
-            element30.value = "Add New";
-            element30.className = "btn btn-primary btn-large";
-            element12.className = "col-md-5";
-            element12.setAttribute("style", "margin-left:-50px;");
-            element11.className = "col-md-6";
-            element11.setAttribute("style", "margin-top:6px");
-            element1.id = "lblCompanyName" + Count;
-            element1.innerText = "Performance Quadrant :";
-
-            var element2 = document.createElement("select");
-            element2.value = "--Select--";
-            element2.className = "form-control";
-            element2.id = "ddlGoalTile" + Count;
-            element2.textContent = "Option to select";
-            cell1.appendChild(element11).appendChild(element1);
-            cell1.appendChild(element12).appendChild(element2);
-            cell1.appendChild(element30);
-
-            var cell2 = row.insertCell(1);
-            var element3 = document.createElement("label");
-            element3.className = "pull-right";
-            var element12 = document.createElement("div");
-            element12.className = "col-md-5";
-            element12.setAttribute("style", "margin-left:-50px;");
-            element3.id = "lblCompanyName" + Count;
-            element3.innerText = "Apply this Quadrant to all level below";
-            var element4 = document.createElement("input");
-            element4.id = "chkAll" + Count;
-            element4.type = "checkbox";
-            cell2.setAttribute("colspan", "3");
-            cell2.appendChild(element3).appendChild(element4);
+        var tbody = document.createElement("tbody");
+        tbody.setAttribute("id", "tbody" + Count);
 
 
-            row = tbody.insertRow(++rowCount);
-            var cell3 = row.insertCell(0);
-            var element5 = document.createElement("label");
-            element5.id = "lblCompanyName" + Count;
-            element5.innerText = "Quadrant Measure";
-            cell3.setAttribute("colspan", "3");
-            cell3.appendChild(element5);
+        var rowCount = tbody.rows.length;
+        var row = tbody.insertRow(rowCount);
+        var idRowCount = rowCount + 1;
 
-            var cell5 = row.insertCell(1);
-            var element8 = document.createElement("div");
-            var element7 = document.createElement("ul");
+        var cell1 = row.insertCell(0);
+        var element1 = document.createElement("label");
+        var element11 = document.createElement("div");
+        var element12 = document.createElement("div");
+        var element30 = document.createElement("input");
+        element30.type = "button";
+        element30.value = "Add New";
+        element30.className = "btn btn-primary btn-large";
+        element12.className = "col-md-5";
+        element12.setAttribute("style", "margin-left:-50px;");
+        element11.className = "col-md-6";
+        element11.setAttribute("style", "margin-top:6px");
+        element1.id = "lblCompanyName" + Count;
+        element1.innerText = "Performance Quadrant :";
 
-            element8.id = "divCHKList" + Count;
-            element8.setAttribute("style", "max-height:155px; overflow:auto");
-            element7.id = "chk" + Count;
-            element7.type = "checkbox";
-            element7.setAttribute("rowspan", "2");
-            element7.className = "list-group checked-list-box";
-            cell5.setAttribute("rowspan", "2");
-            cell5.appendChild(element8).appendChild(element7);
+        var element2 = document.createElement("select");
+        element2.value = "--Select--";
+        element2.className = "form-control";
+        element2.id = "ddlGoalTile" + Count;
+        element2.textContent = "Option to select";
+        cell1.appendChild(element11).appendChild(element1);
+        cell1.appendChild(element12).appendChild(element2);
+        cell1.appendChild(element30);
+
+        var cell2 = row.insertCell(1);
+        var element3 = document.createElement("label");
+        element3.className = "pull-right";
+        var element12 = document.createElement("div");
+        element12.className = "col-md-5";
+        element12.setAttribute("style", "margin-left:-50px;");
+        element3.id = "lblCompanyName" + Count;
+        element3.innerText = "Apply this Quadrant to all level below";
+        var element4 = document.createElement("input");
+        element4.id = "chkAll" + Count;
+        element4.type = "checkbox";
+        cell2.setAttribute("colspan", "3");
+        cell2.appendChild(element3).appendChild(element4);
 
 
-            row = tbody.insertRow(++rowCount);
-            var cell4 = row.insertCell(0);
-            var element6 = document.createElement("textarea");
-            element6.rows = "5";
-            element6.className = "form-control";
-            element6.id = "comment" + Count;
-            element6.setAttribute("colspan", "3");
-            cell4.appendChild(element6);
-            table.appendChild(tbody)
+        row = tbody.insertRow(++rowCount);
+        var cell3 = row.insertCell(0);
+        var element5 = document.createElement("label");
+        element5.id = "lblCompanyName" + Count;
+        element5.innerText = "Quadrant Measure";
+        cell3.setAttribute("colspan", "3");
+        cell3.appendChild(element5);
 
-            //Function For Load Data:-
-            LoadData(element2.id, element7.id, Count);
-        }
-        function LoadData(ddlID, chklID, Count) {
-            $.ajax({
-                url: '@Url.Action("GetQuadrantList", "Performance")',
-                dataType: 'json',
-                type: "POST",
-                contentType: 'application/json',
-                success: function (data) {
-                    $('#'+ddlID).append("<option value=''>-Select--</option>");
-                    $.each(data.GoalTileModel, function (index, optionData) {
-                        $('#'+ddlID).append("<option value='" + optionData.Value + "'>" + optionData.Text + "</option>");
-                    });
-                    $('#' + chklID).append("<li class='list-group-item' id='chkAll" + Count + "' value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>");
-                    $.each(data.DepartmentTypeModel, function (index, optionData) {
-                        $('#' + chklID).append("<li class='list-group-item' value='" + optionData.Value + "' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>" + optionData.Text + "<input type='checkbox' class='hidden'></li>");
-                    });
-                    $('#' + ddlID).trigger("chosen:updated");
-                    //$('#' + chklID).trigger("chosen:updated");
-                },
-                error: function (xhr, status, err) {
-                    if (xhr.status == "590") {
+        var cell5 = row.insertCell(1);
+        var element8 = document.createElement("div");
+        var element7 = document.createElement("ul");
 
-                    }
-                    else {
-                        alert('Oops,Something went wrong.Please try after sometime.');
-                    }
+        element8.id = "divCHKList" + Count;
+        element8.setAttribute("style", "max-height:155px; overflow:auto");
+        element7.id = "chk" + Count;
+        element7.type = "checkbox";
+        element7.setAttribute("rowspan", "2");
+        element7.className = "list-group checked-list-box";
+        cell5.setAttribute("rowspan", "2");
+        cell5.appendChild(element8).appendChild(element7);
+
+
+        row = tbody.insertRow(++rowCount);
+        var cell4 = row.insertCell(0);
+        var element6 = document.createElement("textarea");
+        element6.rows = "5";
+        element6.className = "form-control";
+        element6.id = "comment" + Count;
+        element6.setAttribute("colspan", "3");
+        cell4.appendChild(element6);
+        table.appendChild(tbody)
+
+        //Function For Load Data:-
+        LoadData(element2.id, element7.id, Count);
+    }
+    function LoadData(ddlID, chklID, Count) {
+        $.ajax({
+            url: '@Url.Action("GetQuadrantList", "Performance")',
+            dataType: 'json',
+            type: "POST",
+            contentType: 'application/json',
+            success: function (data) {
+                $('#' + ddlID).append("<option value=''>-Select--</option>");
+                $.each(data.GoalTileModel, function (index, optionData) {
+                    $('#' + ddlID).append("<option value='" + optionData.Value + "'>" + optionData.Text + "</option>");
+                });
+                //$('#' + chklID).append("<li class='list-group-item' id='chkAll" + Count + "' value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>");
+                $('#' + chklID).append("<table width='100%'><tbody><tr><td width='20px'><input type='checkbox' id='chkSelectAll" + Count + "' class='chkclass' onclick='GetCheck(" + Count + ")' value='All' /></td><td width='100px'>Select All</td></tr></tbody></table>");
+                $('#' + chklID).append("<table id='tblChk" + Count + "' width='100%'></table>");
+                $.each(data.DepartmentTypeModel, function (index, optionData) {
+                    var checkBoxId = "chk" + Count;
+                    var tdId = "td" + optionData.Value;
+                    $('#tblChk' + Count).append("<tbody><tr><td width='20px'><input type='checkbox' id=" + checkBoxId + " class='chkclass' value=" + optionData.Value + " /></td><td id='" + tdId + "' width='100px'>" + optionData.Text + "</td></tr></tbody>");
+                });
+                $('#' + chklID).appendChild('#tblChk' + Count)
+                $('#' + ddlID).trigger("chosen:updated");
+                //$('#' + chklID).trigger("chosen:updated");
+            },
+            error: function (xhr, status, err) {
+                if (xhr.status == "590") {
+
                 }
-            });
-        }
-        function fnSave() {
-            var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
-          
-            for (i = 1; i <=tbodyLength; i++)
-            {
-                var pQuadrant = $('#ddlGoalTile' + i + ' :selected').val();
-                
-                alert(pQuadrant)
+                else {
+                    alert('Oops,Something went wrong.Please try after sometime.');
+                }
             }
+        });
+    }
+    function fnSave() {
+        var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
+
+        for (i = 1; i <= tbodyLength; i++) {
+            var pQuadrant = $('#ddlGoalTile' + i + ' :selected').val();
+            var comment = $("#comment1" + i).val();
+            alert(pQuadrant + " " + comment)
+        }
+
+
+    };
+
+</script>
+    <script>
+
+        function GetCheck(d) {
+            alert('d'+d);
+            if ($("#chkSelectAll"+d+"").is(":checked")) {
+                var tbodyLength = $("#tblChk" + d + " tbody").length;
+                alert(tbodyLength);
+                for (var i = 1; i <= tbodyLength; i++) {
+                    $("#chk" + i).prop('checked', true);
+                }
+            }
+            else {
+                var tbodyLength = $("#tblChk" + d + " tbody").length;
+                for (var i = 1; i <= tbodyLength; i++) {
+                    $("#chk" + i).prop('checked', false);
+                }
+            }
+
+          
             
 
-        };
-
+        }
     </script>
 </head>
 
@@ -231,32 +258,63 @@
                                         <tr>
                                             <td colspan="3"><label>Quadrant Measure</label></td>
                                             <td rowspan="2">
-                                                <div style="max-height:155px; overflow:auto;">
-                                                    @*<ul class="list-group checked-list-box">
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item" data-checked="true">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                            <li class="list-group-item">Select 1</li>
-                                                        </ul>*@
-                                                    <div style="max-height:155px; overflow:auto;">
+                                                @*<div style="max-height:155px; overflow:auto;">*@
+                                                @*<ul class="list-group checked-list-box">
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item" data-checked="true">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                        <li class="list-group-item">Select 1</li>
+                                                    </ul>*@
+                                                @*<div style="max-height:155px; overflow:auto;">
                                                         <ul class="list-group checked-list-box">
-                                                            <li class='list-group-item' id='chkAll' value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>
+                                                            <li class='list-group-item' id='chkAll1' onclick="GetCheck()" value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>
+                                                        </ul>
+                                                        <ul class="list-group checked-list-box">
                                                             @foreach (var names in @Model.DepartmentTypeModel)
                                                             {
                                                                 <li class="list-group-item" value="@names.Value">@names.Text</li>
                                                             }
-
-
                                                         </ul>
-                                                    </div>
-                                                    @*@Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "form-control ", id = "ddlDeptTypeList"})*@
+                                                    </div>*@
+                                                <div style="max-height:155px; overflow:auto;">
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td width="20px">
+                                                                <input type="checkbox" id="chkSelectAll1" onclick="GetCheck(1)" class="chkclass" value="All" />
+                                                            </td>
+                                                            <td width="100px">
+                                                                Select All
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+
+                                                    <table width="100%" id="tblChk1">
+                                                        @foreach (var names in @Model.DepartmentTypeModel)
+                                                        {
+                                                            var checkBoxId = "chk" + names.Value;
+                                                            var tdId = "td" + names.Value;
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="20px">
+                                                                        <input type="checkbox" id="@checkBoxId" class="chkclass" value="@names.Value" />
+                                                                    </td>
+                                                                    <td id="@tdId" width="100px">
+                                                                        @names.Text
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        }
+                                                    </table>
                                                 </div>
+                                                @*@Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "form-control ", id = "ddlDeptTypeList"})*@
+                                                @*</div>*@
                                             </td>
                                         </tr>
                                         <tr>
