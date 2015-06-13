@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Home.cshtml";
 }
-
+@model AquatroHRIMS.ViewModel.QuadrantMeasuresViewModel
 <!doctype html>
 <html>
 <head>
@@ -38,36 +38,137 @@
         }
     </style>
 
-<script>
-    function addNew() {
-       
-       
+    <script>
+        function addNew() {
+            var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
+            var span = 0;
+            var table = document.getElementById("tblPerformanceQaudrant");
+            var Count = tbodyLength + 1;
 
-        var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
-        var span = 0;
-        var table = document.getElementById("tblPerformanceQaudrant");
-        var Count = tbodyLength + 1;
-
-        var tbody = document.createElement("tbody");
-        tbody.setAttribute("id", "tbody" + Count);
+            var tbody = document.createElement("tbody");
+            tbody.setAttribute("id", "tbody" + Count);
 
 
-        var rowCount = tbody.rows.length;
-        var row = tbody.insertRow(rowCount);
-        var idRowCount = rowCount + 1;
+            var rowCount = tbody.rows.length;
+            var row = tbody.insertRow(rowCount);
+            var idRowCount = rowCount + 1;
 
-        var cell1 = row.insertCell(0);
-        var element1 = document.createElement("label");
-        element1.id = "lblCompanyName" + Count;
-        element1.innerText = "Performance Quadrant :";
-        var element2 = document.createElement("option");
-        element2.id = "txt" + Count;
-        cell1.appendChild(element1);
-        cell1.appendChild(element2);
-        table.appendChild(tbody)
-    }
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("label");
+            var element11 = document.createElement("div");
+            var element12 = document.createElement("div");
+            var element30 = document.createElement("input");
+            element30.type = "button";
+            element30.value = "Add New";
+            element30.className = "btn btn-primary btn-large";
+            element12.className = "col-md-5";
+            element12.setAttribute("style", "margin-left:-50px;");
+            element11.className = "col-md-6";
+            element11.setAttribute("style", "margin-top:6px");
+            element1.id = "lblCompanyName" + Count;
+            element1.innerText = "Performance Quadrant :";
 
-</script>
+            var element2 = document.createElement("select");
+            element2.value = "--Select--";
+            element2.className = "form-control";
+            element2.id = "ddlGoalTile" + Count;
+            element2.textContent = "Option to select";
+            cell1.appendChild(element11).appendChild(element1);
+            cell1.appendChild(element12).appendChild(element2);
+            cell1.appendChild(element30);
+
+            var cell2 = row.insertCell(1);
+            var element3 = document.createElement("label");
+            element3.className = "pull-right";
+            var element12 = document.createElement("div");
+            element12.className = "col-md-5";
+            element12.setAttribute("style", "margin-left:-50px;");
+            element3.id = "lblCompanyName" + Count;
+            element3.innerText = "Apply this Quadrant to all level below";
+            var element4 = document.createElement("input");
+            element4.id = "chkAll" + Count;
+            element4.type = "checkbox";
+            cell2.setAttribute("colspan", "3");
+            cell2.appendChild(element3).appendChild(element4);
+
+
+            row = tbody.insertRow(++rowCount);
+            var cell3 = row.insertCell(0);
+            var element5 = document.createElement("label");
+            element5.id = "lblCompanyName" + Count;
+            element5.innerText = "Quadrant Measure";
+            cell3.setAttribute("colspan", "3");
+            cell3.appendChild(element5);
+
+            var cell5 = row.insertCell(1);
+            var element8 = document.createElement("div");
+            var element7 = document.createElement("ul");
+
+            element8.id = "divCHKList" + Count;
+            element8.setAttribute("style", "max-height:155px; overflow:auto");
+            element7.id = "chk" + Count;
+            element7.type = "checkbox";
+            element7.setAttribute("rowspan", "2");
+            element7.className = "list-group checked-list-box";
+            cell5.setAttribute("rowspan", "2");
+            cell5.appendChild(element8).appendChild(element7);
+
+
+            row = tbody.insertRow(++rowCount);
+            var cell4 = row.insertCell(0);
+            var element6 = document.createElement("textarea");
+            element6.rows = "5";
+            element6.className = "form-control";
+            element6.id = "comment" + Count;
+            element6.setAttribute("colspan", "3");
+            cell4.appendChild(element6);
+            table.appendChild(tbody)
+
+            //Function For Load Data:-
+            LoadData(element2.id, element7.id, Count);
+        }
+        function LoadData(ddlID, chklID, Count) {
+            $.ajax({
+                url: '@Url.Action("GetQuadrantList", "Performance")',
+                dataType: 'json',
+                type: "POST",
+                contentType: 'application/json',
+                success: function (data) {
+                    $('#'+ddlID).append("<option value=''>-Select--</option>");
+                    $.each(data.GoalTileModel, function (index, optionData) {
+                        $('#'+ddlID).append("<option value='" + optionData.Value + "'>" + optionData.Text + "</option>");
+                    });
+                    $('#' + chklID).append("<li class='list-group-item' id='chkAll" + Count + "' value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>");
+                    $.each(data.DepartmentTypeModel, function (index, optionData) {
+                        $('#' + chklID).append("<li class='list-group-item' value='" + optionData.Value + "' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>" + optionData.Text + "<input type='checkbox' class='hidden'></li>");
+                    });
+                    $('#' + ddlID).trigger("chosen:updated");
+                    //$('#' + chklID).trigger("chosen:updated");
+                },
+                error: function (xhr, status, err) {
+                    if (xhr.status == "590") {
+
+                    }
+                    else {
+                        alert('Oops,Something went wrong.Please try after sometime.');
+                    }
+                }
+            });
+        }
+        function fnSave() {
+            var tbodyLength = $("#tblPerformanceQaudrant tbody").length;
+          
+            for (i = 1; i <=tbodyLength; i++)
+            {
+                var pQuadrant = $('#ddlGoalTile' + i + ' :selected').val();
+                
+                alert(pQuadrant)
+            }
+            
+
+        };
+
+    </script>
 </head>
 
 <body>
@@ -77,67 +178,61 @@
 
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Set Quadrant</legend>
-         
+
                 <div class="container-fluid">
-                        <div class="row">
-                            <div class="bs-example">
-                                <div class="col-md-12" id="divFilterDepartment">
-                                    <div class="col-md-9" style="margin-left: 54%;">
-                                        <div class="col-md-4">
-                                            <label class="pull-right">Filter By Department :</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
+                    <div class="row">
+                        <div class="bs-example">
+                            <div class="col-md-12" id="divFilterDepartment">
+                                <div class="col-md-9" style="margin-left: 54%;">
+                                    <div class="col-md-4">
+                                        <label class="pull-right">Filter By Department :</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        @*<select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
                                                 <option value="0">--Select--</option>
                                                 <option value="2">A4</option>
                                                 <option value="3">A4</option>
                                                 <option value="4">A4</option>
                                                 <option value="5">Aquatro</option>
                                                 <option value="7">test</option>
-                                            </select>
-                                        </div>
+                                            </select>*@
+                                        @Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "testSelAll form-control ", id = "ddlDeptTypeList" })
                                     </div>
                                 </div>
+                            </div>
 
-                                <div id="divTableQuadrant" style="padding-top:50px;">
-                                    <table width="100%" id="tblPerformanceQaudrant" class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <td width="50%">
-                                                    <div>
-                                                        <div class="col-md-6" style="margin-top:6px;">
-                                                            <label>Performance Quadrant :</label>
-                                                        </div>
-                                                        <div class="col-md-5" style="margin-left:-50px;">
-                                                            <select class="form-control valid" id="ddlClient" name="SelectedExternalClient">
-                                                                <option value="0">--Select--</option>
-                                                                <option value="2">A4</option>
-                                                                <option value="3">A4</option>
-                                                                <option value="4">A4</option>
-                                                                <option value="5">Aquatro</option>
-                                                                <option value="7">test</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="md-overlay"></div>
-                                                        <div class="col-md-2" style="margin-left:-25px;">
-                                                            <div id="thanks"><p><a data-toggle="modal" href="#form-content" class="btn btn-primary btn-large">Add New</a></p></div>
-                                                            @*<button type="button" class="btn btn-primary md-trigger" target="#form-content" data-modal="modal-16">Add New</button>*@
-                                                        </div>
+                            <div id="divTableQuadrant" style="padding-top:50px;">
+                                <table width="100%" id="tblPerformanceQaudrant" class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td width="50%">
+                                                <div>
+                                                    <div class="col-md-6" style="margin-top:6px;">
+                                                        <label>Performance Quadrant :</label>
                                                     </div>
-                                                </td>
+                                                    <div class="col-md-5" style="margin-left:-50px;">
+                                                        @Html.DropDownListFor(m => m.objEmpQudrants.objGoals, new SelectList(Model.GoalTileModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlGoalTile1", style = "display:inline" })
+                                                    </div>
 
-                                                <td colspan="3" width="40%">
-                                                    <label class="pull-right"> Apply this Quadrant to all level below <input type="checkbox"></label>
-                                                </td>
+                                                    <div class="md-overlay"></div>
+                                                    <div class="col-md-2" style="margin-left:-25px;">
+                                                        <div id="thanks"><p><a data-toggle="modal" href="#form-content" class="btn btn-primary btn-large">Add New</a></p></div>
+                                                        @*<button type="button" class="btn btn-primary md-trigger" target="#form-content" data-modal="modal-16">Add New</button>*@
+                                                    </div>
+                                                </div>
+                                            </td>
 
-                                            </tr>
+                                            <td colspan="3" width="40%">
+                                                <label class="pull-right"> Apply this Quadrant to all level below <input type="checkbox"></label>
+                                            </td>
 
-                                            <tr>
-                                                <td colspan="3"><label>Quadrant Measure</label></td>
-                                                <td rowspan="2">
-                                                    <div style="max-height:155px; overflow:auto;">
-                                                        <ul class="list-group checked-list-box">
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="3"><label>Quadrant Measure</label></td>
+                                            <td rowspan="2">
+                                                <div style="max-height:155px; overflow:auto;">
+                                                    @*<ul class="list-group checked-list-box">
                                                             <li class="list-group-item">Select 1</li>
                                                             <li class="list-group-item" data-checked="true">Select 1</li>
                                                             <li class="list-group-item">Select 1</li>
@@ -148,24 +243,36 @@
                                                             <li class="list-group-item">Select 1</li>
                                                             <li class="list-group-item">Select 1</li>
                                                             <li class="list-group-item">Select 1</li>
+                                                        </ul>*@
+                                                    <div style="max-height:155px; overflow:auto;">
+                                                        <ul class="list-group checked-list-box">
+                                                            <li class='list-group-item' id='chkAll' value='0' style='cursor: pointer;'><span class='state-icon glyphicon glyphicon-unchecked'></span>Select All<input type='checkbox' class='hidden'></li>
+                                                            @foreach (var names in @Model.DepartmentTypeModel)
+                                                            {
+                                                                <li class="list-group-item" value="@names.Value">@names.Text</li>
+                                                            }
+
+
                                                         </ul>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"><textarea class="form-control" rows="5" id="comment"></textarea></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                                                    @*@Html.DropDownListFor(m => m.SelectedDeptList, new SelectList(Model.DepartmentTypeModel, "Value", "Text", Model.DepartmentTypeModel.SelectedValue), new { @class = "form-control ", id = "ddlDeptTypeList"})*@
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><textarea class="form-control" rows="5" id="comment1"></textarea></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
                         </div>
                     </div>
-        
+                </div>
+
                 <br><br>
                 <div class="container">
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" id="btnSave" onclick="fnSave()">Save</button>
                     <button type="button" class="btn btn-primary">Reset</button><br><br>
                     <button type="button" class="btn btn-primary" onclick="addNew()">Set New Quadrant</button>
                     <button type="button" class="btn btn-primary">Release Quadrant</button>
@@ -173,7 +280,7 @@
 
             </fieldset>
         </div>
-        <div id="form-content" class="modal fade in" >
+        <div id="form-content" class="modal fade in">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>Send me a message</h3>
@@ -201,7 +308,7 @@
                     data: '{"QuadrantName":' + txt + '}',
                     contentType: 'application/json',
                     success: function (data) {
-    
+
                     },
                     error: function (xhr, status, err) {
                         if (xhr.status == "590") {
@@ -318,4 +425,3 @@
 
 </body>
 </html>
-

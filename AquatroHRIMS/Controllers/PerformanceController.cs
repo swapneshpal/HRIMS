@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AquatroHRIMS.ActionFilters;
 using AquatroHRIMS.Models;
 using HRIMS;
+using AquatroHRIMS.ViewModel;
 namespace AquatroHRIMS.Controllers
 {
      [HRIMSActionFilter]
@@ -14,9 +15,13 @@ namespace AquatroHRIMS.Controllers
     {
         //
         // GET: /Performance/
+ 
         public ActionResult Index()
         {
-            return View();
+                  QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
+                  objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+                  objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+                  return View(objQuadrantMeasure);
         }
         //Added Swpnesh:-
         [HttpGet]
@@ -52,6 +57,77 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
 
+        }
+        QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
+        private SelectList getDepartmentTypeID()
+        {
+            try
+            {
+                List<ddlDepartmentTypeList> objDeptTypeList = new List<ddlDepartmentTypeList>();
+                List<cDepartmentType> objDeptType = cDepartmentType.Find();
+                //objDeptTypeList.Add(new ddlDepartmentTypeList { Value = 0, Text = "--select--" });
+                foreach (var item in objDeptType)
+                {
+                    objDeptTypeList.Add(new ddlDepartmentTypeList { Value = item.iID, Text = item.sName });
+                }
+
+                SelectList objDeptTypeListData = new SelectList(objDeptTypeList, "Value", "Text");
+                return objDeptTypeListData;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private SelectList getGoalTitleList()
+        {
+            try
+            {
+                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                List<ddlGoalTitleList> objGoalTitleList = new List<ddlGoalTitleList>();
+                List<cGoals> objGoalTitle = cGoals.Find(" objEmpLogin = " + LoginID);
+
+                foreach (var item in objGoalTitle)
+                {
+                    objGoalTitleList.Add(new ddlGoalTitleList { Value = item.iID, Text = item.sName });
+                }
+
+                SelectList objGoalList = new SelectList(objGoalTitleList, "Value", "Text");
+                return objGoalList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public JsonResult GetQuadrantList()
+        {
+            try
+            {
+                JsonResult result = new JsonResult();
+                //int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                //List<ddlGoalTitleList> objGoalTitleList = new List<ddlGoalTitleList>();
+                //List<cGoals> objGoalTitle = cGoals.Find(" objEmpLogin = " + LoginID);
+                //foreach (var item in objGoalTitle)
+                //{
+                //    objGoalTitleList.Add(new ddlGoalTitleList { Value = item.iID, Text = item.sName });
+                //}
+                //SelectList objGoalList = new SelectList(objGoalTitleList, "Value", "Text");
+
+                QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
+                objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+                objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+                result.Data = objQuadrantMeasure;
+                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                return result;
+                //return Json(objEmpViewMod);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 	}
 }
