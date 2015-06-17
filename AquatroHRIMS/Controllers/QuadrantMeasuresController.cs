@@ -10,6 +10,7 @@ using System.Data;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using AquatroHRIMS.ActionFilters;
+using System.Configuration;
 
 
 namespace AquatroHRIMS.Controllers
@@ -18,6 +19,7 @@ namespace AquatroHRIMS.Controllers
     [CustomException]
     public class QuadrantMeasuresController : Controller
     {
+        string FilePath = ConfigurationManager.AppSettings["Filepath"].ToString();// GET: /Employee/
         QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
         private SelectList getDepartmentTypeID()
         {
@@ -437,7 +439,7 @@ namespace AquatroHRIMS.Controllers
                         {
                             cFile objfile = cFile.Create();
                             string filename = Path.GetFileNameWithoutExtension(item.FileName) + DateTime.Now.ToString().Replace('/', '_').Replace(':', '_') + Path.GetExtension(item.FileName);
-                            item.SaveAs(Server.MapPath("~/File/" + filename));
+                            item.SaveAs((FilePath + filename));
                             objfile.sFileName = filename;
                             objfile.objEmpLogin.iObjectID = loginID;
                             objfile.objCareerDevelopmentPlan.iObjectID = 0;
@@ -1015,7 +1017,7 @@ namespace AquatroHRIMS.Controllers
                 {
                     HttpContext.Response.AddHeader("content-disposition", "attachment; filename=" + objFile.sFileName);
                 }
-                string path = "~/File/" + objFile.sFileName;
+                string path = FilePath + objFile.sFileName;
                 HttpContext.Response.TransmitFile(path);
                 return File(path, System.Net.Mime.MediaTypeNames.Application.Octet);
             }

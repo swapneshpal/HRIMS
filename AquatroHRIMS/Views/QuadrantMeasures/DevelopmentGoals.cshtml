@@ -32,7 +32,7 @@
                
                 this.form.action = '../QuadrantMeasures/DevelopmentPlan?DevelopmentPlan=' + JSON.stringify(jsonObj);
                 this.form.submit();
-                alert("Development Goals added successfully");
+                alert("Development goals added successfully");
             }
         });
     });
@@ -114,7 +114,7 @@
 
         var element9 = document.createElement('span');
         element9.id = "spnGoalName" + Count;
-        element9.innerText = "Please enter Development Goal.";
+        element9.innerText = "Please enter development goal.";
         element9.className = "dyncontrols";
         cell5.appendChild(element5);
         cell5.appendChild(element9);
@@ -129,7 +129,7 @@
         }
         var element10 = document.createElement('span');
         element10.id = "spnAction" + Count;
-        element10.innerText = "Please enter Action Required.";
+        element10.innerText = "Please enter action required.";
         element10.className = "dyncontrols";
 
         cell6.appendChild(element6);
@@ -146,7 +146,7 @@
 
         var element11 = document.createElement('span');
         element11.id = "spnTracking" + Count;
-        element11.innerText = "Please enter Tracking.";
+        element11.innerText = "Please enter tracking.";
         element11.className = "dyncontrols";
 
         cell7.appendChild(element7);
@@ -163,7 +163,7 @@
 
         var element12 = document.createElement('span');
         element12.id = "lbl" + Count;
-        element12.innerText = "Please select Status.";
+        element12.innerText = "Please select status.";
         element12.className = "dyncontrols";
 
         cell4.appendChild(element4);
@@ -264,19 +264,19 @@
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control" id="txtGoalName1" onkeypress="fnHideErrorMsg(id, value, 'spnGoalName1','txtGoalName1')" />
-                                                    <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter Development Goal.</span>
+                                                    <span id="spnGoalName1" style="display: none; color: red; font-size: 12px;">Please enter development goal.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtAction1" onkeypress="fnHideErrorMsg(id, value, 'spnAction1', 'txtAction1')"></textarea>
-                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter Action Required.</span>
+                                                    <span id="spnAction1" style="display: none; color: red; font-size: 12px;">Please enter action required.</span>
                                                 </td>
                                                 <td>
                                                     <textarea class="form-control" rows="5" id="txtTracking1" onkeypress="fnHideErrorMsg(id, value, 'spnTracking1', 'txtTracking1')"></textarea>
-                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter Tracking.</span>
+                                                    <span id="spnTracking1" style="display: none; color: red; font-size: 12px;">Please enter tracking.</span>
                                                 </td>
                                                 <td>
                                                     @Html.DropDownListFor(m => m.goalStatusID, new SelectList(Model.StatusModel, "Value", "Text"), "--select--", new { @class = "form-control chzn-select-deselect", id = "ddlStatusList1", onchange = "fnHideErrorMsg(id, value, 'lbl1','ddlStatusList1')" })
-                                                    @Html.LabelFor(m => m.goalStatusID, "Please Select Status.", new { id = "lbl1", style = "display:none; color:red; font-size:12px;" })
+                                                    @Html.LabelFor(m => m.goalStatusID, "Please select status.", new { id = "lbl1", style = "display:none; color:red; font-size:12px;" })
                                                 </td>
                                             </tr>
                                             <tr>

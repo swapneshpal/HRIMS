@@ -136,16 +136,16 @@ namespace AquatroHRIMS.Controllers
                         InstituteName = objEducation[0].sInstituteName,
                         Percentage = objEducation[0].fPercentage,
 
-                        HighlySecqualification = objEducation[0].sHigestDegree,
-                        HighlySecSpecialization = objEducation[0].sSpecialization,
-                        HighlySecPassingYear = objEducation[0].sPassingYear,
-                        HighlySecInstituteName = objEducation[0].sInstituteName,
-                        HighlySecPercentage = objEducation[0].fPercentage,
+                        HighlySecqualification = objEducation[1].sHigestDegree,
+                        HighlySecSpecialization = objEducation[1].sSpecialization,
+                        HighlySecPassingYear = objEducation[1].sPassingYear,
+                        HighlySecInstituteName = objEducation[1].sInstituteName,
+                        HighlySecPercentage = objEducation[1].fPercentage,
 
-                        Secqualification = objEducation[0].sHigestDegree,
-                        SecPassingYear = objEducation[0].sPassingYear,
-                        SecInstituteName = objEducation[0].sInstituteName,
-                        SecPercentage = objEducation[0].fPercentage,
+                        Secqualification = objEducation[2].sHigestDegree,
+                        SecPassingYear = objEducation[2].sPassingYear,
+                        SecInstituteName = objEducation[2].sInstituteName,
+                        SecPercentage = objEducation[2].fPercentage,
                     };
                 }
                 else
@@ -201,7 +201,17 @@ namespace AquatroHRIMS.Controllers
                 {
 
                     aobjEmployeePersonalDetails[0].sFirstName = objEmpPersonal.FirstName;
-                    aobjEmployeePersonalDetails[0].sMiddleName = objEmpPersonal.MiddleName;
+
+                    if (objEmpPersonal.MiddleName != null)
+                    {
+                        aobjEmployeePersonalDetails[0].sMiddleName = objEmpPersonal.MiddleName;
+                    }
+                    else
+                    {
+                        aobjEmployeePersonalDetails[0].sMiddleName = aobjEmployeePersonalDetails[0].sMiddleName;
+                    }
+                   
+
                     aobjEmployeePersonalDetails[0].sLastName = objEmpPersonal.LastName;
                     aobjEmployeePersonalDetails[0].sPersoanlEmailID = objEmpPersonal.PersonalEmail;
                     aobjEmployeePersonalDetails[0].sGender = objEmpPersonal.Gender;
@@ -218,6 +228,7 @@ namespace AquatroHRIMS.Controllers
                     aobjEmployeePersonalDetails[0].sCountry = objEmpPersonal.Country;
                     aobjEmployeePersonalDetails[0].sNationality = objEmpPersonal.Nationality;
                     aobjEmployeePersonalDetails[0].sWorkTelp = objEmpPersonal.WorkContact;
+                    aobjEmployeePersonalDetails[0].sPerContactNo = objEmpPersonal.PersonalContactNo;
                     aobjEmployeePersonalDetails[0].objEmpLogin.iObjectID = LoginID;
                   
                     aobjEmployeePersonalDetails[0].Save();
@@ -561,9 +572,6 @@ namespace AquatroHRIMS.Controllers
 
 
         }
-
-
-
         [HttpPost]
         public ActionResult EmpProfessional()
         {

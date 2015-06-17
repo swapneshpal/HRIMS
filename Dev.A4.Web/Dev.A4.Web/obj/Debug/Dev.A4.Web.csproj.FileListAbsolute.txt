@@ -33,3 +33,13 @@ D:\Users Profiles\Spal\Desktop\Project\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+D:\HRIMS\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+D:\HRIMS\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\BizLogic\bin\Dev.A4.Web.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\BizLogic\bin\Dev.A4.Web.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Debug\Dev.A4.Web.pdb

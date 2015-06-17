@@ -13,11 +13,11 @@ namespace AquatroHRIMS.Models
         public int iID { get; set; }
 
         public string Leavetype { get; set; }
-
+        [DataType(DataType.Date)]
         [Display(Name = "From Date")]
         public DateTime FromDate { get; set; }
 
-   
+      [DataType(DataType.Date)]
         [Display(Name = "To Date")]
         public DateTime ToDate { get; set; }
 

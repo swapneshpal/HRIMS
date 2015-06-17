@@ -7,6 +7,12 @@
 <script>
     $(document).ready(function () {
         $("#ddlExternalClient").change(function () {
+            if (typeof $('#ddlExternalClient option:selected').val() === "undefined") {
+                alert("ssds");
+                $("#smnClient").css("display", "block");
+                cnt++;
+                return false;
+            }
             if ($('#ddlExternalClient option:selected').val() == 0) {
                 $("#smnClient").css("display", "block");
                 cnt++;
@@ -18,23 +24,20 @@
         })
     })
 
-    function fnValidation()
-    {
+    function fnValidation() {
         $(".spnValidMGS").css("display", "block");
-        if ($('#ddlExternalClient option:selected').val() == "0")
-        {
+        if ($('#ddlExternalClient option:selected').val() == "0") {
             $("#smnClient").css("display", "block");
         }
-        else
-        {
+
+        else {
 
             $("#smnClient").css("display", "none");
         }
-        
+
         return true;
     }
-    function Reset()
-    {
+    function Reset() {
         $('#ddlExternalClient option:eq(0)').attr('selected', '-selected-');
         $(".spnValidMGS").css("display", "none");
         $("#txtName").val('');
@@ -43,7 +46,7 @@
         $("#msg").text('');
         $("#smnClient").css("display", "none");
     }
-  
+
 </script>
 
 <br><br>
@@ -52,69 +55,75 @@
     <div id="divResult">
 
     </div>
-<fieldset class="scheduler-border">
-    <legend class="scheduler-border">Add External Head</legend>
-    <div class="col-md-12">
-        <div class="col-md-3">
-            <div>
-                <label class="control-label">Name</label>
-                     @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control", minlength = "2" })
-                <span style="color:red" class="spnValidMGS">@Html.ValidationMessageFor(model=>model.Name)</span>
-            </div><br>
-            <div>
-                <label class="control-label" >Email Id</label>
-                @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", @placeholder = "Email id", @class = "form-control" })
-                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
-                <span style="color:red" class="spnValidMGS">
-                    @Html.ValidationMessageFor(model => model.Email)
-               
-            </span>
-            </div><br>
-            <div>
-                <label class="control-label" >Contact No.</label>
-                @Html.TextBoxFor(m => m.Contact, new { id = "txtContact", @placeholder = "Contact no", @class = "form-control" })
-                @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
-                <span style="color:red" class="spnValidMGS">
-                    @Html.ValidationMessageFor(model => model.Contact)
-                @*<span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgContact" style="display:none"></span>*@
-            </span>
-            </div><br>
-            <div>
-                <label class="control-label">Client</label>
-               @Html.DropDownListFor(m => m.SelectedExternalClient, new SelectList(Model.ExternalClientList, "Value", "Text", Model.ExternalClientList.SelectedValue), new { @class = "form-control", id = "ddlExternalClient" })
-                <span style="color:red;display:none" id="smnClient">Please select client</span>
-            </div><br>
-            <div>
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Add External Head</legend>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div>
+                    <label class="control-label">Name</label>
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @placeholder = "Name", @class = "form-control", minlength = "2" })
+                    <span style="color:red" class="spnValidMGS">@Html.ValidationMessageFor(model => model.Name)</span>
+                </div><br>
+                <div>
+                    <label class="control-label">Email Id</label>
+                    @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", @placeholder = "Email id", @class = "form-control" })
+                    @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+                    <span style="color:red" class="spnValidMGS">
+                        @Html.ValidationMessageFor(model => model.Email)
 
-                <input type="submit" value="Submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidation()">
+                    </span>
+                </div><br>
+                <div>
+                    <label class="control-label">Contact No.</label>
+                    @Html.TextBoxFor(m => m.Contact, new { id = "txtContact", @placeholder = "Contact no", @class = "form-control" })
+                    @*<input class="form-control" data-val="true" data-val-regex="Please use alphabets only" data-val-regex-pattern="^[a-zA-Z]+$" data-val-required="Please enter first name" id="txtFirstName" minlength="2" name="objEmpPersonal.FirstName" placeholder="First Name" type="text" value="">*@
+                    <span style="color:red" class="spnValidMGS">
+                        @Html.ValidationMessageFor(model => model.Contact)
+                        @*<span class="field-validation-valid" data-valmsg-for="objEmpPersonal.FirstName" data-valmsg-replace="true" id="msgContact" style="display:none"></span>*@
+                    </span>
+                </div><br>
+                <div>
+                    <label class="control-label">Client</label>
+                    @Html.DropDownListFor(m => m.SelectedExternalClient, new SelectList(Model.ExternalClientList, "Value", "Text", Model.ExternalClientList.SelectedValue), new { @class = "form-control", id = "ddlExternalClient" })
+                    <span style="color:red;display:none" id="smnClient">Please select client</span>
+                </div><br>
+                <div>
 
-                <input type="button" value="Reset" class="btn btn-dark" onclick="Reset();">
+                    <input type="submit" value="Submit" id="btnCreate" class="btn btn-primary" onclick="return fnValidation()">
+
+                    <input type="button" value="Reset" class="btn btn-dark" onclick="Reset();">
+
+                </div>
+
 
             </div>
 
+            <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
+                <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
+                @if (ViewBag.DataSaved != null)
+                {
+                    <script>
+                        alert("External head created successfully");
+                        Reset();
+                    </script>
+                }
 
+            </div>
         </div>
 
-        <div class="col-md-4" style="color:blue;font-weight:bold;display:none" id="msg">
-            <span id="spnLoder" style="display:none"><img src="~/Images/l2.gif" /></span>
-            @if (ViewBag.DataSaved != null)
-            {
-               <script>
-                   alert("External head created successfully");
-                   Reset();
-               </script>
-            }
-                
-        </div>
-        </div>
-
-</fieldset>
+    </fieldset>
 }
 <script>
     function Begin() {
         $(".spnValidMGS").css("display", "block");
-        if ($('#ddlClient option:selected').val() == "0") {
+        if ($('#ddlExternalClient option:selected').val() == 0) {
             $("#smnClient").css("display", "block");
+            return false;
+        }
+        var s = $('#ddlExternalClient option:selected').val();
+        if (typeof (s) === "undefined") {
+            $("#smnClient").css("display", "block");
+            cnt++;
             return false;
         }
         $("#smnClient").css("display", "none");
@@ -122,17 +131,15 @@
 
     }
     function Success(data) {
-       $("#spnLoder").hide();
+        $("#spnLoder").hide();
         $('#btnCreate').removeAttr("disabled");
 
         if (data == "1") {
             $("#divResult").remove();
             alert("External head created successfully ");
-
-            fnReset();
-
+            Reset()
         }
-       
+
     }
     //function Error(e) {
     //    alert('err');

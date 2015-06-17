@@ -7,24 +7,77 @@ using AquatroHRIMS.ActionFilters;
 using AquatroHRIMS.Models;
 using HRIMS;
 using AquatroHRIMS.ViewModel;
+using System.Data;
 namespace AquatroHRIMS.Controllers
 {
-     //[HRIMSActionFilter]
-     //[CustomException]
+    //[HRIMSActionFilter]
+    //[CustomException]
     public class PerformanceController : Controller
     {
         //
         // GET: /Performance/
- 
-        public ActionResult Index()
+
+        public ActionResult Index(string flag)
         {
-                  QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
-                  objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
-                  objQuadrantMeasure.GoalTileModel = getGoalTitleList();
-                  return View(objQuadrantMeasure);
+
+            if (flag == null || flag=="0")
+            {
+
+                QuadrantMeasuresViewModel objQuadrantMeasure = new QuadrantMeasuresViewModel();
+                try
+                {
+                    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                    List<lstSetQuadMeasures> listQuadMeasure = new List<lstSetQuadMeasures>();
+                    DataTable dt = cQuadrantMeasure.getSetQuadrantMeasuresList(LoginID);
+                    if (dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            listQuadMeasure.Add(new lstSetQuadMeasures { GoalID = Convert.ToInt32(dt.Rows[i]["varGoalID"].ToString()), Measures = dt.Rows[i]["varQuadrantMeasure"].ToString(), Count = i + 1, DeptID = dt.Rows[i]["varDepartmentType"].ToString(), dataCount = Convert.ToInt32(dt.Rows[i]["varcount"].ToString()), AllLevelFlag = dt.Rows[i]["varAllLevels"].ToString() });
+                        }
+                        objQuadrantMeasure.lstQudMeasuresList = listQuadMeasure;
+                    }
+
+                    objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+                    objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return View(objQuadrantMeasure);
+            }
+            else {
+                try
+                {
+                    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                    List<cQuadrantMeasure> aob = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID + " and objDepartmentType = " + flag);
+                    List<lstSetQuadMeasures> listQuadMeasure = new List<lstSetQuadMeasures>();
+                    if (aob.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in aob)
+                        {
+                            count++;
+
+                            listQuadMeasure.Add(new lstSetQuadMeasures { GoalID = item.objGoals.iObjectID, Measures = item.sMeasures, Count = count, DeptID = item.objDepartmentType.iObjectID.ToString(), dataCount = 0, AllLevelFlag = item.bAllLevel.ToString() });
+                        }
+                        objQuadrantMeasure.lstQudMeasuresList = listQuadMeasure;
+                    }
+                    objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+                    objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+                    ViewBag.Depart = flag;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return View(objQuadrantMeasure);
+            }
+
         }
         //Added Swpnesh:-
-      
+
         //public ActionResult AddQuadrants()
         //{
         //    AddQuadrant quadrant = new AddQuadrant();
@@ -128,5 +181,122 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
-	}
+        public JsonResult SaveData(List<string> Goal, List<string> Comment, List<string> all, List<string> Depaerment, string Total)
+        {
+            try
+            {
+                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                DeleteQuadrant(LoginID);
+
+                for (int i = 0; i < Convert.ToInt32(Total); i++)
+                {
+                    if (Depaerment[i] == "")
+                    {
+                        Depaerment[i] = "0,";
+                    }
+                    string s = Depaerment[i].Substring(0, Depaerment[i].Length - 1);
+                    string[] Dep = s.Split(',');
+                    foreach (string item in Dep)
+                    {
+                        cQuadrantMeasure objQuadrant = cQuadrantMeasure.Create();
+                        objQuadrant.sMeasures = Comment[i];
+                        objQuadrant.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                        if (Goal[i] != null)
+                            objQuadrant.objGoals.iObjectID = Convert.ToInt32(Goal[i]);
+                        else
+                            objQuadrant.objGoals.iObjectID = Convert.ToInt32(0);
+                        objQuadrant.bIsActive = true;
+                        if (all[i] == "0")
+                            objQuadrant.bAllLevel = false;
+                        else
+                            objQuadrant.bAllLevel = true;
+
+                        objQuadrant.objDepartmentType.iObjectID = Convert.ToInt32(item);
+                        objQuadrant.Save();
+                    }
+
+
+                }
+
+                return Json("1");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public ActionResult QuadMeasuresList(int id)
+        {
+            try
+            {
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //    List<cQuadrantMeasure> aob = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID + " and objDepartmentType = " + id);
+            //    List<lstSetQuadMeasures> listQuadMeasure = new List<lstSetQuadMeasures>();
+            //    if (aob.Count > 0)
+            //    {
+            //        int count = 0;
+            //        foreach (var item in aob)
+            //        {
+            //            count++;
+
+            //            listQuadMeasure.Add(new lstSetQuadMeasures { GoalID = item.objGoals.iObjectID, Measures = item.sMeasures, Count = count, DeptID = item.objDepartmentType.iObjectID.ToString(), dataCount = 0, AllLevelFlag = item.bAllLevel.ToString() });
+            //        }
+            //        objQuadrantMeasure.lstQudMeasuresList = listQuadMeasure;
+            //    }
+            //    objQuadrantMeasure.DepartmentTypeModel = getDepartmentTypeID();
+            //    objQuadrantMeasure.GoalTileModel = getGoalTitleList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //return View(objQuadrantMeasure);
+            return RedirectToAction("Index", "Performance", new { flag = id });
+        }
+
+        public JsonResult ReleaseQuadrants() {
+            try
+            {
+                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                List<cQuadrantMeasure> aobjRel = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID);
+                if (aobjRel.Count > 0)
+                {
+                    for (int i = 0; i < aobjRel.Count; i++)
+                    {
+                        aobjRel[i].bReleaseQuadrant = true;
+                        aobjRel[i].Save();
+                    }
+
+                    return Json("1");
+                    
+                }
+                else
+                {
+                    return Json("2");
+                }
+             
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+          
+        
+        }
+
+        //Delete Data Quadrant:-
+        public void DeleteQuadrant(int LoginID)
+        {
+            List<cQuadrantMeasure> aobQuadrant = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID);
+            if (aobQuadrant.Count > 0)
+            {
+                foreach (var item in aobQuadrant)
+                {
+                    cQuadrantMeasure.Delete(item.iID);
+                }
+            }
+        }
+    }
 }

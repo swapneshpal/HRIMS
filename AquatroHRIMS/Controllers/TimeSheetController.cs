@@ -16,8 +16,8 @@ namespace AquatroHRIMS.Controllers
     {
         //
         // GET: /TimeSheet/
-     static  DateTime dtCurrent = DateTime.Now;
-       
+        static DateTime dtCurrent = DateTime.Now;
+
         public ActionResult Index()
         {
             return View();
@@ -47,35 +47,13 @@ namespace AquatroHRIMS.Controllers
                 dtList.Add(sow.AddDays(5).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(6).ToString("dd/MM/yyyy"));
                 string workHours = Convert.ToString(TimeCount(nd));
-                var dot = workHours.Contains('.');
+
                 long mm = 0;
                 long hh = 0;
-                if (dot)
-                {
-                    string[] str = workHours.Split('.');
-                    string str1 = str[0];
-                    string str2 = str[1];
-                    hh = Convert.ToInt64(str1);
+                hh = hh + Convert.ToInt64(workHours) / 60;
+                mm = mm + Convert.ToInt64(workHours) % 60;
+                workHours = hh + " : " + mm;
 
-                    if (str2.Length > 1)
-                    {
-                        mm = Convert.ToInt64(str2.Substring(0, 2));
-                        if (mm > 60)
-                        {
-                            hh = hh + 1;
-                            mm = mm - 60;
-                        }
-                    }
-                    else
-                    {
-                        mm = Convert.ToInt64(str2);
-                    }
-                    workHours = hh + " : " + mm;
-                }
-                else
-                {
-                    workHours = workHours + " : 00";
-                }
 
                 dtList.Add(workHours);
                 return Json(dtList, JsonRequestBehavior.AllowGet);
@@ -110,35 +88,11 @@ namespace AquatroHRIMS.Controllers
                 dtList.Add(sow.AddDays(5).ToString("dd/MM/yyyy"));
                 dtList.Add(sow.AddDays(6).ToString("dd/MM/yyyy"));
                 string workHours = Convert.ToString(TimeCount(nd));
-                var dot = workHours.Contains('.');
                 long mm = 0;
                 long hh = 0;
-                if (dot)
-                {
-                    string[] str = workHours.Split('.');
-                    string str1 = str[0];
-                    string str2 = str[1];
-                    hh = Convert.ToInt64(str1);
-
-                    if (str2.Length > 1)
-                    {
-                        mm = Convert.ToInt64(str2.Substring(0, 2));
-                        if (mm > 60)
-                        {
-                            hh = hh + 1;
-                            mm = mm - 60;
-                        }
-                    }
-                    else
-                    {
-                        mm = Convert.ToInt64(str2);
-                    }
-                    workHours = hh + " : " + mm;
-                }
-                else
-                {
-                    workHours = workHours + " : 00";
-                }
+                hh = hh + Convert.ToInt64(workHours) / 60;
+                mm = mm + Convert.ToInt64(workHours) % 60;
+                workHours = hh + " : " + mm;
 
                 dtList.Add(workHours);
                 return Json(dtList, JsonRequestBehavior.AllowGet);
@@ -165,36 +119,11 @@ namespace AquatroHRIMS.Controllers
                 timeSheet.StartDate = mon;
                 timeSheet.EndDate = mon.AddDays(6);
                 string workHours = TimeCount(mon);
-                var dot = workHours.Contains('.');
                 long mm = 0;
                 long hh = 0;
-                if (dot)
-                {
-                    string[] str = workHours.Split('.');
-                    string str1 = str[0];
-                    string str2 = str[1];
-                    hh = Convert.ToInt64(str1);
-
-                    if (str2.Length > 1)
-                    {
-                        string st = str2.Substring(0, 2);
-                        mm = Convert.ToInt64(str2.Substring(0, 2));
-                        if (mm > 60)
-                        {
-                            hh = hh + 1;
-                            mm = mm - 60;
-                        }
-                    }
-                    else
-                    {
-                        mm = Convert.ToInt64(str2);
-                    }
-                    workHours = hh + " : " + mm;
-                }
-                else
-                {
-                    workHours = workHours + " : 00";
-                }
+                hh = hh + Convert.ToInt64(workHours) / 60;
+                mm = mm + Convert.ToInt64(workHours) % 60;
+                workHours = hh + " : " + mm;
 
                 timeSheet.TotalTime = workHours;
                 timeSheet.ProjectList = getProjectList();
@@ -286,13 +215,13 @@ namespace AquatroHRIMS.Controllers
 
 
                 }
-                count = Minut / 60;
+                
 
-                return Convert.ToString(count);
+                return Convert.ToString(Minut);
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
 
@@ -300,7 +229,7 @@ namespace AquatroHRIMS.Controllers
         // GET: /TimeSheet/
 
         [HttpPost]
-        public JsonResult MyTimeSheet(string startDate, string endDate,  string projectId, string ActivityID, string monday, string tuesday, string wed, string thu, string fri, string sat, string sun, string desc)
+        public JsonResult MyTimeSheet(string startDate, string endDate, string projectId, string ActivityID, string monday, string tuesday, string wed, string thu, string fri, string sat, string sun, string desc)
         {
             try
             {
@@ -363,7 +292,7 @@ namespace AquatroHRIMS.Controllers
                     objTimesheet.dtStartDate = stDate;
                     objTimesheet.dtEndDate = enDate;
                     objTimesheet.objProject.iObjectID = Convert.ToInt32(projectId);
-                    objTimesheet.bIsActive = true;
+                    objTimesheet.bIsActive = false;
                     objTimesheet.sTotalTime = "";
                     objTimesheet.Save();
 
@@ -393,35 +322,11 @@ namespace AquatroHRIMS.Controllers
                 DateTime sow = dtCurrent.AddDays(-(today - fdow)).Date;
                 mon = sow.AddDays(1);
                 string workHours = TimeCount(mon);
-                var dot = workHours.Contains('.');
                 long mm = 0;
                 long hh = 0;
-                if (dot)
-                {
-                    string[] str = workHours.Split('.');
-                    string str1 = str[0];
-                    string str2 = str[1];
-                    hh = Convert.ToInt64(str1);
-                   
-                    if (str2.Length > 1)
-                    {
-                        mm = Convert.ToInt64(str2.Substring(0, 2));
-                        if (mm > 60)
-                        {
-                            hh = hh + 1;
-                            mm = mm - 60;
-                        }
-                    }
-                    else
-                    {
-                        mm = Convert.ToInt64(str2);
-                    }
-                    workHours = hh + " : " + mm;
-                }
-                else
-                {
-                    workHours = workHours + " : 00";
-                }
+                hh = hh + Convert.ToInt64(workHours) / 60;
+                mm = mm + Convert.ToInt64(workHours) % 60;
+                workHours = hh + " : " + mm;
 
                 return Json(workHours);
             }
@@ -430,7 +335,7 @@ namespace AquatroHRIMS.Controllers
 
                 throw ex;
             }
-            
+
         }
 
         private SelectList getProjectList()
@@ -494,7 +399,7 @@ namespace AquatroHRIMS.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -554,12 +459,24 @@ namespace AquatroHRIMS.Controllers
                                                 {
                                                     foreach (var itemDes in objDes)
                                                     {
-                                                        string st = ReviewTimeCount(RStarts, Convert.ToInt32(empId));
-                                                        tm.Total = st;
+                                                        string workHours = ReviewTimeCount(RStarts, Convert.ToInt32(empId));
+                                                        long mm = 0;
+                                                        long hh = 0;
+                                                        hh = hh + Convert.ToInt64(workHours) / 60;
+                                                        mm = mm + Convert.ToInt64(workHours) % 60;
+                                                        workHours = hh + " : " + mm;
+                                                        tm.Total = workHours;
                                                         tm.date = RStarts.ToString("dd/MM/yyyy");
-                                                        DateTime dts=RStarts;
+                                                        DateTime dts = RStarts;
                                                         tm.sunday = dts.AddDays(6).ToString("dd/MM/yyyy");
-                                                        tm.status = "Save";
+                                                        if(objTime[0].bIsActive)
+                                                        {
+                                                            tm.status = "Submitted";
+                                                        }
+                                                        else
+                                                        {
+                                                            tm.status = "Saved";
+                                                        }
                                                     }
                                                 }
                                             }
@@ -580,7 +497,7 @@ namespace AquatroHRIMS.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -661,14 +578,13 @@ namespace AquatroHRIMS.Controllers
 
 
                 }
-                count = Minut;
-                double dt = count / 60;
-                return Convert.ToString(Math.Round(dt));
+               
+                return Convert.ToString(Minut);
 
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -708,6 +624,30 @@ namespace AquatroHRIMS.Controllers
 
                 throw ex;
             }
+        }
+
+        public JsonResult Submit(string sDate,string eDate)
+        {
+            try
+            {
+                 string id = HttpContext.User.Identity.Name;
+                int i=Convert.ToInt32(id);
+                DateTime stDate = DateTime.ParseExact(sDate, "dd/MM/yyyy", null);
+                DateTime enDate = DateTime.ParseExact(eDate, "dd/MM/yyyy", null);
+                List<cTimesheet> objTime = cTimesheet.Find(" dtStartDate = " + stDate + " and dtEndDate = "+enDate + " and objEmpLogin = "+id);
+                if(objTime.Count>0)
+                {
+                    objTime[0].bIsActive =true;
+                    objTime[0].Save();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            return Json("1");
         }
     }
 }

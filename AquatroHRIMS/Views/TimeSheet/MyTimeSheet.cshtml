@@ -210,6 +210,21 @@
             });
         }
     }
+    function fnSubmit()
+    {
+        var sDate = $("#spnStart").text();
+        var eDate = $("#spnEnd").text();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Submit", "TimeSheet")',
+            contentType: "application/json; charset=utf-8",
+            data:'{"sDate":'+JSON.stringify(sDate)+',"eDate":'+JSON.stringify(eDate)+'}',
+            dataType: "json",
+            success: function (data) {
+                alert("Timesheet submitted sucessfully");
+            }
+        });
+    }
 </script>
 <div class="container-fluid">
     <div class="row">
@@ -487,7 +502,7 @@
 
                     @*<button type="button" class="btn btn-primary">Add New</button>*@
                     <button type="button" class="btn btn-primary col-md-push-1" id="btnSave">Save</button>
-                    <button type="reset" class="btn btn-dark col-md-push-2">Reset</button>
+                    <button type="reset" class="btn btn-primary col-md-push-1" id="btnSubmit" onclick="fnSubmit()">Submit</button>
 
 
                 </div>

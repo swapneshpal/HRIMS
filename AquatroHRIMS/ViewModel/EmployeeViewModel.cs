@@ -21,7 +21,7 @@ namespace AquatroHRIMS.ViewModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [System.Web.Mvc.Compare("Password", ErrorMessage = "Password do not match")]
+        [System.Web.Mvc.Compare("Password", ErrorMessage = "Password does not match")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 

@@ -52,3 +52,21 @@ D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\bin\Debug\Dev.A4.pdb
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.csprojResolveAssemblyReference.cache
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.dll
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\HRMS\obj\Debug\HRMS.pdb
+D:\HRIMS\HRIMS\HRMS\bin\Debug\HRMS.dll
+D:\HRIMS\HRIMS\HRMS\bin\Debug\HRMS.pdb
+D:\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.dll
+D:\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.Web.dll
+D:\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.Web.pdb
+D:\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.pdb
+D:\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.csprojResolveAssemblyReference.cache
+D:\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.dll
+D:\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\HRMS.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\HRMS.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.Web.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.Web.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\bin\Debug\Dev.A4.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.csprojResolveAssemblyReference.cache
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\HRMS\obj\Debug\HRMS.pdb

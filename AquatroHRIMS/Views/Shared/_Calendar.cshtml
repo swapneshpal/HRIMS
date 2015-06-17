@@ -13,8 +13,8 @@
         },
         eventRender: function (event, element) {
      
-            $("[data-date=" + $.fullCalendar.formatDate(event.start, "yyyy-MM-dd") + "]").css("background-color", "red");
-            element.css('font-size', '14px');
+            //$("[data-date=" + $.fullCalendar.formatDate(event.start, "yyyy-MM-dd") + "]").css("background-color", "red");
+            element.css('font-size', '6px');
             element.qtip({
                 content: '<strong style="color:red">'+event.title+'</strong>'+'<br/>'+event.description,
                 style: {
@@ -37,7 +37,7 @@
         {
             events: GetEvents(),
             color: 'red',     // an option!
-            textColor: 'yellow' // an option!
+            textColor: 'red' // an option!
         }
 
         // any other event sources...
@@ -73,12 +73,22 @@
         background-color: #ff0000 !important;
     }
     .fc-day-content {
-        color:red;
+        color:green;
         cursor: pointer;
     }
 
     .fc-event-title {
-        display: none;
-  
+        display:block;
+        width: 15px !important;
+        height: 15px !important;
+    }
+    .fc-event, fc-event-hori, fc-event-start, fc-event-end {
+        position: absolute;
+        z-index: 8;
+        left: 112px;
+        font-size: 6px;
+        width: 15px !important;
+        top: 111px;
+        background-color: red;
     }
 </style>

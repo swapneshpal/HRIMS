@@ -173,7 +173,7 @@
                     <div class="col-sm-2"><strong class="pull-right">Date</strong></div>
                         <div class="col-md-2">
                             <div class='input-group date' id='dateFrom'>
-                                @Html.TextBoxFor(model => model.objEmployeeLeave.FromDate, new { @class = "form-control ", @placeholder = "From Date", id = "txtFromdate" })
+                                @Html.TextBoxFor(model => model.objEmployeeLeave.FromDate, new { @class = "form-control ", @placeholder = "From Date", id = "txtFromdate", @readonly=true })
                             </div>
                             @*<span id="fromdate" style=" color:red">  @Html.ValidationMessageFor(model => model.objEmployeeLeave.FromDate)</span>*@
                             <span id="spnfromdate" class="spnMessage" style="display: none; color: red;">Please select from date </span>
@@ -182,7 +182,7 @@
                         @*@Html.LabelFor(model => model.objEmployeeLeave.ToDate, new { @class = "col-md-1" })*@
                         <div class="col-md-2">
                             <div class='input-group date' id='dateTo'>
-                                @Html.TextBoxFor(model => model.objEmployeeLeave.ToDate, new { @class = "form-control datepicker", @placeholder = "To Date", id = "txtTodate" })
+                                @Html.TextBoxFor(model => model.objEmployeeLeave.ToDate, new { @class = "form-control datepicker", @placeholder = "To Date", id = "txtTodate", @readonly = true })
                             </div>
                             @*<span id="todate" style=" color:red">  @Html.ValidationMessageFor(model => model.objEmployeeLeave.ToDate)</span>*@
                             <span id="spntodate" class="spnMessage" style="display: none; color: red;">Please select to date </span>

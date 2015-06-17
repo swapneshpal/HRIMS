@@ -31,11 +31,11 @@ namespace AquatroHRIMS.Models
 
         [Required(ErrorMessage = "Please select start date")]
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [Required(ErrorMessage = "Please select end date")]
         [Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
           [Display(Name = "Status")]
         public int status { get; set; }
         public bool IsActive { get; set; }

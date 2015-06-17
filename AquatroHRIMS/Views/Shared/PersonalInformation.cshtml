@@ -201,7 +201,7 @@
             <div class="col-md-4">
                 @Html.LabelFor(model => model.Gender, new { @class = " control-label", @for = "textinput" })<br>
                 <label>
-                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "rdmale" }) Male
+                    @Html.RadioButtonFor(model => model.Gender, "Male", new { id = "rdmale",@checked=true }) Male
                 </label>
                 <label class="col-sm-offset-2">
                     @Html.RadioButtonFor(model => model.Gender, "Female", new { id = "rdfemale" })Female

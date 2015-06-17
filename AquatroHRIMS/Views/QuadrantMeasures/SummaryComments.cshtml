@@ -37,7 +37,7 @@
 
         var element12 = document.createElement('span');
         element12.id = "spnSummaryComment" + Count;
-        element12.innerText = "Please enter Summary Comment.";
+        element12.innerText = "Please enter summary comment.";
         element12.className = "dyncontrols";
 
         cell11.appendChild(element6);
@@ -116,7 +116,7 @@
                                 <label>Employee Sumarry Comments:</label>
                                 <br>
                                 <textarea class="form-control" rows="5" id="txtArea1" onkeypress="fnHideErrorMsg(id, value, 'spnSummaryComment1', 'txtArea')"></textarea>
-                                <span id="spnSummaryComment1" style="display: none; color: red; font-size: 12px;">Please enter Summary Comment.</span>
+                                <span id="spnSummaryComment1" style="display: none; color: red; font-size: 12px;">Please enter summary comment.</span>
                                 @*@Html.TextAreaFor(m => m.objSummaryComment.sDescription, new { id = "txtArea0",@class ="form-control", rows="5" })*@
                             </td>
                         </tr>                       

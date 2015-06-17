@@ -28,12 +28,25 @@ namespace AquatroHRIMS.Controllers
             {
                 List<ddlInternalHead> objInternalHead = new List<ddlInternalHead>();
 
-                List<cEmpPersonalDetails> objEmployee = cEmpPersonalDetails.Find();
+                //List<cEmpPersonalDetails> objEmployee = cEmpPersonalDetails.Find();
 
-                foreach (var itememp in objEmployee)
+                List<cEmpLogin> aobEmpLogin = cEmpLogin.Find(" objRoleAccess = 1 or objRoleAccess = 2 or objRoleAccess = 4 ");
+
+                for (int i = 0; i < aobEmpLogin.Count; i++)
                 {
-                    objInternalHead.Add(new ddlInternalHead { Value = itememp.iID, Text = itememp.sFirstName });
+                    List<cEmpPersonalDetails> objReportHead = cEmpPersonalDetails.Find("objEmpLogin = " + aobEmpLogin[i].iID);
+
+                    foreach (var item in objReportHead)
+                    {
+                        objInternalHead.Add(new ddlInternalHead { Value = item.objEmpLogin.iObjectID, Text = item.sFirstName + " " + item.sMiddleName + " " + item.sLastName });
+                    }
                 }
+
+
+                //foreach (var itememp in objEmployee)
+                //{
+                //    objInternalHead.Add(new ddlInternalHead { Value = itememp.iID, Text = itememp.sFirstName + " " + itememp.sLastName });
+                //}
                 SelectList objinternalheadlist = new SelectList(objInternalHead, "Value", "Text");
                 return objinternalheadlist;
             }
@@ -121,8 +134,8 @@ namespace AquatroHRIMS.Controllers
                 objEmpViewMod.hdnProjectID = aobPro.iID.ToString();
                 aProject.ProjectName = aobPro.sProjectName;
                 aProject.Description = aobPro.sDescription;
-                aProject.StartDate = aobPro.dtStartDate;
-                aProject.EndDate = aobPro.dtEndDate;
+                aProject.StartDate = aobPro.dtStartDate.ToString("dd/MM/yyyy");
+                aProject.EndDate = aobPro.dtEndDate.ToString("dd/MM/yyyy");
                 ViewBag.status = aobPro.objStatus.iObjectID;
                 ViewBag.InternalHead = aobPro.iInternalHead;
                 ViewBag.ExternalHead = aobPro.objExternalProjectHead.iObjectID;
@@ -177,9 +190,9 @@ namespace AquatroHRIMS.Controllers
 
                         objproject.sDescription = objprojectviewmodel.objProject.Description;
 
-                        objproject.dtStartDate = objprojectviewmodel.objProject.StartDate;
+                        objproject.dtStartDate = Convert.ToDateTime(objprojectviewmodel.objProject.StartDate);
 
-                        objproject.dtEndDate = objprojectviewmodel.objProject.EndDate;
+                        objproject.dtEndDate = Convert.ToDateTime(objprojectviewmodel.objProject.EndDate);
                         //objproject.sCompletion = objprojectviewmodel.Complition;
                         objproject.Save();
                         return Json("3");
@@ -200,9 +213,9 @@ namespace AquatroHRIMS.Controllers
 
                         string iExternalHeadID = objprojectviewmodel.SelectedExternalHead[0].ToString();
                         objproject.objExternalProjectHead.iObjectID = Convert.ToInt32(iExternalHeadID);
-                        objproject.dtStartDate = objprojectviewmodel.objProject.StartDate;
+                        objproject.dtStartDate = Convert.ToDateTime(objprojectviewmodel.objProject.StartDate);
 
-                        objproject.dtEndDate = objprojectviewmodel.objProject.EndDate;
+                        objproject.dtEndDate = Convert.ToDateTime(objprojectviewmodel.objProject.EndDate);
                         objproject.sDescription = objprojectviewmodel.objProject.Description;
                         //objproject.sCompletion = objprojectviewmodel.Complition;
                         objproject.Save();
@@ -308,7 +321,7 @@ namespace AquatroHRIMS.Controllers
 
                 foreach (var item in objEmp)
                 {
-                    objEmpdList.Add(new ddlEmpList { Value = item.objEmpLogin.iObjectID, Text = item.sFirstName });
+                    objEmpdList.Add(new ddlEmpList { Value = item.objEmpLogin.iObjectID, Text = item.sFirstName + " " + item.sLastName });
                 }
                 SelectList objEmployeeList = new SelectList(objEmpdList, "Value", "Text");
                 return objEmployeeList;

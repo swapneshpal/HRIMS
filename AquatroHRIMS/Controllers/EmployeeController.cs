@@ -140,7 +140,7 @@ namespace AquatroHRIMS.Controllers
             {
                 List<ddlReportHead> objReportHeadList = new List<ddlReportHead>();
 
-                List<cEmpLogin> aobEmpLogin = cEmpLogin.Find(" objRoleAccess = 1 or objRoleAccess = 2 or objRoleAccess = 5 ");
+                List<cEmpLogin> aobEmpLogin = cEmpLogin.Find(" objRoleAccess = 1 or objRoleAccess = 2 or objRoleAccess = 4 ");
 
                 for(int i=0;i<aobEmpLogin.Count;i++)
                 {

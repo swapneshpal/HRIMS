@@ -181,7 +181,7 @@
                                         <div class="col-md-3">
                                             @Html.DropDownListFor(m => m.SelectedInternalHead, new SelectList(Model.Internalheadlist, "Value", "Text", ViewBag.InternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", Id = "ddlinternalhead" })
                                             @Html.ValidationMessageFor(model => model.objProject.InternalHead)
-                                            <span id="spnInternalhrad" class="clr" style="display: none; color: red;">Please select internal head</span>
+                                            <span id="spnInternalhrad" class="clr" style="display: none; color: red;">Please select department</span>
                                         </div>
 
                                     </div>
@@ -194,8 +194,8 @@
                                 </div>
                                     <div class="col-md-3">
                                         @Html.DropDownListFor(m => m.SelectedClient, new SelectList(Model.ClientList, "Value", "Text", ViewBag.ClientID), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlclient" })
-                                        @*@Html.ValidationMessageFor(model => model.objProject.InternalHead)*@
-                                        <span id="spnclient" class="clr" style="display: none; color: red;">Please select client</span>
+                                        @Html.ValidationMessageFor(model => model.objProject.InternalHead)
+                                        <span id="spnclient" class="clr" style="display: none; color: red;">Please select department</span>
                                     </div>
                                 <div class="col-sm-2">
                                     @Html.LabelFor(model => model.objProject.ExternalHead, new { @class = "pull-right" })
@@ -203,7 +203,7 @@
                                     <div class="col-md-3">
                                         @Html.DropDownListFor(m => m.SelectedExternalHead, new SelectList(Model.ExternalHeadList, "Value", "Text", ViewBag.ExternalHead), "--select--", new { @class = "form-control chzn-select-deselect ", @Id = "ddlexternalhead" })
                                         @Html.ValidationMessageFor(model => model.objProject.ExternalHead)
-                                        <span id="spnexternalhead" class="clr" style="display: none; color: red;">Please select external head</span>
+                                        <span id="spnexternalhead" class="clr" style="display: none; color: red;">Please select department</span>
                                     </div>
                                 </div>
                         </div>
@@ -240,7 +240,7 @@
                                     <div class="col-md-3">
                                         @Html.DropDownListFor(m => m.SelectedStatus, new SelectList(Model.StatusList, "Value", "Text", ViewBag.status), "--select--", new { @class = "form-control chzn-select-deselect", @Id = "ddlStatus" })
                                         @Html.ValidationMessageFor(model => model.objProject.status)
-                                        <span id="spnStatus" class="clr" style="display: none; color: red;">Please select status</span>
+                                        <span id="spnStatus" class="clr" style="display: none; color: red;">Please select department</span>
                                     </div>
                                 <div class="col-sm-2">
                                     @Html.LabelFor(model => model.objProject.Description, new { @class = "pull-right" })

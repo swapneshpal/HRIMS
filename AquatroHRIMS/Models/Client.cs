@@ -81,10 +81,10 @@ namespace AquatroHRIMS.Models
         [Required(ErrorMessage = "Please enter email id")]
         public string Email { get; set; }
 
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone number")]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone no")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Contact No.")]
-        [Required(ErrorMessage = "Please enter contact no")]
+        [Required(ErrorMessage = "Please enter phone no")]
         public string Contact { get; set; }
 
         [Required(ErrorMessage = "Please select external client ")]

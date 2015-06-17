@@ -36,6 +36,7 @@ namespace AquatroHRIMS.ViewModel
         public List<lstQuadrantList> list1 = new List<lstQuadrantList>();       
         public List<lstDevelopmentGoalList> list2 = new List<lstDevelopmentGoalList>();
         public List<lstSummaryComments> list3 = new List<lstSummaryComments>();
+        public List<lstSetQuadMeasures> lstQudMeasuresList = new List<lstSetQuadMeasures>();
         public string[] SelectedDeptList { get; set; }
         public int[] DevelopmentPlanID { get; set; }
         public int hdnEmployeeID { get; set; }
@@ -49,6 +50,7 @@ namespace AquatroHRIMS.ViewModel
         public bool AdminFlag { get; set; }
         public bool ReportingHeadFlag { get; set; }
         public List<FileAttachment> listFileAttachment = new List<FileAttachment>();
+        public bool AllLevelFlag { get; set; }
 
     }
     public class ddlDepartmentTypeList
@@ -132,6 +134,16 @@ namespace AquatroHRIMS.ViewModel
         public string QuadrantID { get; set; }
         public string QuadrantName { get; set; }
         public string DepartmentName { get; set; }
+    }
+    public class lstSetQuadMeasures
+    {
+        public int GoalID { get; set; }
+        public string DeptID { get; set; }
+        public string Measures { get; set; }
+        public int Count { get; set; }
+        public int dataCount { get; set; }
+        public string AllLevelFlag { get; set; }
+        
     }
 
 }

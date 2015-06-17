@@ -95,7 +95,7 @@ namespace AquatroHRIMS.Controllers
                     objLeaveViewModel.EmployeeName = dt.Rows[0]["Firstname"].ToString();
                     if (objPersona.Count > 0)
                     {
-                        objLeaveViewModel.EmployeeReportingHead = objPersona[0].sFirstName;
+                        objLeaveViewModel.EmployeeReportingHead = objPersona[0].sFirstName + " " + objPersona[0].sLastName;
                     }
                     else
                     {

@@ -87,13 +87,13 @@ namespace AquatroHRIMS.Models
         public string Nationality { get; set; }
 
         [Required(ErrorMessage = "Please enter phone no")]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone number")]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone no")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Personal Contact No.")]
         public string PersonalContactNo { get; set; }
 
         [Required(ErrorMessage = "Please enter phone no")]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone number")]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone no")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Work Contact No.")]
         public string WorkContact { get; set; }
@@ -109,7 +109,7 @@ namespace AquatroHRIMS.Models
         public string RelationShip { get; set; }
 
         [Required(ErrorMessage = "Please enter phone no")]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone number")]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Please enter valid phone no")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Contact No.")]
         public string ContactNo { get; set; }

@@ -40,3 +40,8 @@ D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.pd
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.csprojResolveAssemblyReference.cache
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.dll
 D:\Users Profiles\Spal\Desktop\Project\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.pdb
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.dll.config
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.dll
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.pdb
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.dll
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.pdb

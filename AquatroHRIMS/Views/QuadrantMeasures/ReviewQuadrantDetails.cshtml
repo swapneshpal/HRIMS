@@ -146,7 +146,7 @@
                     <div class="row">
                         <div class="bs-example">
                             <div style="color:red;" class="col-sm-offset-4">
-                                <h4>No details Aailable</h4>
+                                <h4>There are no details available for review</h4>
                             </div>
                         </div>
                     </div>
@@ -169,21 +169,21 @@
             @if (@Session["ReviewQuadManagerComment"] != null)
             {
                 <script>
-                    alert("Manager Comment added successfully.");                  
+                    alert("Manager comment added successfully.");                  
                 </script>
                 Session["ReviewQuadManagerComment"] = null;
             }
             @if (@Session["ReviewQuadUpdateManagerComment"] != null)
             {
                 <script>
-                    alert("Manager Comment updated successfully.");                  
+                    alert("Manager comment updated successfully.");                  
                 </script>
                 Session["ReviewQuadUpdateManagerComment"] = null;
             }
              @if (@Session["ReviewQuadSubmitManagerComment"] != null)
              {
                  <script>
-                     alert("Manager Comment submitted successfully.");
+                     alert("Manager comment submitted successfully.");
                  </script>
                  Session["ReviewQuadSubmitManagerComment"] = null;
              }

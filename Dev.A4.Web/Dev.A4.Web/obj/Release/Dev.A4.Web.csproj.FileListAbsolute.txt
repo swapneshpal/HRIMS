@@ -26,3 +26,17 @@ D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
 D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
 D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
 D:\Project\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
+D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.Web.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Release\Dev.A4.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.csprojResolveAssemblyReference.cache
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\obj\Release\Dev.A4.Web.pdb

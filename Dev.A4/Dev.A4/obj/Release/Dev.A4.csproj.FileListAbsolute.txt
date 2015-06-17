@@ -15,3 +15,15 @@ D:\Project\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.pdb
 D:\Project\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.csprojResolveAssemblyReference.cache
 D:\Project\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.dll
 D:\Project\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.pdb
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.dll.config
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.dll
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.pdb
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.csprojResolveAssemblyReference.cache
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.dll
+D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.dll.config
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\bin\x64\Release\Dev.A4.pdb
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.csprojResolveAssemblyReference.cache
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.dll
+D:\Projects\HRIMS\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Release\Dev.A4.pdb

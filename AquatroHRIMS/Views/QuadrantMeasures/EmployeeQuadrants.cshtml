@@ -120,7 +120,7 @@
                                                     @Html.HiddenFor(modelItem => item.ManagerFlag, new { id = "hdnManagerFlag" + @Html.DisplayFor(modelItem => item.Count) })
                                                     @Html.HiddenFor(modelItem => item.empcomment, new { id = "hdn" + @Html.DisplayFor(modelItem => item.Count) })
                                                     @Html.TextAreaFor(m => m.empComments[item.Count - 1], new { rows = "5", @class = "form-control", id = "txtEmpComments" + @Html.DisplayFor(modelItem => item.Count), onkeypress = "fnHideErrorMessage(id,value)" })
-                                                    @Html.LabelFor(m => m.empComments, "Please enter Employee Accomplishment.", new { id = "lbl" + @Html.DisplayFor(modelItem => item.Count), style = "display:none; color:red; font-size:12px;" })
+                                                    @Html.LabelFor(m => m.empComments, "Please enter employee accomplishment.", new { id = "lbl" + @Html.DisplayFor(modelItem => item.Count), style = "display:none; color:red; font-size:12px;" })
 
                                                 </td>
                                             </tr>
@@ -145,21 +145,21 @@
             @if (@Session["EmpQudSave"] != null)
             {
             <script>
-                    alert("Employee Quadrants added successfully.");
+                    alert("Employee quadrants added successfully.");
             </script>
                 Session["EmpQudSave"] = null;
             }
             @if (@Session["EmpQuadUpdate"] != null)
         {
             <script>
-                alert("Employee Quadrants updated successfully.");
+                alert("Employee quadrants updated successfully.");
             </script>
             Session["EmpQuadUpdate"] = null;
         }
             @if (@Session["EmpQuadSubmit"] != null)
         {
             <script>
-                alert("Employee Quadrants submitted successfully.");
+                alert("Employee quadrants submitted successfully.");
             </script>
             Session["EmpQuadSubmit"] = null;
         }
@@ -180,7 +180,7 @@
     }
     else
     {
-        <div id="divData" style="display:none" class="panel-group">
+        <div id="divData"  class="panel-group">
             <div class="panel panel-default" id="panel1">
                 <div class="panel-heading">
                     <h4 class="panel-title"></h4>
@@ -190,7 +190,7 @@
                         <div class="row">
                             <div class="bs-example">
                                 <div style="color:red;" class="col-sm-offset-4">
-                                    <h4>        There is no Quardant set by Your Manager.</h4>
+                                    <h4>There is no quardant set by your manager.</h4>
                                 </div>
                             </div>
                         </div>

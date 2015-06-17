@@ -3172,7 +3172,7 @@
     <Content Include="Views\Leave\MyLeave.cshtml" />
     <Content Include="Views\Shared\_Calendar.cshtml" />
     <Content Include="Views\Client\AddClient.cshtml" />
-    <Content Include="Views\Project\AddProject.cshtml" />
+    <Content Include="Views\Project\AddProject1.cshtml" />
     <Content Include="Views\Client\ClientList.cshtml" />
     <Content Include="Views\Project\ProjectList.cshtml" />
     <Content Include="Views\Project\AssignProject.cshtml" />
@@ -3216,6 +3216,7 @@
     <Content Include="Views\QuadrantMeasures\DevelopmentGoalList.cshtml" />
     <Content Include="Views\QuadrantMeasures\SummaryCommentList.cshtml" />
     <Content Include="Views\Performance\Index.cshtml" />
+    <Content Include="Views\Project\AddProject.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
