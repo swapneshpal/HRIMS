@@ -1,8 +1,4 @@
-﻿<link href="~/Scripts/qTip/jquery.qtip.css" rel="stylesheet" />
-<link href="~/Scripts/qTip/jquery.qtip.min.css" rel="stylesheet" />
-<script src="~/Scripts/qTip/jquery.qtip.min.js"></script>
-<script src="~/Scripts/qTip/jquery.qtip.js"></script>
-<div id="calendar"></div>
+﻿<div id="calendar"></div>
 <script>
     var result;
     $('#calendar').fullCalendar({
@@ -14,7 +10,7 @@
         eventRender: function (event, element) {
      
             //$("[data-date=" + $.fullCalendar.formatDate(event.start, "yyyy-MM-dd") + "]").css("background-color", "red");
-            element.css('font-size', '6px');
+            element.css('font-size', '2px');
             element.qtip({
                 content: '<strong style="color:red">'+event.title+'</strong>'+'<br/>'+event.description,
                 style: {
@@ -82,7 +78,7 @@
         width: 15px !important;
         height: 15px !important;
     }
-    .fc-event, fc-event-hori, fc-event-start, fc-event-end {
+    /*.fc-event, fc-event-hori, fc-event-start, fc-event-end {
         position: absolute;
         z-index: 8;
         left: 112px;
@@ -90,5 +86,5 @@
         width: 15px !important;
         top: 111px;
         background-color: red;
-    }
+    }*/
 </style>

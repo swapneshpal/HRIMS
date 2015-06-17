@@ -475,6 +475,10 @@ namespace AquatroHRIMS.Controllers
         {
             try
             {
+                //if (HttpContext.User.Identity.IsAuthenticated)
+                //{ 
+                //}
+
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 DataTable dt = cEmployee.GetProject(LoginID);
                 List<AssignProject> aobjproject = new List<AssignProject>();
