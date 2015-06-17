@@ -450,8 +450,6 @@
     <Content Include="Images\l2.gif" />
     <Content Include="JSValidation\Employee.js" />
     <Content Include="JSValidation\Validation.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="assets\lib\Font-Awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\lib\Font-Awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="assets\lib\Font-Awesome\fonts\fontawesome-webfont.woff" />
@@ -489,21 +487,20 @@
     <Content Include="assets\plugins\glyphicons\less\style.less" />
     <Content Include="assets\img\social\Thumbs.db" />
     <None Include="Properties\PublishProfiles\HRIMS.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.11.1.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery.bootstrap.newsbox.js" />
-    <Content Include="Scripts\jquery.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="assets\lib\qTip\jquery.qtip.css" />
     <Content Include="assets\lib\qTip\jquery.qtip.js" />
     <Content Include="assets\lib\qTip\jquery.qtip.min.css" />
     <Content Include="assets\lib\qTip\jquery.qtip.min.js" />
-    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\jquery-1.11.1.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\QuadrantMeasures\setQuadrantMeasures.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
@@ -569,6 +566,8 @@
     <Content Include="Views\Performance\Index.cshtml" />
     <Content Include="Views\Project\AddProject.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
