@@ -44,3 +44,4 @@ D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.dll
 D:\HRIMS\HRIMS\Dev.A4.Web\Dev.A4.Web\bin\Dev.A4.pdb
 D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.dll
 D:\HRIMS\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.pdb
+D:\Project\HRIMS\Dev.A4\Dev.A4\obj\Debug\Dev.A4.csprojResolveAssemblyReference.cache

@@ -26,7 +26,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 List<ddlDepartmentTypeList> objDeptTypeList = new List<ddlDepartmentTypeList>();
-                List<cDepartmentType> objDeptType = cDepartmentType.Find();
+                List<cFunctionalGroup> objDeptType = cFunctionalGroup.Find();
                 objDeptTypeList.Add(new ddlDepartmentTypeList { Value = 0, Text = "--select--" });
                 foreach (var item in objDeptType)
                 {
@@ -47,7 +47,7 @@ namespace AquatroHRIMS.Controllers
             {
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 List<ddlGoalTitleList> objGoalTitleList = new List<ddlGoalTitleList>();
-                List<cGoals> objGoalTitle = cGoals.Find(" objEmpLogin = " + LoginID);
+                List<cQuadrant> objGoalTitle = cQuadrant.Find(" objEmpLogin = " + LoginID);
 
                 foreach (var item in objGoalTitle)
                 {
@@ -264,7 +264,7 @@ namespace AquatroHRIMS.Controllers
                 for (int i = 0; i < objQuadViewModel.EmpUniqueGoalID.Length; i++)
                 {
                     int ID = objQuadViewModel.EmpUniqueGoalID[i];
-                    cEmpGoal objEmpGoal = cEmpGoal.Get_ID(ID);
+                    cEmployeeQuadrant objEmpGoal = cEmployeeQuadrant.Get_ID(ID);
                       objEmpGoal.sManagerDescription = objQuadViewModel.ManagerComments[i];                                 
                       objEmpGoal.Save();                      
                 }
@@ -524,7 +524,7 @@ namespace AquatroHRIMS.Controllers
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
 
                 List<lstQuadrantList> list = new List<lstQuadrantList>();
-                List<cEmpGoal> aobj = cEmpGoal.Find(" objEmpLogin = " + LoginID);
+                List<cEmployeeQuadrant> aobj = cEmployeeQuadrant.Find(" objEmpLogin = " + LoginID);
                 if (aobj.Count > 0)
                 {
                     int count = 0;
@@ -563,7 +563,7 @@ namespace AquatroHRIMS.Controllers
             {
                 for (int i = 0; i < objQuadViewModel.GoalID.Length; i++)
                 {
-                    cEmpGoal objEmpGoals = cEmpGoal.Create();
+                    cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Create();
                     // objEmpGoals.objStatus.iObjectID = objQuadViewModel.goalStatusID[i];
                     objEmpGoals.objGoals.iObjectID = Convert.ToInt32(objQuadViewModel.GoalID[i]);
                     objEmpGoals.sMesaures = objQuadViewModel.Measures[i];
@@ -585,7 +585,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                List<cEmpGoal> aob = cEmpGoal.Find(" objEmpLogin = " + LoginID);
+                List<cEmployeeQuadrant> aob = cEmployeeQuadrant.Find(" objEmpLogin = " + LoginID);
                 if (aob.Count > 0)
                 {
                     foreach (var item in aob)
@@ -610,7 +610,7 @@ namespace AquatroHRIMS.Controllers
             {
                 for (int i = 0; i < objQuadViewModel.EmployeeGoalID.Length; i++)
                 {
-                    cEmpGoal objEmpGoals = cEmpGoal.Get_ID(Convert.ToInt32(objQuadViewModel.EmployeeGoalID[i]));
+                    cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Get_ID(Convert.ToInt32(objQuadViewModel.EmployeeGoalID[i]));
                     objEmpGoals.sDescription = objQuadViewModel.empComments[i];
                     objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
                     objEmpGoals.Save();
@@ -629,7 +629,7 @@ namespace AquatroHRIMS.Controllers
         {
             for (int i = 0; i < objQuadViewModel.EmpUniqueGoalID.Length; i++)
             {
-                cEmpGoal objEmpGoals = cEmpGoal.Get_ID(Convert.ToInt32(objQuadViewModel.EmpUniqueGoalID[i]));
+                cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Get_ID(Convert.ToInt32(objQuadViewModel.EmpUniqueGoalID[i]));
                 objEmpGoals.sManagerDescription = objQuadViewModel.ManagerComments[i];
                 // objEmpGoals.objEmpLogin.iObjectID = objQuadViewModel.hdnEmployeeID;
                 objEmpGoals.Save();               
@@ -642,7 +642,7 @@ namespace AquatroHRIMS.Controllers
         public ActionResult EmployeeReviewQuadrantsSubmit(QuadrantMeasuresViewModel objQuadViewModel)
         {
             int ID = objQuadViewModel.hdnEmployeeID;
-            List<cEmpGoal> aob = cEmpGoal.Find(" objEmpLogin = " + ID);
+            List<cEmployeeQuadrant> aob = cEmployeeQuadrant.Find(" objEmpLogin = " + ID);
             if (aob.Count > 0)
             {
                 foreach (var item in aob)
@@ -797,7 +797,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 List<ddlDepartmentTypeList> objDeptTypeList = new List<ddlDepartmentTypeList>();
-                List<cDepartmentType> objDeptType = cDepartmentType.Find();
+                List<cFunctionalGroup> objDeptType = cFunctionalGroup.Find();
 
                 objDeptTypeList.Add(new ddlDepartmentTypeList { Value = 0, Text = "--select--" });
                 foreach (var item in objDeptType)
@@ -989,7 +989,7 @@ namespace AquatroHRIMS.Controllers
         {
             try
             {
-                string update = cEmpGoal.updateManagerFlag(objQuadViewModel.hdnEmployeeID);
+                string update = cEmployeeQuadrant.updateManagerFlag(objQuadViewModel.hdnEmployeeID);
                 List<cReviewRating> aob = cReviewRating.Find(" objEmpLogin = " + objQuadViewModel.hdnEmployeeID);
 
                 foreach (var item in aob)
@@ -1038,7 +1038,7 @@ namespace AquatroHRIMS.Controllers
             {
                 foreach (var item in aobjQuadrant)
                 {
-                    lstQuadrant.Add(new QuadrantMeasureList { QuadrantID = item.iID.ToString(), DepartmentName = cDepartmentType.Get_ID(Convert.ToInt32(item.objDepartmentType.iObjectID)).sName, QuadrantName = cGoals.Get_ID(Convert.ToInt32(item.objGoals.iObjectID)).sName });
+                    lstQuadrant.Add(new QuadrantMeasureList { QuadrantID = item.iID.ToString(), DepartmentName = cFunctionalGroup.Get_ID(Convert.ToInt32(item.objDepartmentType.iObjectID)).sName, QuadrantName = cQuadrant.Get_ID(Convert.ToInt32(item.objGoals.iObjectID)).sName });
                 }
             }
 

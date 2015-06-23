@@ -21,7 +21,6 @@ namespace AquatroHRIMS.Controllers
         //
         string url = ConfigurationManager.AppSettings["URL"].ToString();// GET: /Employee/
 
-
         [HttpGet]
         public ActionResult Add(string ID)
         {
@@ -34,7 +33,7 @@ namespace AquatroHRIMS.Controllers
                     cEmpLogin objEmpLogin = cEmpLogin.Get_ID(val);
                     List<cEmpPersonalDetails> aobPerso = cEmpPersonalDetails.Find(" objEmpLogin = " + objEmpLogin.iID);
                     List<cEmployee> aobEmp = cEmployee.Find(" objEmpLogin = " + objEmpLogin.iID);
-                    cEmpDesigDepartmentType objempdes = cEmpDesigDepartmentType.Get_ID(aobEmp[0].objEmpDesigDepartmentType.iObjectID);
+                    //cEmpDesigDepartmentType objempdes = cEmpDesigDepartmentType.Get_ID(aobEmp[0].objEmpDesigDepartmentType.iObjectID);
                     objEmpViewMod.EmployeeEmailIdUpdate = objEmpLogin.sEmailID;
                     objEmpViewMod.PersonalEmailUpdate = aobPerso[0].sPersoanlEmailID;
                     objEmpViewMod.hdnEmployeeID = objEmpLogin.iID.ToString();
@@ -43,13 +42,17 @@ namespace AquatroHRIMS.Controllers
                     ViewBag.Password = objEmpLogin.sPassword;
                     ViewBag.MiddleName = aobPerso[0].sMiddleName;
                     ViewBag.DOJ = aobEmp[0].dtDOJ.ToString("dd/MM/yyyy");
-                    ViewBag.TitleName = aobEmp[0].objTitle.iObjectID;
-                    ViewBag.iLocation = aobEmp[0].iJobLocation;
-                    ViewBag.iReportingHead = objEmpLogin.objEmpLogin.iObjectID;
+                    ViewBag.TitleName = objEmpLogin.objTitle.iObjectID;
+                    ViewBag.iLocation = objEmpLogin.objLocation.iObjectID;
+
+                    cManageGroup objmanage = cManageGroup.Get_ID(objEmpLogin.objManageGroup.iObjectID);
+                    ViewBag.iReportingHead = objmanage.iReportingHead;
+                    ViewBag.DepID = objmanage.objFunctionalGroup.iObjectID;
                     ViewBag.RollAccessID = objEmpLogin.objRoleAccess.iObjectID;
-                    ViewBag.DepID = cDepartmentType.Get_ID(objempdes.objDepartmentType.iObjectID).objDepartment.iObjectID;
+
+                    //ViewBag.DepID = cFunctionalGroup.Get_ID(objempdes.objDepartmentType.iObjectID).objDepartment.iObjectID;
                     ViewBag.DepTypeID = objempdes.objDepartmentType.iObjectID;
-                    ViewBag.DesgID = objempdes.objDesignation.iObjectID;
+                    ViewBag.DesgID = objEmpLogin.objDesignation.iObjectID;
 
                     objEmpViewMod.DesignationList = getDesignationList();
                     objEmpViewMod.ReportList = getReportHeadList();
@@ -60,7 +63,6 @@ namespace AquatroHRIMS.Controllers
                     objEmpViewMod.DepartTypeList = getDepartmentType();
                     objEmpViewMod.EmpList = GetEmployeeList();
                     ViewBag.Update = objEmpViewMod;
-
                     return View(objEmpViewMod);
                 }
                 else
@@ -94,7 +96,7 @@ namespace AquatroHRIMS.Controllers
                 JsonResult result = new JsonResult();
                 int val = Convert.ToInt32(DepId);
                 List<ddlDepartmentType> objDepartTypeLst = new List<ddlDepartmentType>();
-                List<cDepartmentType> objDepartType = cDepartmentType.Find(" objDepartment = " + val);
+                List<cFunctionalGroup> objDepartType = cFunctionalGroup.Find(" objDepartment = " + val);
                 foreach (var item in objDepartType)
                 {
                     objDepartTypeLst.Add(new ddlDepartmentType { Value = item.iID, Text = item.sName });
@@ -133,7 +135,6 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
-
         private SelectList getReportHeadList()
         {
             try
@@ -161,13 +162,12 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
-
         private SelectList getDepartmentList()
         {
             try
             {
                 List<ddlDepartment> objDepartmentList = new List<ddlDepartment>();
-                List<cDepartment> objDepartment = cDepartment.Find();
+                List<cFunctionalDepartment> objDepartment = cFunctionalDepartment.Find();
 
                 foreach (var item in objDepartment)
                 {
@@ -182,7 +182,6 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
-
         private SelectList getRollAccessList()
         {
             try
@@ -248,7 +247,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 List<ddlDepartmentType> objDepartTypeLst = new List<ddlDepartmentType>();
-                List<cDepartmentType> objDepartType = cDepartmentType.Find();
+                List<cFunctionalGroup> objDepartType = cFunctionalGroup.Find();
 
                 foreach (var item in objDepartType)
                 {
@@ -263,7 +262,6 @@ namespace AquatroHRIMS.Controllers
                 throw ex;
             }
         }
-
         [HttpPost]
         public JsonResult Add(EmployeeViewModel emp, string hdnEmployeeID)
         {
@@ -742,6 +740,13 @@ namespace AquatroHRIMS.Controllers
             }
 
 
+        }
+
+        //Upload Employee Data:-
+        public ActionResult UploadFile() {
+
+            return View();
+        
         }
 
     }

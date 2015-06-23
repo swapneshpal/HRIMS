@@ -96,7 +96,7 @@ namespace AquatroHRIMS.Controllers
         {
             try
             {
-                cGoals goal = cGoals.Create();
+                cQuadrant goal = cQuadrant.Create();
                 goal.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 goal.sName = QuadrantName.ToString();
                 goal.bIsActive = true;
@@ -137,7 +137,7 @@ namespace AquatroHRIMS.Controllers
             {
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 List<ddlGoalTitleList> objGoalTitleList = new List<ddlGoalTitleList>();
-                List<cGoals> objGoalTitle = cGoals.Find(" objEmpLogin = " + LoginID);
+                List<cQuadrant> objGoalTitle = cQuadrant.Find(" objEmpLogin = " + LoginID);
 
                 foreach (var item in objGoalTitle)
                 {

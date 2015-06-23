@@ -1,107 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dev.A4;
-using Dev.A4.Enums;
-using Dev.A4.Exceptions;
-using Dev.A4.General;
-using Dev.A4.Interfaces;
-using Dev.A4.Internal;
-using Dev.A4.Storages;
-using Dev.A4.DataTypes;
+using System;using System.Collections.Generic;using System.Text;using Dev.A4;using Dev.A4.Enums;using Dev.A4.Exceptions;using Dev.A4.General;using Dev.A4.Interfaces;using Dev.A4.Internal;using Dev.A4.Storages;using Dev.A4.DataTypes;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient;namespace HRIMS{        /// <summary>    /// Quadrant Measure    ///     /// 6/22/2015 12:59:41 PM    /// </summary>    public class cQuadrantMeasure : cQuadrantMeasure_Base    {        //public override void _onValidateBeforeSaving()        //{        //    // This is invoked on calling Save() i.e. while creation and updation        //    base._onValidateBeforeSaving();        //    // If validations are not successful throw new cValidationException(sReason);        //    if (m_bCreating)        //    {        //        // Validations while creating a new object        //        // TODO:         //    }        //    else        //    {        //        // Validations while updating a new object        //        // TODO:         //    }        //}        //protected override bool onSecurityCheck(int i_iAction)        //{        //    base.onSecurityCheck(i_iAction);        //    // Perform any additional security checks that may be required before allowing the action to proceed        //    // If security checks are not successful then throw new cInsufficientRightsException(CLASS_ID + ":" + i_iAction + "<-" + i_oToken.ToString());        //    switch ((enQuadrantMeasure_Action)i_iAction)        //    {        //        case enQuadrantMeasure_Action.Create:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Delete:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Find:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Update:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Get:        //            // TODO:         //            break;        //        default:        //            throw new cUnsupportedActionInvokedException("Unknown action: " + m_oClass.sFullName + ":" + i_iAction.ToString());        //    }        //    return true;        //}        //protected override bool onSecurityCheck(string i_sObjectID, int i_iAction)        //{        //    base.onSecurityCheck(i_sObjectID, i_iAction);        //    // Perform any additional security checks that may be required before allowing the action to proceed on the specified object        //    // If security checks are not successful then throw new cInsufficientRightsException(CLASS_ID + ":" + i_iAction + "<-" + i_oToken.ToString());        //    switch ((enQuadrantMeasure_Action)i_iAction)        //    {        //        case enQuadrantMeasure_Action.Create:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Delete:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Find:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Update:        //            // TODO:         //            break;        //        case enQuadrantMeasure_Action.Get:        //            // TODO:         //            break;        //        default:        //            throw new cUnsupportedActionInvokedException("Unknown action: " + m_oClass.sFullName + ":" + i_iAction.ToString());        //    }        //    return true;        //}        //protected override string onGetSecurityScopeFilter(string i_sFilter, int i_iAction)        //{        //    //base.onGetSecurityScopeFilter(i_sFilter, i_iAction);        //    // Return any additional scope filter (which will be used as a part of WHERE clause)        //    // The returned filter condition will be added to any existing filter using AND        //    // TODO:        //    return string.Empty;        //}
 
-namespace HRIMS
-{
-    
-    /// <summary>
-    /// Quadrant Measure
-    /// 
-    /// 6/1/2015 12:03:32 PM
-    /// </summary>
-    public class cQuadrantMeasure : cQuadrantMeasure_Base
-    {
-
-        //public override void _onValidateBeforeSaving()
-        //{
-        //    // This is invoked on calling Save() i.e. while creation and updation
-        //    base._onValidateBeforeSaving();
-        //    // If validations are not successful throw new cValidationException(sReason);
-        //    if (m_bCreating)
-        //    {
-        //        // Validations while creating a new object
-        //        // TODO: 
-        //    }
-        //    else
-        //    {
-        //        // Validations while updating a new object
-        //        // TODO: 
-        //    }
-        //}
-
-        //protected override bool onSecurityCheck(int i_iAction)
-        //{
-        //    base.onSecurityCheck(i_iAction);
-        //    // Perform any additional security checks that may be required before allowing the action to proceed
-        //    // If security checks are not successful then throw new cInsufficientRightsException(CLASS_ID + ":" + i_iAction + "<-" + i_oToken.ToString());
-        //    switch ((enQuadrantMeasure_Action)i_iAction)
-        //    {
-        //        case enQuadrantMeasure_Action.Create:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Delete:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Find:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Update:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Get:
-        //            // TODO: 
-        //            break;
-        //        default:
-        //            throw new cUnsupportedActionInvokedException("Unknown action: " + m_oClass.sFullName + ":" + i_iAction.ToString());
-        //    }
-        //    return true;
-        //}
-        //protected override bool onSecurityCheck(string i_sObjectID, int i_iAction)
-        //{
-        //    base.onSecurityCheck(i_sObjectID, i_iAction);
-        //    // Perform any additional security checks that may be required before allowing the action to proceed on the specified object
-        //    // If security checks are not successful then throw new cInsufficientRightsException(CLASS_ID + ":" + i_iAction + "<-" + i_oToken.ToString());
-        //    switch ((enQuadrantMeasure_Action)i_iAction)
-        //    {
-        //        case enQuadrantMeasure_Action.Create:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Delete:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Find:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Update:
-        //            // TODO: 
-        //            break;
-        //        case enQuadrantMeasure_Action.Get:
-        //            // TODO: 
-        //            break;
-        //        default:
-        //            throw new cUnsupportedActionInvokedException("Unknown action: " + m_oClass.sFullName + ":" + i_iAction.ToString());
-        //    }
-        //    return true;
-        //}
-        //protected override string onGetSecurityScopeFilter(string i_sFilter, int i_iAction)
-        //{
-        //    //base.onGetSecurityScopeFilter(i_sFilter, i_iAction);
-        //    // Return any additional scope filter (which will be used as a part of WHERE clause)
-        //    // The returned filter condition will be added to any existing filter using AND
-        //    // TODO:
-        //    return string.Empty;
-        //}
 
         public static DataTable getEmpQuadratants(int LoginUserID)
         {
@@ -154,7 +54,7 @@ namespace HRIMS
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("EmployeeName");
-            dt.Columns.Add("ManagerName");           
+            dt.Columns.Add("ManagerName");
             List<SqlParameter> a = new List<SqlParameter>();
             a.Add(new SqlParameter("@LoginID", SqlDbType.Int));
             a[a.Count - 1].Value = LoginID;
@@ -206,7 +106,7 @@ namespace HRIMS
         public static DataTable getEmpSummaryComments(int LoginUserID)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("SummaryComments");           
+            dt.Columns.Add("SummaryComments");
             List<SqlParameter> a = new List<SqlParameter>();
             a.Add(new SqlParameter("@LoginUserID", SqlDbType.Int));
             a[a.Count - 1].Value = LoginUserID;
@@ -226,7 +126,4 @@ namespace HRIMS
             a[a.Count - 1].Value = LoginUserID;
             oDB.CallSPROC("uspSetQuadrantMeasuresList", a, dt);
             return dt;
-        }
-            
-    }
-}
+        }            }}
