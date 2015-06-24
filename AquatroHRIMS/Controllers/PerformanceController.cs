@@ -60,7 +60,7 @@ namespace AquatroHRIMS.Controllers
                         {
                             count++;
 
-                            listQuadMeasure.Add(new lstSetQuadMeasures { GoalID = item.objGoals.iObjectID, Measures = item.sMeasures, Count = count, DeptID = item.objDepartmentType.iObjectID.ToString(), dataCount = 0, AllLevelFlag = item.bAllLevel.ToString() });
+                            listQuadMeasure.Add(new lstSetQuadMeasures { GoalID = item.objQuadrant.iObjectID, Measures = item.sMeasures, Count = count, DeptID = item.objFunctionalGroup.iObjectID.ToString(), dataCount = 0, AllLevelFlag = item.bIsAllLevel.ToString() });
                         }
                         objQuadrantMeasure.lstQudMeasuresList = listQuadMeasure;
                     }
@@ -116,7 +116,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 List<ddlDepartmentTypeList> objDeptTypeList = new List<ddlDepartmentTypeList>();
-                List<cDepartmentType> objDeptType = cDepartmentType.Find();
+                List<cFunctionalGroup> objDeptType = cFunctionalGroup.Find();
                 //objDeptTypeList.Add(new ddlDepartmentTypeList { Value = 0, Text = "--select--" });
                 foreach (var item in objDeptType)
                 {
@@ -200,18 +200,18 @@ namespace AquatroHRIMS.Controllers
                     {
                         cQuadrantMeasure objQuadrant = cQuadrantMeasure.Create();
                         objQuadrant.sMeasures = Comment[i];
-                        objQuadrant.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
+                       // objQuadrant.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
                         if (Goal[i] != null)
-                            objQuadrant.objGoals.iObjectID = Convert.ToInt32(Goal[i]);
+                            objQuadrant.objQuadrant.iObjectID = Convert.ToInt32(Goal[i]);
                         else
-                            objQuadrant.objGoals.iObjectID = Convert.ToInt32(0);
-                        objQuadrant.bIsActive = true;
+                            objQuadrant.objQuadrant.iObjectID = Convert.ToInt32(0);
+                       // objQuadrant.bIsActive = true;
                         if (all[i] == "0")
-                            objQuadrant.bAllLevel = false;
+                            objQuadrant.bIsAllLevel = false;
                         else
-                            objQuadrant.bAllLevel = true;
+                            objQuadrant.bIsAllLevel = true;
 
-                        objQuadrant.objDepartmentType.iObjectID = Convert.ToInt32(item);
+                        objQuadrant.objFunctionalGroup.iObjectID = Convert.ToInt32(item);
                         objQuadrant.Save();
                     }
 
@@ -256,33 +256,33 @@ namespace AquatroHRIMS.Controllers
         }
 
         public JsonResult ReleaseQuadrants() {
-            try
-            {
-                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                List<cQuadrantMeasure> aobjRel = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID);
-                if (aobjRel.Count > 0)
-                {
-                    for (int i = 0; i < aobjRel.Count; i++)
-                    {
-                        aobjRel[i].bReleaseQuadrant = true;
-                        aobjRel[i].Save();
-                    }
+            //try
+            //{
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //    List<cQuadrantMeasure> aobjRel = cQuadrantMeasure.Find(" objEmpLogin = " + LoginID);
+            //    if (aobjRel.Count > 0)
+            //    {
+            //        for (int i = 0; i < aobjRel.Count; i++)
+            //        {
+            //            aobjRel[i].bReleaseQuadrant = true;
+            //            aobjRel[i].Save();
+            //        }
 
-                    return Json("1");
+            //        return Json("1");
                     
-                }
-                else
-                {
-                    return Json("2");
-                }
+            //    }
+            //    else
+            //    {
+            //        return Json("2");
+            //    }
              
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
                 
-                throw ex;
-            }
-          
+            //    throw ex;
+            //}
+            return Json("1");
         
         }
 

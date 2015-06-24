@@ -33,7 +33,6 @@ namespace AquatroHRIMS.Controllers
                     cEmpLogin objEmpLogin = cEmpLogin.Get_ID(val);
                     List<cEmpPersonalDetails> aobPerso = cEmpPersonalDetails.Find(" objEmpLogin = " + objEmpLogin.iID);
                     List<cEmployee> aobEmp = cEmployee.Find(" objEmpLogin = " + objEmpLogin.iID);
-                    //cEmpDesigDepartmentType objempdes = cEmpDesigDepartmentType.Get_ID(aobEmp[0].objEmpDesigDepartmentType.iObjectID);
                     objEmpViewMod.EmployeeEmailIdUpdate = objEmpLogin.sEmailID;
                     objEmpViewMod.PersonalEmailUpdate = aobPerso[0].sPersoanlEmailID;
                     objEmpViewMod.hdnEmployeeID = objEmpLogin.iID.ToString();
@@ -47,11 +46,9 @@ namespace AquatroHRIMS.Controllers
 
                     cManageGroup objmanage = cManageGroup.Get_ID(objEmpLogin.objManageGroup.iObjectID);
                     ViewBag.iReportingHead = objmanage.iReportingHead;
-                    ViewBag.DepID = objmanage.objFunctionalGroup.iObjectID;
+                    ViewBag.DepID = cFunctionalGroup.Get_ID(objmanage.objFunctionalGroup.iObjectID).objFunctionalDepartment;
                     ViewBag.RollAccessID = objEmpLogin.objRoleAccess.iObjectID;
-
-                    //ViewBag.DepID = cFunctionalGroup.Get_ID(objempdes.objDepartmentType.iObjectID).objDepartment.iObjectID;
-                    ViewBag.DepTypeID = objempdes.objDepartmentType.iObjectID;
+                    ViewBag.DepTypeID = objmanage.objFunctionalGroup.iObjectID;
                     ViewBag.DesgID = objEmpLogin.objDesignation.iObjectID;
 
                     objEmpViewMod.DesignationList = getDesignationList();
@@ -96,7 +93,7 @@ namespace AquatroHRIMS.Controllers
                 JsonResult result = new JsonResult();
                 int val = Convert.ToInt32(DepId);
                 List<ddlDepartmentType> objDepartTypeLst = new List<ddlDepartmentType>();
-                List<cFunctionalGroup> objDepartType = cFunctionalGroup.Find(" objDepartment = " + val);
+                List<cFunctionalGroup> objDepartType = cFunctionalGroup.Find(" objFunctionalDepartment = " + val);
                 foreach (var item in objDepartType)
                 {
                     objDepartTypeLst.Add(new ddlDepartmentType { Value = item.iID, Text = item.sName });
@@ -227,7 +224,7 @@ namespace AquatroHRIMS.Controllers
             try
             {
                 List<ddlLocation> objCountryList = new List<ddlLocation>();
-                List<cCountry> objCountry = cCountry.Find();
+                List<cLocation> objCountry = cLocation.Find();
 
                 foreach (var item in objCountry)
                 {
@@ -289,10 +286,27 @@ namespace AquatroHRIMS.Controllers
                             strTitle = emp.SelectedTitle[0];
                         }
                         int ID = Convert.ToInt32(hdnEmployeeID);
+
                         cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
                         objEmpLogin.sEmailID = emp.EmployeeEmailIdUpdate;
+                        List<cManageGroup> objManag = cManageGroup.Find(" objFunctionalGroup = " + emp.DepTypeID + " and iReportingHead = " + Convert.ToInt32(emp.SelectedReportHead[0]));
+                        if (objManag.Count > 0)
+                        {
+                            objEmpLogin.objManageGroup.iObjectID = objManag[0].iID;
+                        }
+                        else
+                        {
+                            cManageGroup aobjManag = cManageGroup.Create();
+                            aobjManag.objFunctionalGroup.iObjectID = Convert.ToInt32(emp.SelectedDepartmentType[0]);
+                            aobjManag.iReportingHead = Convert.ToInt32(emp.SelectedReportHead[0]);
+                            aobjManag.Save();
+                            objEmpLogin.objManageGroup.iObjectID = aobjManag.iID;
+
+                        }
                         objEmpLogin.objRoleAccess.iObjectID = Convert.ToInt32(emp.SelectedRollAccess[0]);
-                        objEmpLogin.objEmpLogin.iObjectID = Convert.ToInt32(emp.SelectedReportHead[0]);
+                        objEmpLogin.objTitle.iObjectID = Convert.ToInt32(emp.SelectedTitle[0]);
+                        objEmpLogin.objLocation.iObjectID = Convert.ToInt32(emp.SelectedLocation[0]);
+                        objEmpLogin.objDesignation.iObjectID = Convert.ToInt32(emp.SelectedDesignation[0]);
                         objEmpLogin.sFirstTime = "1";
                         objEmpLogin.bIsActive = true;
                         objEmpLogin.sPassword = emp.Password;
@@ -319,15 +333,15 @@ namespace AquatroHRIMS.Controllers
                         List<cEmployee> aobjEmp = cEmployee.Find(" objEmpLogin = " + objEmpLogin.iID);
                         aobjEmp[0].objEmpLogin.iObjectID = objEmpLogin.iID;
                         aobjEmp[0].sEmployeeID = aobjEmp[0].sEmployeeID;
-                        aobjEmp[0].objEmpLogin.iObjectID = Convert.ToInt32(objEmpLogin.iID);
-                        aobjEmp[0].objTitle.iObjectID = Convert.ToInt32(strTitle);
-                        aobjEmp[0].iJobLocation = Convert.ToInt32(emp.SelectedLocation[0]);
+                        //aobjEmp[0].objEmpLogin.iObjectID = Convert.ToInt32(objEmpLogin.iID);
+                        //aobjEmp[0].objTitle.iObjectID = Convert.ToInt32(strTitle);
+                        //aobjEmp[0].iJobLocation = Convert.ToInt32(emp.SelectedLocation[0]);
                         aobjEmp[0].dtDOJ = Convert.ToDateTime(emp.Employee.DOJ);
                         aobjEmp[0].Save();
-                        List<cEmpDesigDepartmentType> aobjDesigDepart = cEmpDesigDepartmentType.Find(" iID = " + aobjEmp[0].objEmpDesigDepartmentType.iObjectID);
-                        aobjDesigDepart[0].objDepartmentType.iObjectID = Convert.ToInt32(emp.SelectedDepartmentType[0]);
-                        aobjDesigDepart[0].objDesignation.iObjectID = Convert.ToInt32(emp.SelectedDesignation[0]);
-                        aobjDesigDepart[0].Save();
+                        //List<cEmpDesigDepartmentType> aobjDesigDepart = cEmpDesigDepartmentType.Find(" iID = " + aobjEmp[0].objEmpDesigDepartmentType.iObjectID);
+                        //aobjDesigDepart[0].objDepartmentType.iObjectID = Convert.ToInt32(emp.SelectedDepartmentType[0]);
+                        //aobjDesigDepart[0].objDesignation.iObjectID = Convert.ToInt32(emp.SelectedDesignation[0]);
+                        //aobjDesigDepart[0].Save();
                         MailCreateEmployee(objEmpLogin.sEmailID, objEmpLogin.sPassword, "Update");
                         return Json("2");//Update
                     }
@@ -345,10 +359,26 @@ namespace AquatroHRIMS.Controllers
                         cEmpLogin objEmpLogin = cEmpLogin.Create();
                         objEmpLogin.sEmailID = emp.EmployeeEmailId;
                         objEmpLogin.objRoleAccess.iObjectID = Convert.ToInt32(emp.SelectedRollAccess[0]);
-                        objEmpLogin.objEmpLogin.iObjectID = Convert.ToInt32(emp.SelectedReportHead[0]);
                         objEmpLogin.sFirstTime = "1";
                         objEmpLogin.bIsActive = true;
                         objEmpLogin.sPassword = emp.Password;
+                        objEmpLogin.objDesignation.iObjectID = Convert.ToInt32(emp.SelectedDesignation[0]);
+                        objEmpLogin.objLocation.iObjectID = Convert.ToInt32(emp.SelectedLocation[0]);
+                        objEmpLogin.objTitle.iObjectID = Convert.ToInt32(emp.SelectedTitle[0]);
+                        List< cManageGroup> objManag= cManageGroup.Find(" objFunctionalGroup = "+emp.DepTypeID +" and iReportingHead = "+Convert.ToInt32(emp.SelectedReportHead[0]));
+                        if(objManag.Count>0)
+                        {
+                            objEmpLogin.objManageGroup.iObjectID = objManag[0].iID;
+                        }
+                        else
+                        {
+                            cManageGroup aobjManag = cManageGroup.Create();
+                            aobjManag.objFunctionalGroup.iObjectID = Convert.ToInt32(emp.SelectedDepartmentType[0]);
+                            aobjManag.iReportingHead = Convert.ToInt32(emp.SelectedReportHead[0]);
+                            aobjManag.Save();
+                            objEmpLogin.objManageGroup.iObjectID = aobjManag.iID;
+
+                        }
                         objEmpLogin.Save();
 
                         cEmpPersonalDetails objEmployeePersonalDetails = cEmpPersonalDetails.Create();
@@ -365,19 +395,12 @@ namespace AquatroHRIMS.Controllers
                         objEmployeePersonalDetails.sLastName = emp.EmpPersonal.LastName;
                         objEmployeePersonalDetails.sPersoanlEmailID = emp.PersonalEmail;
                         objEmployeePersonalDetails.objEmpLogin.iObjectID = objEmpLogin.iID;
-
+                        objEmployeePersonalDetails.bIsActive = true;
                         objEmployeePersonalDetails.Save();
-                        cEmpDesigDepartmentType objDesigDepart = cEmpDesigDepartmentType.Create();
-                        objDesigDepart.objDepartmentType.iObjectID = Convert.ToInt32(emp.SelectedDepartmentType[0]);
-                        objDesigDepart.objDesignation.iObjectID = Convert.ToInt32(emp.SelectedDesignation[0]);
-                        objDesigDepart.Save();
 
                         cEmployee objEmp = cEmployee.Create();
                         objEmp.objEmpLogin.iObjectID = objEmpLogin.iID;
-                        objEmp.objEmpDesigDepartmentType.iObjectID = objDesigDepart.iID;
-                        objEmp.objEmpLogin.iObjectID = Convert.ToInt32(objEmpLogin.iID);
-                        objEmp.iJobLocation = Convert.ToInt32(emp.SelectedLocation[0]);
-                        objEmp.objTitle.iObjectID = Convert.ToInt32(strTitle);
+                      
                         objEmp.dtDOJ = Convert.ToDateTime(emp.Employee.DOJ);
                         objEmp.Save();
                         MailCreateEmployee(objEmpLogin.sEmailID, objEmpLogin.sPassword, "Create");
@@ -506,142 +529,160 @@ namespace AquatroHRIMS.Controllers
             {
                 int loginID = Convert.ToInt32(HttpContext.User.Identity.Name);
                 int id = Convert.ToInt32(ID);
-                if (loginID == id)
-                {
-                    return Json("2");
-                }
+                cEmpLogin objEmp = cEmpLogin.Get_ID(id);
+                objEmp.bIsActive = false;
+                objEmp.Save();
 
-                //Profile Detail Delete
+                //List<cEmpPersonalDetails> objPersonal = cEmpPersonalDetails.Find(" objEmpLogin = "+id);
+                //objPersonal[0].bIsActive = false;
+                //objPersonal[0].Save();
 
-                List<cEmpPersonalDetails> objPersonal = cEmpPersonalDetails.Find(" objEmpLogin = " + id);
-                if (objPersonal.Count > 0)
-                {
-                    foreach (var emp in objPersonal)
-                    {
-                        cEmpPersonalDetails.Delete(emp.iID);
-                    }
-                 }
-                List<cEmpProfessionalDetail> objProf = cEmpProfessionalDetail.Find(" objEmpLogin = " + id);
-                if (objProf.Count > 0)
-                {
-                    foreach (var emp in objProf)
-                    {
-                        cEmpProfessionalDetail.Delete(emp.iID);
-                    }
-                }
+                //List<cEmpEducationDetail> objEmployee = cEmpEducationDetail.Find(" objEmpLogin = " + id);
+                //objEmployee[0].bIsActive = false;
+                //objEmployee[0].Save();
 
-                List<cEmpEducationDetail> objEdu= cEmpEducationDetail.Find(" objEmpLogin = " + id);
-                if (objEdu.Count > 0)
-                {
-                    foreach (var emp in objEdu)
-                    {
-                        cEmpProfessionalDetail.Delete(emp.iID);
-                    }
-                }
-                List<cEmpEmergencyContact> objEmrCont = cEmpEmergencyContact.Find(" objEmpLogin = " + id);
-                if (objEmrCont.Count > 0)
-                {
-                    foreach (var emp in objEmrCont)
-                    {
-                        cEmpProfessionalDetail.Delete(emp.iID);
-                    }
-                }
-                List<cEmployee> aobEmp = cEmployee.Find(" objEmpLogin = " + id);
-                if (aobEmp.Count > 0)
-                {
-                    foreach (var itemavEmp in aobEmp)
-                    {
-                        cEmpDesigDepartmentType.Delete(itemavEmp.objEmpDesigDepartmentType.iObjectID);
-                        cEmployee.Delete(itemavEmp.iID);
-                    }
-                }
-                //Leave  Delete Part:-
-                List<cEmpGoal> aobEmpGoal = cEmpGoal.Find(" objEmpLogin = " + id);
-                if (aobEmpGoal.Count > 0)
-                {
-                    foreach (var itemavGoal in aobEmpGoal)
-                    {
-                        cEmpGoal.Delete(itemavGoal.iID);
-                    }
-                }
-                //Leave  Delete Part:-
-                List<cEmpAvailedLeave> aobAvailLeave = cEmpAvailedLeave.Find(" objEmpLogin = " + id);
-                if (aobAvailLeave.Count > 0)
-                {
-                    foreach (var itemavLeave in aobAvailLeave)
-                    {
-                        cEmpAvailedLeave.Delete(itemavLeave.iID);
-                    }
-                }
+                //List<cEmpProfessionalDetail> objProfessional = cEmpProfessionalDetail.Find(" objEmpLogin = " + id);
+                //objProfessional[0].bIsActive = false;
+                //objProfessional[0].Save();
 
-                //Project Assgned Delete Part:-
-                List<cProjectAssigned> objProjectAssigned = cProjectAssigned.Find(" objEmpLogin = " + id);
-                if (objProjectAssigned.Count > 0)
-                {
-                    foreach (var itemProAss in objProjectAssigned)
-                    {
-                        cProjectAssigned.Delete(itemProAss.iID);
-                    }
-                }
-                //Permission  Delete Part:-
 
-                List<cPermissionEmpLogin> objPermissLog = cPermissionEmpLogin.Find(" objEmpLogin = " + id);
-                if (objPermissLog.Count > 0)
-                {
-                    foreach (var itemProAss in objPermissLog)
-                    {
-                        cPermissionEmpLogin.Delete(itemProAss.iID);
-                    }
-                }
 
-                //Time Sheet Delete Part:-
-                List<cTimesheet> aobjTimeSheet = cTimesheet.Find(" objEmpLogin = " + id);
-                if (aobjTimeSheet.Count > 0)
-                {
+                //if (loginID == id)
+                //{
+                //    return Json("2");
+                //}
 
-                    List<cTimeSheetActivity> aobjTimeActivity = cTimeSheetActivity.Find(" objTimesheet = " + aobjTimeSheet[0].iID);
-                    if (aobjTimeActivity.Count>0)
-                    {
-                        foreach (var itemAct in aobjTimeActivity)
-                        {
-                            List<cTimeSheetActivityDes> aobjTimeAcDes = cTimeSheetActivityDes.Find(" objTimeSheetActivity = " + itemAct.iID);
-                            if (aobjTimeAcDes.Count > 0)
-                            {
-                                foreach (var itemDes in aobjTimeAcDes)
-                                {
-                                    cTimeSheetActivityDes.Delete(itemDes.iID);
-                                }
-                            }
-                            cTimeSheetActivity.Delete(itemAct.iID);
+                ////Profile Detail Delete
+
+                //List<cEmpPersonalDetails> objPersonal = cEmpPersonalDetails.Find(" objEmpLogin = " + id);
+                //if (objPersonal.Count > 0)
+                //{
+                //    foreach (var emp in objPersonal)
+                //    {
+                //        cEmpPersonalDetails.Delete(emp.iID);
+                //    }
+                // }
+                //List<cEmpProfessionalDetail> objProf = cEmpProfessionalDetail.Find(" objEmpLogin = " + id);
+                //if (objProf.Count > 0)
+                //{
+                //    foreach (var emp in objProf)
+                //    {
+                //        cEmpProfessionalDetail.Delete(emp.iID);
+                //    }
+                //}
+
+                //List<cEmpEducationDetail> objEdu= cEmpEducationDetail.Find(" objEmpLogin = " + id);
+                //if (objEdu.Count > 0)
+                //{
+                //    foreach (var emp in objEdu)
+                //    {
+                //        cEmpProfessionalDetail.Delete(emp.iID);
+                //    }
+                //}
+                //List<cEmpEmergencyContact> objEmrCont = cEmpEmergencyContact.Find(" objEmpLogin = " + id);
+                //if (objEmrCont.Count > 0)
+                //{
+                //    foreach (var emp in objEmrCont)
+                //    {
+                //        cEmpProfessionalDetail.Delete(emp.iID);
+                //    }
+                //}
+                //List<cEmployee> aobEmp = cEmployee.Find(" objEmpLogin = " + id);
+                //if (aobEmp.Count > 0)
+                //{
+                //    foreach (var itemavEmp in aobEmp)
+                //    {
+                //        cEmpDesigDepartmentType.Delete(itemavEmp.objEmpDesigDepartmentType.iObjectID);
+                //        cEmployee.Delete(itemavEmp.iID);
+                //    }
+                //}
+                ////Leave  Delete Part:-
+                //List<cEmpGoal> aobEmpGoal = cEmpGoal.Find(" objEmpLogin = " + id);
+                //if (aobEmpGoal.Count > 0)
+                //{
+                //    foreach (var itemavGoal in aobEmpGoal)
+                //    {
+                //        cEmpGoal.Delete(itemavGoal.iID);
+                //    }
+                //}
+                ////Leave  Delete Part:-
+                //List<cEmpAvailedLeave> aobAvailLeave = cEmpAvailedLeave.Find(" objEmpLogin = " + id);
+                //if (aobAvailLeave.Count > 0)
+                //{
+                //    foreach (var itemavLeave in aobAvailLeave)
+                //    {
+                //        cEmpAvailedLeave.Delete(itemavLeave.iID);
+                //    }
+                //}
+
+                ////Project Assgned Delete Part:-
+                //List<cProjectAssigned> objProjectAssigned = cProjectAssigned.Find(" objEmpLogin = " + id);
+                //if (objProjectAssigned.Count > 0)
+                //{
+                //    foreach (var itemProAss in objProjectAssigned)
+                //    {
+                //        cProjectAssigned.Delete(itemProAss.iID);
+                //    }
+                //}
+                ////Permission  Delete Part:-
+
+                //List<cPermissionEmpLogin> objPermissLog = cPermissionEmpLogin.Find(" objEmpLogin = " + id);
+                //if (objPermissLog.Count > 0)
+                //{
+                //    foreach (var itemProAss in objPermissLog)
+                //    {
+                //        cPermissionEmpLogin.Delete(itemProAss.iID);
+                //    }
+                //}
+
+                ////Time Sheet Delete Part:-
+                //List<cTimesheet> aobjTimeSheet = cTimesheet.Find(" objEmpLogin = " + id);
+                //if (aobjTimeSheet.Count > 0)
+                //{
+
+                //    List<cTimeSheetActivity> aobjTimeActivity = cTimeSheetActivity.Find(" objTimesheet = " + aobjTimeSheet[0].iID);
+                //    if (aobjTimeActivity.Count>0)
+                //    {
+                //        foreach (var itemAct in aobjTimeActivity)
+                //        {
+                //            List<cTimeSheetActivityDes> aobjTimeAcDes = cTimeSheetActivityDes.Find(" objTimeSheetActivity = " + itemAct.iID);
+                //            if (aobjTimeAcDes.Count > 0)
+                //            {
+                //                foreach (var itemDes in aobjTimeAcDes)
+                //                {
+                //                    cTimeSheetActivityDes.Delete(itemDes.iID);
+                //                }
+                //            }
+                //            cTimeSheetActivity.Delete(itemAct.iID);
                             
-                        }
+                //        }
 
                     
-                    }
-                    cTimesheet.Delete(aobjTimeSheet[0].iID);
+                //    }
+                //    cTimesheet.Delete(aobjTimeSheet[0].iID);
 
-                }
+                //}
 
-                //Update reporting Head:-
-                List<cEmpLogin> aobEmpLog = cEmpLogin.Find(" objEmpLogin = " + id);
-                if (aobEmpLog.Count > 0)
-                {
-                    foreach (var itemEmpLog in aobEmpLog)
-                    {
-                        itemEmpLog.objEmpLogin.iObjectID = 1;
-                        itemEmpLog.Save();
-                    }
-                }
-                List<cEmpLeave> aobEmpReport = cEmpLeave.Find(" iReportingHead = " + id);
-                if (aobEmpReport.Count > 0)
-                {
-                    foreach (var itemEmpRe in aobEmpReport)
-                    {
-                        itemEmpRe.iReportingHead = 1;
-                        itemEmpRe.Save();
-                    }
-                }
-                cEmpLogin.Delete(id);
+                ////Update reporting Head:-
+                //List<cEmpLogin> aobEmpLog = cEmpLogin.Find(" objEmpLogin = " + id);
+                //if (aobEmpLog.Count > 0)
+                //{
+                //    foreach (var itemEmpLog in aobEmpLog)
+                //    {
+                //        itemEmpLog.objEmpLogin.iObjectID = 1;
+                //        itemEmpLog.Save();
+                //    }
+                //}
+                //List<cEmpLeave> aobEmpReport = cEmpLeave.Find(" iReportingHead = " + id);
+                //if (aobEmpReport.Count > 0)
+                //{
+                //    foreach (var itemEmpRe in aobEmpReport)
+                //    {
+                //        itemEmpRe.iReportingHead = 1;
+                //        itemEmpRe.Save();
+                //    }
+                //}
+                //cEmpLogin.Delete(id);
 
                 return Json("1");
             }

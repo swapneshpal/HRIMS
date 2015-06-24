@@ -83,7 +83,9 @@ namespace AquatroHRIMS.Controllers
             {
                 LeaveViewModel objLeaveViewModel = new LeaveViewModel();
                 int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                int ReportHeadID = cEmpLogin.Get_ID(LoginID).objEmpLogin.iObjectID;
+                int manageID = cEmpLogin.Get_ID(LoginID).objManageGroup.iObjectID;
+                cManageGroup objmanage = cManageGroup.Get_ID(manageID);
+                int ReportHeadID = objmanage.iReportingHead;
                 List<cEmpPersonalDetails> objPersona = cEmpPersonalDetails.Find(" objEmpLogin = " + ReportHeadID);
 
                 DataTable dt = cEmpLeave.GetEmpDetail(LoginID);
@@ -128,13 +130,15 @@ namespace AquatroHRIMS.Controllers
                 objempleave.sReason = objViewModel.objEmployeeLeave.Reason;
                 objempleave.sLeaveStatus = "2";
                 objempleave.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                objempleave.iReportingHead = cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.User.Identity.Name)).objEmpLogin.iObjectID;
+                int manageID = cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.User.Identity.Name)).objManageGroup.iObjectID;
+                cManageGroup objmanage = cManageGroup.Get_ID(manageID);
+                objempleave.iReportingHead = objmanage.iReportingHead;
+
+
                 objempleave.bIsActive = true;
                 objempleave.Save();
-
-                int IreportHead = cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.User.Identity.Name)).objEmpLogin.iObjectID;
+                int IreportHead = objmanage.iReportingHead; ;
                 string reporterEmail = cEmpLogin.Get_ID(IreportHead).sEmailID;
-
                 List<cEmpPersonalDetails> aobOer = cEmpPersonalDetails.Find(" objEmpLogin = " + Convert.ToInt32(HttpContext.User.Identity.Name));
                 string ReprtingFrom = aobOer[0].sFirstName + " " + aobOer[0].sLastName;
                 List<cEmpPersonalDetails> aobre = cEmpPersonalDetails.Find(" objEmpLogin = " + objempleave.iReportingHead);

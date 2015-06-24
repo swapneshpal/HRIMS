@@ -199,60 +199,60 @@ namespace AquatroHRIMS.Controllers
         }
         public ActionResult ReviewQuadrantDetails(int ID)
         {
-            int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-            try
-            {
-                cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
-                int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
+            //int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //try
+            //{
+            //    cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
+            //    int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
 
-                cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
-                string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
+            //    cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
+            //    string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
 
-                if (RoleAccessName != "Admin")
-                {
-                    if (intReportingHead != LoginID)
-                    {
-                        return RedirectToAction("SignOut", "Login");
-                    }
-                }
+            //    if (RoleAccessName != "Admin")
+            //    {
+            //        if (intReportingHead != LoginID)
+            //        {
+            //            return RedirectToAction("SignOut", "Login");
+            //        }
+            //    }
 
-                if (RoleAccessName == "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                    objQuadrantMeasure.AdminFlag = true;
-                }
-                else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
-                {
+            //    if (RoleAccessName == "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //        objQuadrantMeasure.AdminFlag = true;
+            //    }
+            //    else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
+            //    {
 
-                    objQuadrantMeasure.AdminFlag = true;
-                    objQuadrantMeasure.ReportingHeadFlag = false;
-                }
-                else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.AdminFlag = false;
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                }
-
-
+            //        objQuadrantMeasure.AdminFlag = true;
+            //        objQuadrantMeasure.ReportingHeadFlag = false;
+            //    }
+            //    else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.AdminFlag = false;
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //    }
 
 
-                objQuadrantMeasure.EmployeeModel = getEmployeeList();
-                objQuadrantMeasure.StatusModel = getStatusList();
-                objQuadrantMeasure.hdnEmployeeID = ID;
-                //// string abc = getQuadrantName();
 
-                DataTable dt = cQuadrantMeasure.reviewEmpQuadratants(ID);
-                List<lstEmpQuadrantList> list = new List<lstEmpQuadrantList>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    list.Add(new lstEmpQuadrantList { GoalName = dt.Rows[i]["GoalName"].ToString(), Measures = dt.Rows[i]["Measures"].ToString(), Count = i + 1, GoalId = Convert.ToInt32(dt.Rows[i]["GoalId"].ToString()), StatusName = dt.Rows[i]["StatusName"].ToString(), empcomment = dt.Rows[i]["empcomment"].ToString(), EmpGoalID = Convert.ToInt32(dt.Rows[i]["EmpGoalID"].ToString()), ManagerComment = dt.Rows[i]["ManagerComment"].ToString(), ManagerFlag = Convert.ToBoolean(dt.Rows[i]["ManagerFlag"].ToString()) });
-                }
-                objQuadrantMeasure.QuadList = list;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //    objQuadrantMeasure.EmployeeModel = getEmployeeList();
+            //    objQuadrantMeasure.StatusModel = getStatusList();
+            //    objQuadrantMeasure.hdnEmployeeID = ID;
+            //    //// string abc = getQuadrantName();
+
+            //    DataTable dt = cQuadrantMeasure.reviewEmpQuadratants(ID);
+            //    List<lstEmpQuadrantList> list = new List<lstEmpQuadrantList>();
+            //    for (int i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        list.Add(new lstEmpQuadrantList { GoalName = dt.Rows[i]["GoalName"].ToString(), Measures = dt.Rows[i]["Measures"].ToString(), Count = i + 1, GoalId = Convert.ToInt32(dt.Rows[i]["GoalId"].ToString()), StatusName = dt.Rows[i]["StatusName"].ToString(), empcomment = dt.Rows[i]["empcomment"].ToString(), EmpGoalID = Convert.ToInt32(dt.Rows[i]["EmpGoalID"].ToString()), ManagerComment = dt.Rows[i]["ManagerComment"].ToString(), ManagerFlag = Convert.ToBoolean(dt.Rows[i]["ManagerFlag"].ToString()) });
+            //    }
+            //    objQuadrantMeasure.QuadList = list;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return View(objQuadrantMeasure);
         }
         [HttpPost]
@@ -517,66 +517,66 @@ namespace AquatroHRIMS.Controllers
         }
         public ActionResult EmployeeQuadrants()
         {
-            try
-            {
-                objQuadrantMeasure.EmployeeModel = getEmployeeList();
-                objQuadrantMeasure.StatusModel = getStatusList();
-                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //try
+            //{
+            //    objQuadrantMeasure.EmployeeModel = getEmployeeList();
+            //    objQuadrantMeasure.StatusModel = getStatusList();
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-                List<lstQuadrantList> list = new List<lstQuadrantList>();
-                List<cEmployeeQuadrant> aobj = cEmployeeQuadrant.Find(" objEmpLogin = " + LoginID);
-                if (aobj.Count > 0)
-                {
-                    int count = 0;
-                    foreach (var item in aobj)
-                    {
-                        count++;
-                        list.Add(new lstQuadrantList { Count = count, GoalId = item.objGoals.iObjectID, Measures = item.sMesaures, EmpGoalID = item.iID, empcomment = item.sDescription, GoalName = cGoals.Get_ID(Convert.ToInt32(item.objGoals.iObjectID)).sName, EmpFlag = item.bEmpFlag, ManagerFlag = item.bManagerFlag, ManagerComment = item.sManagerDescription });
-                    }
-                    objQuadrantMeasure.list1 = list;
-                }
-                else
-                {
-                    DataTable dt = cQuadrantMeasure.getEmpQuadratants(LoginID);
+            //    List<lstQuadrantList> list = new List<lstQuadrantList>();
+            //    List<cEmployeeQuadrant> aobj = cEmployeeQuadrant.Find(" objEmpLogin = " + LoginID);
+            //    if (aobj.Count > 0)
+            //    {
+            //        int count = 0;
+            //        foreach (var item in aobj)
+            //        {
+            //            count++;
+            //            list.Add(new lstQuadrantList { Count = count, GoalId = item.objGoals.iObjectID, Measures = item.sMesaures, EmpGoalID = item.iID, empcomment = item.sDescription, GoalName = cGoals.Get_ID(Convert.ToInt32(item.objGoals.iObjectID)).sName, EmpFlag = item.bEmpFlag, ManagerFlag = item.bManagerFlag, ManagerComment = item.sManagerDescription });
+            //        }
+            //        objQuadrantMeasure.list1 = list;
+            //    }
+            //    else
+            //    {
+            //        DataTable dt = cQuadrantMeasure.getEmpQuadratants(LoginID);
 
-                    if (dt.Rows.Count > 0)
-                    {
-                        for (int i = 0; i < dt.Rows.Count; i++)
-                        {
-                            list.Add(new lstQuadrantList { GoalName = dt.Rows[i]["GoalName"].ToString(), Measures = dt.Rows[i]["Measures"].ToString(), Count = i + 1, GoalId = Convert.ToInt32(dt.Rows[i]["GoalId"].ToString()) });
-                        }
-                    }
-                    objQuadrantMeasure.list1 = list;
-                }
+            //        if (dt.Rows.Count > 0)
+            //        {
+            //            for (int i = 0; i < dt.Rows.Count; i++)
+            //            {
+            //                list.Add(new lstQuadrantList { GoalName = dt.Rows[i]["GoalName"].ToString(), Measures = dt.Rows[i]["Measures"].ToString(), Count = i + 1, GoalId = Convert.ToInt32(dt.Rows[i]["GoalId"].ToString()) });
+            //            }
+            //        }
+            //        objQuadrantMeasure.list1 = list;
+            //    }
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return View(objQuadrantMeasure);
         }
         [HttpPost]
         public ActionResult EmployeeQuadrants(QuadrantMeasuresViewModel objQuadViewModel)
         {
-            try
-            {
-                for (int i = 0; i < objQuadViewModel.GoalID.Length; i++)
-                {
-                    cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Create();
-                    // objEmpGoals.objStatus.iObjectID = objQuadViewModel.goalStatusID[i];
-                    objEmpGoals.objGoals.iObjectID = Convert.ToInt32(objQuadViewModel.GoalID[i]);
-                    objEmpGoals.sMesaures = objQuadViewModel.Measures[i];
-                    objEmpGoals.sDescription = objQuadViewModel.empComments[i];
-                    objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                    objEmpGoals.Save();                    
-                }
-                Session["EmpQudSave"] = "Employee Quadrants added successfully";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    for (int i = 0; i < objQuadViewModel.GoalID.Length; i++)
+            //    {
+            //        cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Create();
+            //        // objEmpGoals.objStatus.iObjectID = objQuadViewModel.goalStatusID[i];
+            //        objEmpGoals.objGoals.iObjectID = Convert.ToInt32(objQuadViewModel.GoalID[i]);
+            //        objEmpGoals.sMesaures = objQuadViewModel.Measures[i];
+            //        objEmpGoals.sDescription = objQuadViewModel.empComments[i];
+            //        objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //        objEmpGoals.Save();                    
+            //    }
+            //    Session["EmpQudSave"] = "Employee Quadrants added successfully";
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return RedirectToAction("EmployeeQuadrants");
         }
         [HttpPost]
@@ -606,21 +606,21 @@ namespace AquatroHRIMS.Controllers
         [HttpPost]
         public ActionResult EmployeeQuadrantsUpdate(QuadrantMeasuresViewModel objQuadViewModel)
         {
-            try
-            {
-                for (int i = 0; i < objQuadViewModel.EmployeeGoalID.Length; i++)
-                {
-                    cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Get_ID(Convert.ToInt32(objQuadViewModel.EmployeeGoalID[i]));
-                    objEmpGoals.sDescription = objQuadViewModel.empComments[i];
-                    objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                    objEmpGoals.Save();
-                }
-                Session["EmpQuadUpdate"] = "Employee Quadrants updated successfully";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    for (int i = 0; i < objQuadViewModel.EmployeeGoalID.Length; i++)
+            //    {
+            //        cEmployeeQuadrant objEmpGoals = cEmployeeQuadrant.Get_ID(Convert.ToInt32(objQuadViewModel.EmployeeGoalID[i]));
+            //        objEmpGoals.sDescription = objQuadViewModel.empComments[i];
+            //        objEmpGoals.objEmpLogin.iObjectID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //        objEmpGoals.Save();
+            //    }
+            //    Session["EmpQuadUpdate"] = "Employee Quadrants updated successfully";
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
 
             return RedirectToAction("EmployeeQuadrants");
         }
@@ -660,71 +660,71 @@ namespace AquatroHRIMS.Controllers
         }
         public ActionResult ReviewDevelopmentGoal(int ID)
         {
-            try
-            {
-                List<FileAttachment> listFile = new List<FileAttachment>();
+            //try
+            //{
+            //    List<FileAttachment> listFile = new List<FileAttachment>();
 
-                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-                cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
-                int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
+            //    cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
+            //    int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
 
-                cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
-                string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
+            //    cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
+            //    string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
 
-                if (RoleAccessName != "Admin")
-                {
-                    if (intReportingHead != LoginID)
-                    {
-                        return RedirectToAction("SignOut", "Login");
-                    }
-                }
+            //    if (RoleAccessName != "Admin")
+            //    {
+            //        if (intReportingHead != LoginID)
+            //        {
+            //            return RedirectToAction("SignOut", "Login");
+            //        }
+            //    }
 
-                if (RoleAccessName == "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                    objQuadrantMeasure.AdminFlag = true;
-                }
-                else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
-                {
+            //    if (RoleAccessName == "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //        objQuadrantMeasure.AdminFlag = true;
+            //    }
+            //    else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
+            //    {
 
-                    objQuadrantMeasure.AdminFlag = true;
-                    objQuadrantMeasure.ReportingHeadFlag = false;
-                }
-                else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.AdminFlag = false;
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                }
+            //        objQuadrantMeasure.AdminFlag = true;
+            //        objQuadrantMeasure.ReportingHeadFlag = false;
+            //    }
+            //    else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.AdminFlag = false;
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //    }
 
-                objQuadrantMeasure.StatusModel = getStatusList();
-                // int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                DataTable dt = cQuadrantMeasure.getEmpDevelopmentGoals(ID);
-                List<lstDevelopmentGoalList> list = new List<lstDevelopmentGoalList>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    list.Add(new lstDevelopmentGoalList { GoalName = dt.Rows[i]["GoalName"].ToString(), ActionRequired = dt.Rows[i]["ActionRequired"].ToString(), Tracking = dt.Rows[i]["Tracking"].ToString(), Count = i + 1, StatusName = dt.Rows[i]["StatusID"].ToString(), ID = Convert.ToInt32(dt.Rows[i]["DevID"].ToString()), ManagerComment = dt.Rows[i]["ManagerComment"].ToString() });
-                }
-                objQuadrantMeasure.list2 = list;
+            //    objQuadrantMeasure.StatusModel = getStatusList();
+            //    // int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //    DataTable dt = cQuadrantMeasure.getEmpDevelopmentGoals(ID);
+            //    List<lstDevelopmentGoalList> list = new List<lstDevelopmentGoalList>();
+            //    for (int i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        list.Add(new lstDevelopmentGoalList { GoalName = dt.Rows[i]["GoalName"].ToString(), ActionRequired = dt.Rows[i]["ActionRequired"].ToString(), Tracking = dt.Rows[i]["Tracking"].ToString(), Count = i + 1, StatusName = dt.Rows[i]["StatusID"].ToString(), ID = Convert.ToInt32(dt.Rows[i]["DevID"].ToString()), ManagerComment = dt.Rows[i]["ManagerComment"].ToString() });
+            //    }
+            //    objQuadrantMeasure.list2 = list;
 
-                //For Get File List:
-                List<cFile> aobFile = cFile.Find(" objEmpLogin = " + ID);
-                List<FileAttachment> aobfile = new List<FileAttachment>();
-                if (aobFile.Count > 0)
-                {
-                    foreach (var item in aobFile)
-                    {
-                        string fileTitle = Path.GetFileNameWithoutExtension(item.sFileName);
-                        aobfile.Add(new FileAttachment { FileName = fileTitle, ID = item.iID.ToString(), Extension = Path.GetExtension(item.sFileName) });
-                    }
+            //    //For Get File List:
+            //    List<cFile> aobFile = cFile.Find(" objEmpLogin = " + ID);
+            //    List<FileAttachment> aobfile = new List<FileAttachment>();
+            //    if (aobFile.Count > 0)
+            //    {
+            //        foreach (var item in aobFile)
+            //        {
+            //            string fileTitle = Path.GetFileNameWithoutExtension(item.sFileName);
+            //            aobfile.Add(new FileAttachment { FileName = fileTitle, ID = item.iID.ToString(), Extension = Path.GetExtension(item.sFileName) });
+            //        }
 
-                }
-                objQuadrantMeasure.listFileAttachment = aobfile;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //    }
+            //    objQuadrantMeasure.listFileAttachment = aobfile;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return View(objQuadrantMeasure);
         }
         [HttpPost]
@@ -757,38 +757,40 @@ namespace AquatroHRIMS.Controllers
         }
         public ActionResult ReviewSummaryComments(int ID)
         {
-            try
-            {
-                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //try
+            //{
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-                cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
-                int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
-
-                cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
-                string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
-
-                if (RoleAccessName != "Admin")
-                {
-                    if (intReportingHead != LoginID)
-                    {
-                        return RedirectToAction("SignOut", "Login");
-                    }
-                }
+            //    cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
 
 
-                // int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
-                DataTable dt = cQuadrantMeasure.getEmpSummaryComments(ID);
-                List<lstSummaryComments> list = new List<lstSummaryComments>();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    list.Add(new lstSummaryComments { SummaryComments = dt.Rows[i]["SummaryComments"].ToString() });
-                }
-                objQuadrantMeasure.list3 = list;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //    int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
+
+            //    cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
+            //    string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
+
+            //    if (RoleAccessName != "Admin")
+            //    {
+            //        if (intReportingHead != LoginID)
+            //        {
+            //            return RedirectToAction("SignOut", "Login");
+            //        }
+            //    }
+
+
+            //    // int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //    DataTable dt = cQuadrantMeasure.getEmpSummaryComments(ID);
+            //    List<lstSummaryComments> list = new List<lstSummaryComments>();
+            //    for (int i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        list.Add(new lstSummaryComments { SummaryComments = dt.Rows[i]["SummaryComments"].ToString() });
+            //    }
+            //    objQuadrantMeasure.list3 = list;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return View(objQuadrantMeasure);
         }
     
@@ -815,79 +817,79 @@ namespace AquatroHRIMS.Controllers
         }
         public ActionResult ManagerReviewRating(int ID)
         {
-            try
-            {
-                int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
+            //try
+            //{
+            //    int LoginID = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-                cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
-                int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
+            //    cEmpLogin objEmpLogin = cEmpLogin.Get_ID(ID);
+            //    int intReportingHead = objEmpLogin.objEmpLogin.iObjectID;
 
-                cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
-                string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
+            //    cEmpLogin objemp = cEmpLogin.Get_ID(LoginID);
+            //    string RoleAccessName = cRoleAccess.Get_ID(objemp.objRoleAccess.iObjectID).sName.ToString();
 
-                if (RoleAccessName != "Admin")
-                {
-                    if (intReportingHead != LoginID)
-                    {
-                        return RedirectToAction("SignOut", "Login");
-                    }
-                }
+            //    if (RoleAccessName != "Admin")
+            //    {
+            //        if (intReportingHead != LoginID)
+            //        {
+            //            return RedirectToAction("SignOut", "Login");
+            //        }
+            //    }
 
-                if (RoleAccessName == "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                    objQuadrantMeasure.AdminFlag = true;
-                }
-                else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
-                {
+            //    if (RoleAccessName == "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //        objQuadrantMeasure.AdminFlag = true;
+            //    }
+            //    else if (RoleAccessName == "Admin" && intReportingHead != LoginID)
+            //    {
 
-                    objQuadrantMeasure.AdminFlag = true;
-                    objQuadrantMeasure.ReportingHeadFlag = false;
-                }
-                else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
-                {
-                    objQuadrantMeasure.AdminFlag = false;
-                    objQuadrantMeasure.ReportingHeadFlag = true;
-                }
+            //        objQuadrantMeasure.AdminFlag = true;
+            //        objQuadrantMeasure.ReportingHeadFlag = false;
+            //    }
+            //    else if (RoleAccessName != "Admin" && intReportingHead == LoginID)
+            //    {
+            //        objQuadrantMeasure.AdminFlag = false;
+            //        objQuadrantMeasure.ReportingHeadFlag = true;
+            //    }
 
-                objQuadrantMeasure.RatingModel = getRatingList();
-                objQuadrantMeasure.hdnEmployeeID = ID;
-                DataTable dt1 = cQuadrantMeasure.getReviewRatingData(ID);
+            //    objQuadrantMeasure.RatingModel = getRatingList();
+            //    objQuadrantMeasure.hdnEmployeeID = ID;
+            //    DataTable dt1 = cQuadrantMeasure.getReviewRatingData(ID);
 
-                List<cReviewRating> aob = cReviewRating.Find(" objEmpLogin = " + ID);
-                if (aob.Count > 0)
-                {
-                    objQuadrantMeasure.MgrComment = aob[0].sManagerComment;
-                    objQuadrantMeasure.ratingId = Convert.ToInt32(aob[0].objRatings.iObjectID);
-                    objQuadrantMeasure.MangerFlag = aob[0].bManagerFlag;
-                }
-                List<cReviewRating> aob1 = cReviewRating.Find(" objEmpLogin = " + ID + " and bEmpFlag = " + true);
-                if (aob1.Count > 0)
-                {
-                    objQuadrantMeasure.EmpAcceptance = aob[0].sEmployeeAcceptance;
-                }
-                else
-                {
-                    objQuadrantMeasure.EmpAcceptance = "";
-                }
-                if (aob.Count > 0)
-                {
-                    objQuadrantMeasure.MgrComment = aob[0].sManagerComment;
-                    objQuadrantMeasure.ratingId = Convert.ToInt32(aob[0].objRatings.iObjectID);
-                    objQuadrantMeasure.MangerFlag = aob[0].bManagerFlag;
-                }
+            //    List<cReviewRating> aob = cReviewRating.Find(" objEmpLogin = " + ID);
+            //    if (aob.Count > 0)
+            //    {
+            //        objQuadrantMeasure.MgrComment = aob[0].sManagerComment;
+            //        objQuadrantMeasure.ratingId = Convert.ToInt32(aob[0].objRatings.iObjectID);
+            //        objQuadrantMeasure.MangerFlag = aob[0].bManagerFlag;
+            //    }
+            //    List<cReviewRating> aob1 = cReviewRating.Find(" objEmpLogin = " + ID + " and bEmpFlag = " + true);
+            //    if (aob1.Count > 0)
+            //    {
+            //        objQuadrantMeasure.EmpAcceptance = aob[0].sEmployeeAcceptance;
+            //    }
+            //    else
+            //    {
+            //        objQuadrantMeasure.EmpAcceptance = "";
+            //    }
+            //    if (aob.Count > 0)
+            //    {
+            //        objQuadrantMeasure.MgrComment = aob[0].sManagerComment;
+            //        objQuadrantMeasure.ratingId = Convert.ToInt32(aob[0].objRatings.iObjectID);
+            //        objQuadrantMeasure.MangerFlag = aob[0].bManagerFlag;
+            //    }
 
-                DataTable dt = cQuadrantMeasure.getEmployeeManagerName(ID);
-                if (dt.Rows.Count > 0)
-                {
-                    objQuadrantMeasure.ManagerName = dt.Rows[0]["ManagerName"].ToString();
-                    objQuadrantMeasure.EmployeeName = dt.Rows[0]["EmployeeName"].ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //    DataTable dt = cQuadrantMeasure.getEmployeeManagerName(ID);
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        objQuadrantMeasure.ManagerName = dt.Rows[0]["ManagerName"].ToString();
+            //        objQuadrantMeasure.EmployeeName = dt.Rows[0]["EmployeeName"].ToString();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
             return View(objQuadrantMeasure);
         }
         public ActionResult ReviewManagersComment(int ID)
@@ -1038,7 +1040,7 @@ namespace AquatroHRIMS.Controllers
             {
                 foreach (var item in aobjQuadrant)
                 {
-                    lstQuadrant.Add(new QuadrantMeasureList { QuadrantID = item.iID.ToString(), DepartmentName = cFunctionalGroup.Get_ID(Convert.ToInt32(item.objDepartmentType.iObjectID)).sName, QuadrantName = cQuadrant.Get_ID(Convert.ToInt32(item.objGoals.iObjectID)).sName });
+                    lstQuadrant.Add(new QuadrantMeasureList { QuadrantID = item.iID.ToString(), DepartmentName = cFunctionalGroup.Get_ID(Convert.ToInt32(item.objFunctionalGroup.iObjectID)).sName, QuadrantName = cQuadrant.Get_ID(Convert.ToInt32(item.objQuadrant.iObjectID)).sName });
                 }
             }
 

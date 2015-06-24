@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,22 +50,30 @@
     <br>
     <div class="container-fluid"><img src="~/Content/Images/logo.jpg" /></div>
     <div style="float:right;margin-top:-23px;margin-right:20px;">
-        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        @if(HttpContext.Current.User.Identity.IsAuthenticated)
         {
-            if (@Session["LoginName"] != null)
-            { 
-                 <span>Welcome:- @Session["LoginName"].ToString()</span>  
-            }
+          var test=HRIMS.cEmpPersonalDetails.Find(" objEmpLogin = " + Convert.ToInt32(HttpContext.Current.User.Identity.Name));
+          foreach (var item in test)
+          {
+             <span>Welcome:- @item.sFirstName  @item.sLastName</span>
+          }
+        }
+        else
+        {
+            @Html.Action("Index", "Login")
         }
 
-    </div><br>
+      
+     
+
+</div><br>
     @if (HttpContext.Current.User.Identity.IsAuthenticated)
     {
 
-        if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Admin" || HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "HR")
-        {
+        //if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Admin" || HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "HR")
+        //{
             @Html.Partial("_MenuAdmin")
-        <br />
+        @*<br />
         }
         if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Employee") 
         {
@@ -75,7 +82,7 @@
         if (HRIMS.cRoleAccess.Get_ID(Convert.ToInt32(HRIMS.cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.Current.User.Identity.Name)).objRoleAccess.iObjectID)).sName == "Supervisor")
         {
             @Html.Partial("_Supervisor")
-        }
+        }*@
     }
    else {
 

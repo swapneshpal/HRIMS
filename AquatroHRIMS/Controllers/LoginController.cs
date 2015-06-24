@@ -26,28 +26,23 @@ namespace AquatroHRIMS.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                cEmpLogin emp = cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.User.Identity.Name));
-                if (emp != null)
-                {
-                    List<cEmpPersonalDetails> aobEmp = cEmpPersonalDetails.Find(" objEmpLogin = " + emp.iID);
-                    if (aobEmp.Count > 0)
-                    {
-                        Session["LoginName"] = aobEmp[0].sFirstName + " " + aobEmp[0].sLastName;
-                    }
-                    return RedirectToAction("Index", "DashBoard");
-                }
-                else
-                {
-                      return View();
-                }
-                  
-             
-              
-
-
-            }
+            //if (HttpContext.User.Identity.IsAuthenticated)
+            //{
+            //    cEmpLogin emp = cEmpLogin.Get_ID(Convert.ToInt32(HttpContext.User.Identity.Name));
+            //    if (emp != null)
+            //    {
+            //        //List<cEmpPersonalDetails> aobEmp = cEmpPersonalDetails.Find(" objEmpLogin = " + emp.iID);
+            //        //if (aobEmp.Count > 0)
+            //        //{
+            //        //    Session["LoginName"] = aobEmp[0].sFirstName + " " + aobEmp[0].sLastName;
+            //        //}
+            //        return RedirectToAction("Index", "DashBoard");
+            //    }
+            //    else
+            //    {
+            //          return View();
+            //    }
+            //}
             return View();
         }
         [HttpPost]
@@ -76,17 +71,17 @@ namespace AquatroHRIMS.Controllers
 
                     if (objEmplog.Count > 0)
                     {
+                        string UserName = "";
                         List<cEmpPersonalDetails> aobEmp = cEmpPersonalDetails.Find(" objEmpLogin = " + objEmplog[0].iID);
                         if (aobEmp.Count > 0)
                         {
-                            Session["LoginName"] = aobEmp[0].sFirstName + " " + aobEmp[0].sLastName;
+                            UserName = aobEmp[0].sFirstName + " " + aobEmp[0].sLastName;
                         }
-
                         if (objEmplog[0].sFirstTime == "0")
                         {
                             return Json("0");//Redirect to Change Password:
                         }
-                        FormsAuthentication.SetAuthCookie(objEmplog[0].iID.ToString(), objlogin.RememberMe);
+                       FormsAuthentication.SetAuthCookie(objEmplog[0].iID.ToString(), objlogin.RememberMe);
 
                         if (objEmplog[0].sFirstTime == "1")
                         {
