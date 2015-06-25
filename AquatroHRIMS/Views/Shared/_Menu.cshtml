@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AquatroHRIMS.Models.MenuItem>
+<link href="~/Content/Menu/MenuStyles.css" rel="stylesheet" />
+<script src="~/Content/Menu/scriptss.js"></script>
+<div id="cssmenu">
+    <ul>
+        @Menu(0)
+        <li style="float:right">
+            <a href='#'>Account</a>
+            <ul>
+                <li>@Html.ActionLink("MyProfile", "Profile", "DashBoard")</li>
+                <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                <li>@Html.ActionLink("Sign Out", "SignOut", "Login")</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+@helper Menu(int id)
+{
+    foreach (var menu in Model.Where(x => x.parantId == id))
+    {
+        if (menu.parantId != 0)
+        {
+            <li>
+                @GetMenu(menu)
+                @if (Model.Where(x => x.parantId == menu.id).Any())
+                {
+                    <ul>
+                        @Menu(menu.id)
+                    </ul>
+                }
+            </li>
+        }
+        else
+        {
+            <li>
+                @GetMenu(menu)
+                @if (Model.Where(x => x.parantId == menu.id).Any())
+                {
+                    <ul>
+                        @Menu(menu.id)
+                    </ul>
+                }
+            </li>
+        }
+    }
+}
+@helper GetMenu(AquatroHRIMS.Models.MenuItem menu)
+{
+    if (menu.controllerName == null || menu.controllerName == "")
+    {
+     <a>@menu.name</a>   
+    }
+    else
+    {
+        @Html.ActionLink(menu.name, menu.actionName, menu.controllerName)
+    }
+}
+
